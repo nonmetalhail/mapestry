@@ -1,0 +1,133 @@
+body {
+  padding-top: 35px;
+  /*padding-bottom: 40px;*/
+  overflow: hidden;
+}
+
+.ilb{
+  display:inline-block;
+}
+
+.sidebar-nav {
+  margin-top: 25px;
+  margin-left: -50px;
+  padding: 15px 15px;
+}
+
+.sidebar-nav-fixed {
+  position:fixed;
+  height:100px;
+  width:22%;
+  overflow-y:scroll;
+}
+
+.hero-unit{
+  padding:0;
+}
+
+.small_Gallery { display: none; }
+.gallery_small{
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  /*background: #2C3E50 !important;*/  
+}
+
+.gallery_big{
+  margin: 25px 0 -15px 25px;
+}
+
+.gv_galleryWrap{
+  background: #333 !important;
+}
+
+#map{ 
+  height: 800px; 
+  margin: 25px;
+}
+
+.btn-group{
+  width: 82%;
+  margin: 0 auto;
+}
+
+.map_photo{
+  width: 50%;
+}
+
+.todo li, .tag{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.todo li.todo-hover{
+  background: #16A085 url("../images/todo/todo.png") 92% center no-repeat;
+  color: white; 
+}
+.todo li:first-child {
+  border-radius: 6px 6px 0 0;
+}
+.todo li.todo-hover.todo-done{
+  background: #16A085 url("../images/todo/done.png") 92% center no-repeat;
+  color: white; 
+}
+.todo li.todo-active{
+  background: #16A085 url("../images/todo/todo.png") 92% center no-repeat;
+  color: white; 
+}
+.todo li.todo-active .todo-name,.todo li.todo-hover .todo-name {
+  color: white; 
+}
+.todo li.todo-active div.todo-icon{
+  color: #2ECC71;
+}
+/*to get rid of transistion of the png element*/
+.todo li{
+  background: url("../images/todo/todo.png") 92% center no-repeat;
+}
+.todo li.todo-done {
+  background: url("../images/todo/done.png") 92% center no-repeat;
+}
+
+.open-icon {
+  float: left;
+  font-size: 18px;
+  color: #16A085;
+  padding: 11px 5px 0 0; 
+}
+
+.leaflet-container a {
+  color:white;
+}
+
+.brand{
+  color:white !important;
+  text-decoration: none;
+}
+.brand:hover{
+  color: #1abc9c !important;
+}
+
+.popup_div{
+  width: 150px;
+  margin:20px 0;
+}
+.popup{
+  display:inline;
+  margin: 0 10px;
+  
+}
+.popup_div .popup:first-child{
+  margin: 0 0 0 10px;
+}
+
+@media (max-width: 767px) {
+  .sidebar-nav-fixed{
+    position:static;
+    width:auto;
+  }

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mapestry: Talk to the Map</title>
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+      <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+    <![endif]-->
+    
+    <link type = "text/css" rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <link type = "text/css" rel = "stylesheet" href = "css/bootstrap.css" />
+    <link type = "text/css" rel = "stylesheet" href = "css/flat-ui.css" />
+    <link type = "text/css" rel = "stylesheet" href = "css/mapestry.css" />
+
+    <script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type = "text/javascript" src = "scripts/bootstrap.js"></script>
+
+    <!-- Flat UI Scripts...so many... -->
+      <script src="js/jquery-ui-1.10.0.custom.min.js"></script>
+      <script src="js/jquery.dropkick-1.0.0.js"></script>
+      
+      <script src="js/custom_checkbox_and_radio.js"></script>
+      <script src="js/custom_radio.js"></script>
+      
+      <script src="js/jquery.tagsinput.js"></script>
+      
+      <script src="js/bootstrap-tooltip.js"></script>
+     
+      <script src="js/jquery.placeholder.js"></script>
+      <!-- 
+      <script src="http://vjs.zencdn.net/c/video.js"></script>
+      -->
+      <script src="js/application.js"></script>
+
+    <!-- gallery view js -->
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+      <!-- Second, add the Timer and Easing plugins -->
+      <script type="text/javascript" src="js/jquery.timers-1.2.js"></script>
+      <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+      <!-- Third, add the GalleryView Javascript and CSS files -->
+      <script type="text/javascript" src="js/jquery.galleryview-3.0-dev.js"></script>
+      <link type="text/css" rel="stylesheet" href="css/jquery.galleryview-3.0-dev.css" />
+
+    <!-- leaflet -->
+    <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+
+    <!-- ours! -->
+    <script type = "text/javascript" src = "scripts/mapestry.js"></script>
+  </head>
+
+  <body>
+    
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Mapestry</a>
+          <div class="nav-collapse collapse">
+    
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">Username</a>
+            </p>
+            
+            <!-- <ul class="nav">
+              <li><a href="#about">About</a></li>
+              
+              <li class="active"><a href="#">My Stories</a>
+                <ul>
+                  <li><a href="#">Jen's Mom</a></li>
+                  <li><a href="#">Ryan's G-Mom</a></li>
+                  <li><a href="#">Your Mom</a></li>
+                </ul> 
+              </li>
+
+              <li><a href="#contact">Contact</a></li>
+            </ul> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+
+        <div class="span9">
+          <ul id="myGallery" >
+            <li><img data-frame="images/story/DSC_1140.jpg" src="images/story/DSC_1140.jpg" title="mom,mom1" data-description="DSC_1140 Example" />
+            <li><img data-frame="images/story/DSC_1169.jpg" src="images/story/DSC_1169.jpg" title="DSC_1169" data-description="DSC_1169 Example" />
+            <li><img data-frame="images/story/DSC_1255.jpg" src="images/story/DSC_1255.jpg" title="DSC_1255" data-description="DSC_1255 Example" />
+            <li><img data-frame="images/story/DSC_1285.jpg" src="images/story/DSC_1285.jpg" title="DSC_1285" data-description="DSC_1285 Example" />
+            <li><img data-frame="images/story/DSC_1167.jpg" src="images/story/DSC_1167.jpg" title="DSC_1167" data-description="DSC_1167 Example" />
+            <li><img data-frame="images/story/DSC_1254.jpg" src="images/story/DSC_1254.jpg" title="DSC_1254" data-description="DSC_1254 Example" />
+            <li><img data-frame="images/story/DSC_1278.jpg" src="images/story/DSC_1278.jpg" title="DSC_1278" data-description="DSC_1278 Example" />
+          </ul>
+          <div class="hero-unit" id = "map">
+          </div>
+          
+        </div><!--/span-->
+
+        <div class="span3">
+          <div class="well sidebar-nav sidebar-nav-fixed" id = "storybar">  
+          
+            <div class="btn-toolbar">
+              <div class="btn-group">
+                <a class="btn btn-primary map_photo active" id = "map_button"><i class="fui-location-16"></i></a>
+                <a class="btn btn-primary map_photo" id = "photo_button"><i class="fui-camera-16"></i></a>
+              </div>
+            </div> <!-- /toolbar -->
+
+            <div class = "story">
+              <hr>
+              <div class = "teaser">
+                <div class="open-icon fui-plus-24"></div><h2>Interview with Mom</h2>
+              </div>
+              <audio id = "mom1" controls>
+                <source src="audio/301.mp3" type="audio/mpeg">
+                You are using an obsolete browser, idiot...
+              </audio>
+              <div class = "collapsable collapse"> <!-- collapse -->
+                <div class="todo mrm" id = "mom1_parts" story = "0">
+                  <ul>
+                    <li class="mom1_part mom1_0" time="0" segment = "0">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">First Home</h4>
+                        Place lived during Elementary School
+                      </div>
+                    </li>
+                    <li class="mom1_part mom1_1" time="330" segment = "1">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">Friend's Home</h4>
+                        Where friends lived
+                      </div>
+                    </li>
+                    <li class="mom1_part mom1_2" time="2340" segment = "2">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">Going to School</h4>
+                        Route to School
+                      </div>
+                    </li>
+                  </ul>
+                </div> <!--todo -->
+                <hr>
+                <h5 class="ilb">Record Date: </h5> <h6 class="ilb">15 March 2013</h6>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <hr>
+                <ul id="mom1_Gallery" class = "smallGallery">
+                  <li><img data-frame="images/story/DSC_1140.jpg" src="images/story/DSC_1140.jpg" title="DSC_1140" data-description="DSC_1140 Example" />
+                  <li><img data-frame="images/story/DSC_1169.jpg" src="images/story/DSC_1169.jpg" title="DSC_1169" data-description="DSC_1169 Example" />
+                  <li><img data-frame="images/story/DSC_1255.jpg" src="images/story/DSC_1255.jpg" title="DSC_1255" data-description="DSC_1255 Example" />
+                  <li><img data-frame="images/story/DSC_1285.jpg" src="images/story/DSC_1285.jpg" title="DSC_1285" data-description="DSC_1285 Example" />
+                  <li><img data-frame="images/story/DSC_1167.jpg" src="images/story/DSC_1167.jpg" title="DSC_1167" data-description="DSC_1167 Example" />
+                  <li><img data-frame="images/story/DSC_1254.jpg" src="images/story/DSC_1254.jpg" title="DSC_1254" data-description="DSC_1254 Example" />
+                  <li><img data-frame="images/story/DSC_1278.jpg" src="images/story/DSC_1278.jpg" title="DSC_1278" data-description="DSC_1278 Example" />
+                </ul>
+                <input name="momtags" id="momtags" class="tagsinput" value="Mom, Montery Park, Taipei, Taiwan" />
+              </div> <!--collapse -->
+            </div>  <!--segment -->
+
+            <div class = "story">
+              <hr>
+              <div class = "teaser">
+                <div class="open-icon fui-plus-24"></div><h2>Interview with Mom 2</h2>
+              </div>
+              <audio controls id = "mom2">
+                <!-- <source src="mom.mp3" type="audio/mpeg"> -->
+                You are using an obsolete browser, idiot...
+              </audio>
+              <div class = "collapsable collapse"> <!-- collapse -->
+                <div class="todo mrm">
+                  <ul>
+                    <li class="todo-done">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">First Home</h4>
+                        Place lived during Elementary School
+                      </div>
+                    </li>
+                    <li class="todo-active">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">Friend's Home</h4>
+                        Where friends lived
+                      </div>
+                    </li>
+                    <li class="">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">Going to School</h4>
+                        Route to School
+                      </div>
+                    </li>
+                  </ul>
+                </div> <!--todo -->
+                <hr>
+                <h5 class="ilb">Record Date: </h5> <h6 class="ilb">15 March 2013</h6>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <!-- need to dive in an see how to disable -->
+                <input name="mom2tags" id="mom2tags" class="tagsinput" value="Mom, Montery Park, Taipei, Taiwan" />
+              </div> <!--collapse -->
+            </div> <!--segment -->
+
+            <div class = "story">
+              <hr>
+              <div class = "teaser">
+                <div class="open-icon fui-plus-24"></div><h2>Interview with Dad</h2>
+              </div>
+              <audio controls>
+                <!-- <source src="mom.mp3" type="audio/mpeg"> -->
+                You are using an obsolete browser, idiot...
+              </audio>
+              <div class = "collapsable collapse"> <!-- collapse -->
+                <div class="todo mrm">
+                  <ul>
+                    <li class="todo-done">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">First Home</h4>
+                        Place lived during Elementary School
+                      </div>
+                    </li>
+                    <li class="todo-active">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">Friend's Home</h4>
+                        Where friends lived
+                      </div>
+                    </li>
+                    <li class="">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">Going to School</h4>
+                        Route to School
+                      </div>
+                    </li>
+                  </ul>
+                </div> <!--todo -->
+                <hr>
+                <h5 class="ilb">Record Date: </h5> <h6 class="ilb">15 March 2013</h6>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <!-- need to dive in an see how to disable -->
+                <input name="dadtags" id="dadtags" class="tagsinput" value="Mom, Montery Park, Taipei, Taiwan" />
+              </div> 
+            </div> <!--segment -->
+
+            
+            <div class = "story">
+              <hr>
+              <div class = "teaser">
+                <div class="open-icon fui-plus-24"></div><h2>Nancy-boy</h2>
+              </div>
+              <audio controls>
+                <!-- <source src="mom.mp3" type="audio/mpeg"> -->
+                You are using an obsolete browser, idiot...
+              </audio>
+              <div class = "collapsable collapse"> <!-- collapse -->
+                <div class="todo mrm">
+                  <ul>
+                    <li class="todo-done">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">First Home</h4>
+                        Place lived during Elementary School
+                      </div>
+                    </li>
+                    <li class="todo-active">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">Friend's Home</h4>
+                        Where friends lived
+                      </div>
+                    </li>
+                    <li class="">
+                      <div class="todo-icon fui-location-24"></div>
+                      <div class="todo-content">
+                        <h4 class="todo-name">Going to School</h4>
+                        Route to School
+                      </div>
+                    </li>
+                  </ul>
+                </div> <!--todo -->
+                <hr>
+                <h5 class="ilb">Record Date: </h5> <h6 class="ilb">15 March 2013</h6>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <!-- need to dive in an see how to disable -->
+                <input name="nancytags" id="nancytags" class="tagsinput" value="Mom, Montery Park, Taipei, Taiwan" />
+              </div> 
+            </div> <!--segment -->
+
+          </div><!--/.well -->
+        </div><!--/span-->
+
+      </div><!--/row-->
+
+      <!-- <hr>
+
+      <footer>
+        <p>&copy; Company 2013</p>
+      </footer> -->
+
+    </div><!--/.fluid-container-->
+  </body>
+</html>

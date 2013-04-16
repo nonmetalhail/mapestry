@@ -1,0 +1,31 @@
+[
+  {
+    "story":"mom1",
+    "audio":"301.mp3",
+    "storyTitle":"Interview with Mom",
+    "rDate":"15 March 2013",
+    "sText":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "sTags":[ "Mom", "Montery Park", "Taipei", "Taiwan"],
+    "photos":["1.jpg","2.jpg","3.jpg"],
+    "segment":[
+      {
+        "segTitle":"First Home",
+        "time":0,
+        "desc":"Place lived during Elementary School",
+        "latlong":[34.06418,-118.1197]
+      },
+      {
+        "segTitle":"Friend's Home",
+        "time":330,
+        "desc":"Where friends lived",
+        "latlong":[34.0621,-118.1156]
+      },
+      {
+        "segTitle":"Going to School",
+        "time":2340,
+        "desc":"Route to School",
+        "latlong":[34.0617,-118.1194]
+      }
+    ]
+  }
+]
