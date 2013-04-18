@@ -1,25 +1,27 @@
+//Cloudemade info for leaflet map
 var CM_API_KEY = 'cc3cabfbed9842c29f808df2cc6c3f64';
 var CM_STYLE = '44094';
-
+//leaflet icons
 var default_color = L.icon({
   iconUrl: 'images/leaflet/marker-icon_grey.png',
   shadowUrl:'images/leaflet/marker-shadow.png'
 });
-
 var playing_color = L.icon({
   iconUrl: 'images/leaflet/marker-icon_green.png',
   shadowUrl:'images/leaflet/marker-shadow.png'
 });
-
 var story_color = L.icon({
   iconUrl: 'images/leaflet/marker-icon_blue.png',
   shadowUrl:'images/leaflet/marker-shadow.png'
 });
+//global vars
 var map;
 var markers = {};
+var galleryOpen = false;
+var mapHeight,smMapH;
 
 $(document).ready(function(){
-  
+//temp
   var test = '<hr><div class = "popup_div"><a href="#" class="btn btn-large btn-block btn-primary popup" id="mom1_0">Play</a>'+'<h5 class="popup">Title</h5></div>'+
   '<hr>'+
   '<div class = "popup_div"><a href="#" class="btn btn-large btn-block btn-primary popup" id="mom1_0">Play</a>'+'<h5 class="popup">Title</h5></div><hr>';
@@ -37,8 +39,12 @@ $(document).ready(function(){
   markers['mom2'].markers.push(L.marker([34.0657,-118.1174],{icon: default_color}).bindPopup("<b>Hello world!</b><br>I am a popup."));
   markers['mom2'].lg = L.layerGroup(markers['mom2'].markers);
   markers['mom2'].photos = ['1.jpg','2.jpg','3.jpg'];
+//end temp
+//insert json call
+//insertStory()
+//pipe this after
+  mapHeight = (window.innerHeight - $('.navbar').outerHeight())*.97;
 
-  var mapHeight = (window.innerHeight - $('.navbar').outerHeight())*.97;
   $('#map').css('height',mapHeight);
   $('.sidebar-nav-fixed').css('height',mapHeight - 32);
 
@@ -53,73 +59,43 @@ $(document).ready(function(){
   }).addTo(map);
   
   galleryView();
-
-  // var marker = L.marker([51.5, -0.09]).addTo(map);
-
-  // var circle = L.circle([51.508, -0.11], 500, {
-  //   color: 'story_color',
-  //   fillColor: '#f03',
-  //   fillOpacity: 0.5
-  // }).addTo(map);
-
-  // var polygon = L.polygon([
-  //   [51.509, -0.08],
-  //   [51.503, -0.06],
-  //   [51.51, -0.047]
-  // ]).addTo(map);
-
-  // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-  // circle.bindPopup("I am a circle.");
-  // polygon.bindPopup("I am a polygon.");
-
-  // var popup = L.popup()
-  //   .setLatLng([51.5, -0.09])
-  //   .setContent("I am a standalone popup.")
-  //   .openOn(map);
-
-  // var popup = L.popup();
-
-  // function onMapClick(e) {
-  //     popup
-  //       .setLatLng(e.latlng)
-  //       .setContent("You clicked the map at " + e.latlng.toString())
-  //       .openOn(map);
-  // }
-
-  // // map.on('click', onMapClick);
-  // map.on('click', function(){
-  //   polygon.openPopup();
-  // });
+  smMapH = mapHeight - $('.gallery_big').outerHeight() - 11;
 
   $('#photo_button').on("click",function(){
-    console.log($('.gallery_big').outerHeight());
-    var h = mapHeight - $('.gallery_big').outerHeight() - 11;
-    $('#map').animate({'height':''+h+'px'},"slow");
-    $('.gallery_big').slideDown("slow");
-    map.panBy([0,(mapHeight-h)/2],0.9);
+    if(!galleryOpen){
+      $('#map').animate({'height':''+smMapH+'px'},"slow");
+      $('.gallery_big').slideDown("slow");
+      map.panBy([0,(mapHeight-smMapH)/2],0.9);
+      galleryOpen = true;
+    }
   });
 
   $('#map_button').on("click",function(){
-    var h = mapHeight - $('.gallery_big').outerHeight() - 11;
-    $('.gallery_big').slideUp("slow");
-    $('#map').animate({'height':mapHeight},"slow");
-    map.panBy([0,(-mapHeight+h)/2],0.9);
+    if(galleryOpen){
+      $('.gallery_big').slideUp("slow");
+      $('#map').animate({'height':mapHeight},"slow");
+      map.panBy([0,(-mapHeight+smMapH)/2],0.9);
+      galleryOpen = false;
+    }
   });
 
   //fix tag cloud so it is by class instead of id
   $(".tagsinput").tagsInput({'interactive':false});
   $(".tag").on('click',function(){
-    $('#photo_button').trigger("click");
-    console.log($(this).children().text());
+    var clickedTag = $(this).children().text();
+    $(".open-icon").each(function(){
+      if($(this).attr('class').indexOf('cross') != -1){
+        $(this).trigger("click");
+      }
+      if($(this).attr('tags').indexOf(clickedTag) != -1){
+        $(this).trigger("click");
+      }
+    });
   });
   
   //turn off the base flat-ui listener
   $(".todo li").off();
 
-  // mediaElement.seekable.start();  // Returns the starting time (in seconds)
-  // mediaElement.seekable.end();    // Returns the ending time (in seconds)
-  // mediaElement.currentTime = 122; // Seek to 122 seconds
-  // mediaElement.played.end();      // Returns the number of seconds the browser has played 
   smallGallery();
   var mom1 = new AudioStory("mom1",markers["mom1"]);
   mom1.getTimeStamps();
@@ -197,7 +173,6 @@ function AudioStory(tag,markers){
   this.timestamps = [];
   this.markers = markers;
 }
-
 AudioStory.prototype.getTimeStamps = function(){
   //set as as the object so we can access it later
   var as = this;
@@ -206,7 +181,6 @@ AudioStory.prototype.getTimeStamps = function(){
     as.timestamps.push(parseInt($(this).attr("time")));
   });
 }
-
 //setting up listeners for the audio
 AudioStory.prototype.audioEvents = function(){
   //set as as the object so we can access it later
@@ -274,7 +248,12 @@ AudioStory.prototype.audioEvents = function(){
         //set the current as active
         $('.'+as.tag+'_' + time).addClass('todo-active');
         as.markers.markers[time].setIcon(playing_color);
-        map.panTo(as.markers.markers[time].getLatLng());
+        if(galleryOpen){
+          map.panTo(as.markers.markers[time].getLatLng()).panBy([0,(mapHeight-smMapH)/2],0.9);
+        }
+        else{
+          map.panTo(as.markers.markers[time].getLatLng());
+        }
         //update point in story
         as.point = time;
       }
@@ -297,7 +276,6 @@ function PhotoMarkers(){
       {
         lg:L.layerGroup([markers]),
         markers:[markers]
-        photos:[photo,photo,photo]
         expanded: true/false of elem state
         opacity: int of marker opacity
       },
@@ -306,7 +284,7 @@ function PhotoMarkers(){
   */
   this.lg;
   this.markers = [];
-  this.photos = [];
+  // this.photos = [];
   this.expanded = false;
   this.opacity = 50;
 }
@@ -330,16 +308,27 @@ function addRemoveLayers(map,markers){
 
 function insertStory(d,m){
   var markerIndex = {};
+  var tagList = {};
+  var photoList = {};
+
   function _buildPopUp(d){
-    var popup = [];
+    var popup = $('<div></div>');
     for(var s in d){
       for(var i in d[s]){
-        popup.push('<div class = "popup_div">'+
-          '<a class="btn btn-large btn-block btn-primary popup" id="'+s+'_'+d[s][i].c+'">Play</a>'+
-          '<h5 class="popup">'+d[s][i].t+'</h5></div><hr>');
+        var link = $('<a class="btn btn-large btn-block btn-primary popup" id="'+s+'_'+d[s][i].c+'">Play</a>').on("click",function(){
+          var audioTrack = $(this).attr('id');
+          $('#'+audioTrack.split('_')[0]).siblings(".teaser").trigger('click');
+          console.log($('.'+audioTrack));
+          $('.'+audioTrack).trigger('click');
+        });
+
+        popup.append('<div class = "popup_div">');
+        popup.append(link);
+        popup.append('<h5 class="popup">'+d[s][i].t+'</h5>');
+        popup.append('</div><hr>')
       }
     }
-    return popup.join('');
+    return popup;
   }
   function _buildMarker(){
     // markers['mom1'] = new PhotoMarkers();
@@ -348,16 +337,14 @@ function insertStory(d,m){
     // markers['mom1'].markers.push(L.marker([34.0617,-118.1194],{icon: default_color}).bindPopup("<b>Hello world!</b><br>I am a popup."));
     // markers['mom1'].lg = L.layerGroup(markers['mom1'].markers);
     // markers['mom1'].photos = ['1.jpg','2.jpg','3.jpg'];
-
     for(var ll in markerIndex){
       var m = L.marker(markerIndex[ll]['latlong'],{icon: default_color})
-        .bindPopup(_buildPopUp(markerIndex[ll]['popup']));
+        .bindPopup(_buildPopUp(markerIndex[ll]['popup'])[0]);
       for(var s in markerIndex[ll]['popup']){
         markers[s].markers.push(m);
         markers[s].lg.addLayer(m);
       }
     }
-    
   }
   function _buildMarkerIndex(d,s,c){
     var index = d.latlong.joint(' ');
@@ -375,6 +362,37 @@ function insertStory(d,m){
       't':d.segTitle
     });
   }
+  function _getTags(d){
+    for(var i in d){
+      if(!tagList[d[i]]){
+        tagList[d[i]] = true;
+      }
+    }
+  }
+  function _addTags(d){
+    var tags = [];
+    for(var tag in tagList){
+      tags.push(tag);
+    }
+    $('#tags').attr('value',tags.join(','));
+    $(".tagsinput").tagsInput({'interactive':false});
+    $(".tag").on('click',function(){
+      var clickedTag = $(this).children().text();
+      $(".open-icon").each(function(){
+        if($(this).attr('class').indexOf('cross') != -1){
+          $(this).trigger("click");
+        }
+        if($(this).attr('tags').indexOf(clickedTag) != -1){
+          $(this).trigger("click");
+        }
+      });
+    });
+  }
+  function _addPhotos(d){
+    if(!photoList[d.image]){
+      photoList[d.image] = {'t':d.t,'d':d.d};
+    }
+  }
   function _buildSegment(d,s){
     var segment = [];
     for(var i in d){
@@ -386,10 +404,17 @@ function insertStory(d,m){
         '</div>'+
       '</li>'
       );
-
       _buildMarkerIndex(d,s,i);
     }
   return segment.join('');
+  }
+  function _buildGallery(d){
+    var photo = [];
+    for(var i in d){
+      photo.push('<li><img data-frame="images/story/'+d[i].image+'" src="images/story/'+d[i].image+'" title="'+d[i].t+'" data-description="'+d[i].d+'" />'); 
+      _addPhotos(d[i]);
+    }
+    return photo.join('');
   }
   function _buildStory(d){
     var story = [];
@@ -397,7 +422,7 @@ function insertStory(d,m){
       story.push('<div class = "story">'+
         '<hr>'+
         '<div class = "teaser">'+
-          '<div class="open-icon fui-plus-24"></div>'+
+          '<div class="open-icon fui-plus-24" tags="'+d[i].sTags.join(',')+'"></div>'+
           '<h2>'+d[i].storyTitle+'</h2>'+
         '</div>'+
         '<audio id = "'+d[i].story+'" controls>'+
@@ -415,13 +440,17 @@ function insertStory(d,m){
           '<p>'+
             d[i].sText+
           '</p>'+
-          '<input name="'+d[i].story+'_tags" id="'+d[i].story+'_tags" class="tagsinput" value="'+d[i].sTags.join(',')+'" />'+
+          '<hr>'+
+          '<ul id="'+d[i].story+'_Gallery" class = "smallGallery">'+
+            _buildGallery(d[i].photos)+
+          '</ul>'+
         '</div> <!--collapse -->'+
       '</div>  <!--segment -->'
       );
+      _getTags(d[i].sTags);
     }
     markers[d[i].story] = new PhotoMarkers();
-    markers[d[i].story].photos = d[i].photos;
+    // markers[d[i].story].photos = d[i].photos;
     markers[d[i].story].lg = L.layerGroup();
     return story.join('');
   }
@@ -430,7 +459,6 @@ function insertStory(d,m){
   _buildMarker();
 }
 
-//DSC_1140.jpg  DSC_1169.jpg  DSC_1255.jpg  DSC_1285.jpg DSC_1167.jpg  DSC_1254.jpg  DSC_1278.jpg
 function galleryView(){
   var w = $('.span9').width() - 59;
   $('#myGallery').galleryView({

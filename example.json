@@ -6,7 +6,21 @@
     "rDate":"15 March 2013",
     "sText":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "sTags":[ "Mom", "Montery Park", "Taipei", "Taiwan"],
-    "photos":["1.jpg","2.jpg","3.jpg"],
+    "photos":[{
+      "image":"DSC_1140.jpg",
+      "t":"DSC_1140",
+      "d":"blah blah blah photo"
+      },
+      {
+      "image":"DSC_1169.jpg",
+      "title":"DSC_1169",
+      "desc":"blah blah blah photo"
+      },
+      {
+      "image":"DSC_1255.jpg",
+      "title":"DSC_1255",
+      "desc":"blah blah blah photo"
+      }],
     "segment":[
       {
         "segTitle":"First Home",
