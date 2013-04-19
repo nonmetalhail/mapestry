@@ -1,3 +1,4 @@
+var jsonFile = "example.json";
 //Cloudemade info for leaflet map
 var CM_API_KEY = 'cc3cabfbed9842c29f808df2cc6c3f64';
 var CM_STYLE = '44094';
@@ -16,155 +17,134 @@ var story_color = L.icon({
 });
 //global vars
 var map;
+var layerG = new L.layerGroup();
 var markers = {};
 var galleryOpen = false;
 var mapHeight,smMapH;
 
 $(document).ready(function(){
-//temp
-  var test = '<hr><div class = "popup_div"><a href="#" class="btn btn-large btn-block btn-primary popup" id="mom1_0">Play</a>'+'<h5 class="popup">Title</h5></div>'+
-  '<hr>'+
-  '<div class = "popup_div"><a href="#" class="btn btn-large btn-block btn-primary popup" id="mom1_0">Play</a>'+'<h5 class="popup">Title</h5></div><hr>';
+  $.when(loadData())
+  .pipe(function(){
+    mapHeight = (window.innerHeight - $('.navbar').outerHeight())*.97;
 
-  markers['mom1'] = new PhotoMarkers();
-  markers['mom1'].markers.push(L.marker([34.06418,-118.1197],{icon: default_color}).bindPopup(test));
-  markers['mom1'].markers.push(L.marker([34.0621,-118.1156],{icon: default_color}).bindPopup("<b>Hello world!</b><br>I am a popup."));
-  markers['mom1'].markers.push(L.marker([34.0617,-118.1194],{icon: default_color}).bindPopup("<b>Hello world!</b><br>I am a popup."));
-  markers['mom1'].lg = L.layerGroup(markers['mom1'].markers);
-  markers['mom1'].photos = ['1.jpg','2.jpg','3.jpg'];
+    $('#map').css('height',mapHeight);
+    $('.sidebar-nav-fixed').css('height',mapHeight - 32);
 
-  markers['mom2'] = new PhotoMarkers();
-  markers['mom2'].markers.push(L.marker([34.06318,-118.1167],{icon: default_color}).bindPopup("<b>Hello world!</b><br>I am a popup."));
-  markers['mom2'].markers.push(L.marker([34.0611,-118.1186],{icon: default_color}).bindPopup("<b>Hello world!</b><br>I am a popup."));
-  markers['mom2'].markers.push(L.marker([34.0657,-118.1174],{icon: default_color}).bindPopup("<b>Hello world!</b><br>I am a popup."));
-  markers['mom2'].lg = L.layerGroup(markers['mom2'].markers);
-  markers['mom2'].photos = ['1.jpg','2.jpg','3.jpg'];
-//end temp
-//insert json call
-//insertStory()
-//pipe this after
-  mapHeight = (window.innerHeight - $('.navbar').outerHeight())*.97;
+    map = L.map('map',{
+      center: new L.LatLng(34.0621, -118.1193),
+      zoom: 15,
+      layers: layerG
+    });
 
-  $('#map').css('height',mapHeight);
-  $('.sidebar-nav-fixed').css('height',mapHeight - 32);
-
-  map = L.map('map',{
-    center: new L.LatLng(34.0621, -118.1193),
-    zoom: 15
-  });
-
-  L.tileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
-    maxZoom: 18
-  }).addTo(map);
-  
-  galleryView();
-  smMapH = mapHeight - $('.gallery_big').outerHeight() - 11;
-
-  $('#photo_button').on("click",function(){
-    if(!galleryOpen){
-      $('#map').animate({'height':''+smMapH+'px'},"slow");
-      $('.gallery_big').slideDown("slow");
-      map.panBy([0,(mapHeight-smMapH)/2],0.9);
-      galleryOpen = true;
-    }
-  });
-
-  $('#map_button').on("click",function(){
-    if(galleryOpen){
-      $('.gallery_big').slideUp("slow");
-      $('#map').animate({'height':mapHeight},"slow");
-      map.panBy([0,(-mapHeight+smMapH)/2],0.9);
-      galleryOpen = false;
-    }
-  });
-
-  //fix tag cloud so it is by class instead of id
-  $(".tagsinput").tagsInput({'interactive':false});
-  $(".tag").on('click',function(){
-    var clickedTag = $(this).children().text();
-    $(".open-icon").each(function(){
-      if($(this).attr('class').indexOf('cross') != -1){
-        $(this).trigger("click");
-      }
-      if($(this).attr('tags').indexOf(clickedTag) != -1){
-        $(this).trigger("click");
+    L.tileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
+      maxZoom: 18
+    }).addTo(map);
+    galleryView();
+    smMapH = mapHeight - $('.gallery_big').outerHeight() - 11;
+  })
+  .done(function(){
+    $('#photo_button').on("click",function(){
+      if(!galleryOpen){
+        $('#map').animate({'height':''+smMapH+'px'},"slow");
+        $('.gallery_big').slideDown("slow");
+        map.panBy([0,(mapHeight-smMapH)/2],0.9);
+        galleryOpen = true;
       }
     });
-  });
-  
-  //turn off the base flat-ui listener
-  $(".todo li").off();
 
-  smallGallery();
-  var mom1 = new AudioStory("mom1",markers["mom1"]);
-  mom1.getTimeStamps();
-  mom1.audioEvents();
-
-  //listener to expand story view
-  $(".teaser").on("click",function(){
-    $(this).children(".open-icon").addClass(function(index,currentClass){
-      if(currentClass.indexOf("plus") != -1){
-        $(this).removeClass("fui-plus-24");
-        $(this).addClass("fui-cross-24");
-
-        markers[$(this).parent().siblings("audio").attr('id')].expanded = true;
-        addRemoveLayers(map,markers);
-        // markers[$(this).parent().siblings("audio").attr('id')].opacity = 100;
-        // changeOpacity(map,markers);
+    $('#map_button').on("click",function(){
+      if(galleryOpen){
+        $('.gallery_big').slideUp("slow");
+        $('#map').animate({'height':mapHeight},"slow");
+        map.panBy([0,(-mapHeight+smMapH)/2],0.9);
+        galleryOpen = false;
       }
-      else{
-        $(this).removeClass("fui-cross-24");
-        $(this).addClass("fui-plus-24");
+    });
+    
+    //turn off the base flat-ui listener
+    $(".todo li").off();
 
-        //check to see if audio is playing. If it is, leave it be
-        console.log($(this).parent().siblings("audio")[0].paused);
-        if($(this).parent().siblings("audio")[0].paused){
-          markers[$(this).parent().siblings("audio").attr('id')].expanded = false;
+    smallGallery();
+    for(var s in markers){
+      var audioStory = new AudioStory(s,markers[s]);
+      audioStory.getTimeStamps();
+      audioStory.audioEvents();
+    }
+
+    //listener to expand story view
+    $(".teaser").on("click",function(){
+      $(this).children(".open-icon").addClass(function(index,currentClass){
+        if(currentClass.indexOf("plus") != -1){
+          $(this).removeClass("fui-plus-24");
+          $(this).addClass("fui-cross-24");
+
+          markers[$(this).parent().siblings("audio").attr('id')].expanded = true;
           addRemoveLayers(map,markers);
-        }
-        // markers[$(this).parent().siblings("audio").attr('id')].opacity = 50;
-        // changeOpacity(map,markers);
-      }
-    });
-    $(this).parent(".story").children(".collapsable").addClass(function(index,currentClass){
-      if(currentClass.indexOf("collapse") != -1){
-        $(this).removeClass("collapse");
-      }
-      else{
-        $(this).addClass("collapse");
-      }
-    });
-  });
-
-  $(".todo li").on({
-    mouseenter:function(){
-      if($(this).attr("class").indexOf("active") == -1){
-        $(this).addClass("todo-hover");
-        var story = $(this).parents('.collapsable').siblings("audio").attr('id');
-        var re = new RegExp(story+"_(\\d+)");
-        var seg = $(this).attr("class").match(re);
-        markers[story].markers[seg[1]].setIcon(playing_color);
-      }
-    },
-    mouseleave:function(){
-      if($(this).attr("class").indexOf("active") == -1){
-        $(this).removeClass("todo-hover");
-        var story = $(this).parents('.collapsable').siblings("audio").attr('id');
-        var re = new RegExp(story+"_(\\d+)");
-        var seg = $(this).attr("class").match(re);
-        console.log($(this).parents('.collapsable').siblings("audio")[0].paused);
-        if($(this).parents('.collapsable').siblings("audio")[0].paused){
-          markers[story].markers[seg[1]].setIcon(default_color);        
+          // markers[$(this).parent().siblings("audio").attr('id')].opacity = 100;
+          // changeOpacity(map,markers);
         }
         else{
-          markers[story].markers[seg[1]].setIcon(story_color);
+          $(this).removeClass("fui-cross-24");
+          $(this).addClass("fui-plus-24");
+
+          //check to see if audio is playing. If it is, leave it be
+          if($(this).parent().siblings("audio")[0].paused){
+            markers[$(this).parent().siblings("audio").attr('id')].expanded = false;
+            addRemoveLayers(map,markers);
+          }
+          // markers[$(this).parent().siblings("audio").attr('id')].opacity = 50;
+          // changeOpacity(map,markers);
+        }
+      });
+      $(this).parent(".story").children(".collapsable").addClass(function(index,currentClass){
+        if(currentClass.indexOf("collapse") != -1){
+          $(this).removeClass("collapse");
+        }
+        else{
+          $(this).addClass("collapse");
+        }
+      });
+    });
+
+    $(".todo li").on({
+      mouseenter:function(){
+        if($(this).attr("class").indexOf("active") == -1){
+          $(this).addClass("todo-hover");
+          var story = $(this).parents('.collapsable').siblings("audio").attr('id');
+          var re = new RegExp("("+story+"_\\d+)");
+          var seg = $(this).attr("class").match(re);
+          markers[story].markers[seg[1]].setIcon(playing_color);
+        }
+      },
+      mouseleave:function(){
+        if($(this).attr("class").indexOf("active") == -1){
+          $(this).removeClass("todo-hover");
+          var story = $(this).parents('.collapsable').siblings("audio").attr('id');
+          var re = new RegExp("("+story+"_\\d+)");
+          var seg = $(this).attr("class").match(re);
+          if($(this).parents('.collapsable').siblings("audio")[0].paused){
+            markers[story].markers[seg[1]].setIcon(default_color);        
+          }
+          else{
+            markers[story].markers[seg[1]].setIcon(story_color);
+          }
         }
       }
-    }
+    });
+    $(".teaser:first").trigger("click");
   });
-  $(".teaser:first").trigger("click");
 });
+
+function loadData(){
+  var d = $.Deferred();
+  $.getJSON(jsonFile,function(stories){
+    insertStory(stories);
+  }).done(function(p){
+    d.resolve(p);
+  }).fail(d.reject);
+  return d.promise();
+}
 
 function AudioStory(tag,markers){
   this.tag = tag;
@@ -187,9 +167,11 @@ AudioStory.prototype.audioEvents = function(){
   var as = this;
   
   //turn on a new listener for todo li elements
-  $(".todo").on("click",'li',function(){
+  $("."+as.tag+"_part").on("click",function(){
+    pauseOther();
     as.elem.currentTime = parseInt($(this).attr('time')) + 0.001;
     as.elem.play();
+    $("."+as.tag+"_part").removeClass('todo-hover');
   }); 
   
   //listener for when starts playing
@@ -200,7 +182,7 @@ AudioStory.prototype.audioEvents = function(){
     }
     //change active to playing_color
     $('.'+as.tag+'_part.todo-active').addClass(function(index,currentClass){
-      var re = new RegExp(as.tag+"_(\\d+)");
+      var re = new RegExp("("+as.tag+"_\\d+)");
       var i = currentClass.match(re);
       as.markers.markers[i[1]].setIcon(playing_color);
     });
@@ -228,7 +210,7 @@ AudioStory.prototype.audioEvents = function(){
       if(time != as.point){
         //remove the active class
         $('.'+as.tag+'_' + as.point).removeClass('todo-active');
-        try{as.markers.markers[as.point].setIcon(story_color);}
+        try{as.markers.markers[as.tag+'_'+as.point].setIcon(story_color);}
         catch(err){}
         //did it go backwards or forwards?
         //if backwards...
@@ -247,12 +229,12 @@ AudioStory.prototype.audioEvents = function(){
         }
         //set the current as active
         $('.'+as.tag+'_' + time).addClass('todo-active');
-        as.markers.markers[time].setIcon(playing_color);
+        as.markers.markers[as.tag+'_' + time].setIcon(playing_color);
         if(galleryOpen){
-          map.panTo(as.markers.markers[time].getLatLng()).panBy([0,(mapHeight-smMapH)/2],0.9);
+          map.panTo(as.markers.markers[as.tag+'_' + time].getLatLng()).panBy([0,(mapHeight-smMapH)/2],0.9);
         }
         else{
-          map.panTo(as.markers.markers[time].getLatLng());
+          map.panTo(as.markers.markers[as.tag+'_' + time].getLatLng());
         }
         //update point in story
         as.point = time;
@@ -283,7 +265,7 @@ function PhotoMarkers(){
     }
   */
   this.lg;
-  this.markers = [];
+  this.markers = {};
   // this.photos = [];
   this.expanded = false;
   this.opacity = 50;
@@ -296,29 +278,35 @@ function changeOpacity(map,markers){
 }
 
 function addRemoveLayers(map,markers){
+  layerG.clearLayers();
   for(var story in markers){
     if(markers[story].expanded){
-      markers[story].lg.addTo(map);
-    }
-    else{
-      map.removeLayer(markers[story].lg);
+      layerG.addLayer(markers[story].lg);
     }
   }
 }
 
-function insertStory(d,m){
+function pauseOther(){
+  $('audio').each(function(){
+    this.pause();
+  });
+}
+
+function insertStory(d){
   var markerIndex = {};
   var tagList = {};
   var photoList = {};
 
   function _buildPopUp(d){
-    var popup = $('<div></div>');
+    var popup = $('<div><hr></div>');
     for(var s in d){
       for(var i in d[s]){
         var link = $('<a class="btn btn-large btn-block btn-primary popup" id="'+s+'_'+d[s][i].c+'">Play</a>').on("click",function(){
           var audioTrack = $(this).attr('id');
-          $('#'+audioTrack.split('_')[0]).siblings(".teaser").trigger('click');
-          console.log($('.'+audioTrack));
+          pauseOther();
+          if($('#'+audioTrack.split('_')[0]).siblings(".collapsable").attr("class").indexOf('collapse') > -1){
+            $('#'+audioTrack.split('_')[0]).siblings(".teaser").trigger('click');
+          }
           $('.'+audioTrack).trigger('click');
         });
 
@@ -340,14 +328,17 @@ function insertStory(d,m){
     for(var ll in markerIndex){
       var m = L.marker(markerIndex[ll]['latlong'],{icon: default_color})
         .bindPopup(_buildPopUp(markerIndex[ll]['popup'])[0]);
+      console.log(markerIndex[ll]['popup']);
       for(var s in markerIndex[ll]['popup']){
-        markers[s].markers.push(m);
-        markers[s].lg.addLayer(m);
+        for(var i in markerIndex[ll]['popup'][s]){
+          markers[s].markers[''+s+'_'+markerIndex[ll]['popup'][s][i].c] = m;
+          markers[s].lg.addLayer(m);
+        }
       }
     }
   }
   function _buildMarkerIndex(d,s,c){
-    var index = d.latlong.joint(' ');
+    var index = d.latlong.join(' ');
     if(!markerIndex[index]){
       markerIndex[index] = {};
       markerIndex[index]["latlong"] = d.latlong;
@@ -369,11 +360,12 @@ function insertStory(d,m){
       }
     }
   }
-  function _addTags(d){
+  function _addTags(){
     var tags = [];
     for(var tag in tagList){
       tags.push(tag);
     }
+    console.log(tags);
     $('#tags').attr('value',tags.join(','));
     $(".tagsinput").tagsInput({'interactive':false});
     $(".tag").on('click',function(){
@@ -399,12 +391,12 @@ function insertStory(d,m){
       segment.push('<li class="'+s+'_part '+s+'_'+i+'" time="'+d[i].time+'" segment = "'+i+'">'+
         '<div class="todo-icon fui-location-24"></div>'+
         '<div class="todo-content">'+
-          '<h4 class="todo-name">'+d.segTitle+'</h4>'+
+          '<h4 class="todo-name">'+d[i].segTitle+'</h4>'+
           d[i].desc+
         '</div>'+
       '</li>'
       );
-      _buildMarkerIndex(d,s,i);
+      _buildMarkerIndex(d[i],s,i);
     }
   return segment.join('');
   }
@@ -425,7 +417,7 @@ function insertStory(d,m){
           '<div class="open-icon fui-plus-24" tags="'+d[i].sTags.join(',')+'"></div>'+
           '<h2>'+d[i].storyTitle+'</h2>'+
         '</div>'+
-        '<audio id = "'+d[i].story+'" controls>'+
+        '<audio id = "'+d[i].story+'" controls preload="auto" type="audio/mp3">'+
           '<source src="audio/'+d[i].audio+'" type="audio/mpeg">'+
           'You are using an obsolete browser, idiot...'+
         '</audio>'+
@@ -448,15 +440,24 @@ function insertStory(d,m){
       '</div>  <!--segment -->'
       );
       _getTags(d[i].sTags);
+      markers[d[i].story] = new PhotoMarkers();
+      // markers[d[i].story].photos = d[i].photos;
+      markers[d[i].story].lg = L.layerGroup();
     }
-    markers[d[i].story] = new PhotoMarkers();
-    // markers[d[i].story].photos = d[i].photos;
-    markers[d[i].story].lg = L.layerGroup();
     return story.join('');
+  }
+  function _buildMainGallery(){
+    var photo = [];
+    for(var i in photoList){
+      photo.push('<li><img data-frame="images/story/'+i+'" src="images/story/'+i+'" title="'+photoList[i].t+'" data-description="'+photoList[i].d+'" />'); 
+    }
+    $('#myGallery').append(photo.join(''));
   }
   
   $('#storybar').append(_buildStory(d));
   _buildMarker();
+  _addTags();
+  _buildMainGallery();
 }
 
 function galleryView(){

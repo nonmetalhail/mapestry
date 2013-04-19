@@ -41,5 +41,91 @@
         "latlong":[34.0617,-118.1194]
       }
     ]
+  },
+    {
+    "story":"mom2",
+    "audio":"304.mp3",
+    "storyTitle":"Interview with Dad",
+    "rDate":"15 March 2013",
+    "sText":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "sTags":[ "Mom", "Taipei"],
+    "photos":[{
+      "image":"DSC_1254.jpg",
+      "t":"DSC_1254",
+      "d":"blah blah blah photo"
+      },
+      {
+      "image":"DSC_1278.jpg",
+      "title":"DSC_1169",
+      "desc":"blah blah blah photo"
+      },
+      {
+      "image":"DSC_1255.jpg",
+      "title":"DSC_1255",
+      "desc":"blah blah blah photo"
+      }],
+    "segment":[
+      {
+        "segTitle":"First Home",
+        "time":0,
+        "desc":"Place lived during Elementary School",
+        "latlong":[34.0641,-118.118]
+      },
+      {
+        "segTitle":"Friend's Home",
+        "time":330,
+        "desc":"Where friends lived",
+        "latlong":[34.061,-118.116]
+      },
+      {
+        "segTitle":"Going to School",
+        "time":2340,
+        "desc":"Route to School",
+        "latlong":[34.061,-118.1200]
+      }
+    ]
+  },
+    {
+    "story":"mom3",
+    "audio":"62.mp3",
+    "storyTitle":"Interview with Nancy",
+    "rDate":"15 March 2013",
+    "sText":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "sTags":["Montery Park"],
+    "photos":[{
+      "image":"DSC_1140.jpg",
+      "t":"DSC_1140",
+      "d":"blah blah blah photo"
+      },
+      {
+      "image":"DSC_1169.jpg",
+      "title":"DSC_1169",
+      "desc":"blah blah blah photo"
+      },
+      {
+      "image":"DSC_1285.jpg",
+      "title":"DSC_1285",
+      "desc":"blah blah blah photo"
+      }],
+    "segment":[
+      {
+        "segTitle":"First Home",
+        "time":0,
+        "desc":"Place lived during Elementary School",
+        "latlong":[34.0643,-118.116]
+      },
+      {
+        "segTitle":"Friend's Home",
+        "time":330,
+        "desc":"Where friends lived",
+        "latlong":[34.06418,-118.1197]
+      },
+      {
+        "segTitle":"Going to School",
+        "time":2340,
+        "desc":"Route to School",
+        "latlong":[34.067,-118.119]
+      }
+    ]
   }
 ]

@@ -101,7 +101,7 @@ body {
   padding: 11px 5px 0 0; 
 }
 
-.leaflet-container a {
+.leaflet-container a.btn {
   color:white;
 }
 
