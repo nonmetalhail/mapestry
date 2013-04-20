@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+    </script>
+    <script type="text/javascript" src = "js/rainbow.js">
+    </script>
+    <script type="text/javascript">
+      $(function() {
+        $('h1').rainbow({
+          animate:true,
+          animateInterval:100,
+          colors:[
+          '#FF0000',
+          '#f26522',
+          '#fff200',
+          '#00a651',
+          '#28abe2',
+          '#2e3192',
+          '#6868ff'
+          ]
+        });
+
+      $('.rainbow').rainbow({animate:true,animateInterval:50,pauseLength:500,pad:true,colors:['rgb(153, 204, 255);','rgb(173, 224, 255);','rgb(193, 244, 255);','rgb(213, 264, 255);','rgb(193, 244, 255);','rgb(173, 224, 255);','rgb(153, 204, 255);']});
+      });
+    </script>
+    <style type="text/css">
+      @-webkit-keyframes pulse_animation {
+        0% { -webkit-transform: scale(1); }
+        30% { -webkit-transform: scale(1); }
+        40% { -webkit-transform: scale(1.08); }
+        50% { -webkit-transform: scale(1); }
+        60% { -webkit-transform: scale(1); }
+        70% { -webkit-transform: scale(1.05); }
+        80% { -webkit-transform: scale(1); }
+        100% { -webkit-transform: scale(1); }
+      }
+      
+      html{
+      background-image: -webkit-radial-gradient(bottom center, ellipse cover, #555 0%, #000 100%); 
+      height: 100%;
+      }
+      #wrapper {
+        margin: 100px auto 0 auto;
+      }
+      p.rainbow {
+        font-size: 40px;
+      }
+      h1{
+        font-size: 100px;
+        font-weight: bold;
+      }
+      h3{
+        font-size: 60px;
+        font-weight: bold;
+        color: white;
+        -webkit-animation-name: 'pulse_animation';
+        -webkit-animation-duration: 3000ms;
+        -webkit-transform-origin:70% 70%;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+      }
+      h1, p,h3{
+        font-family: 'Arvo';
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>Mapestry</h1>
+      <p class="rainbow">A suite of tools for gathering, collaborating, and sharing stories</p>
+      <br/>
+      <h3>Coming Soon</h3>
+    </div>
+  </body>    
+</html>

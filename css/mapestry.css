@@ -35,11 +35,121 @@ body {
 }
 
 .gallery_big{
-  margin: 25px 0 -15px 25px;
+  margin: 25px 0 0px 30px !important;
+  height: 600px;
 }
 
-.gv_galleryWrap{
+.gallery_control{
+  /*height:130px;*/
+  margin: -115px 0 0 30px !important;
+  /*overflow: hidden;*/
+}
+
+.gallery_big .bx-viewport{
+  width:auto !important;
+  height: 100% !important;
+  padding: 5px 0px 0px 0px !important;
+  border: none !important;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -moz-border-radius-topleft: 5px;
+  -o-border-top-right-radius: 5px;
+  -o-border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.bx-wrapper .bx-viewport{
   background: #333 !important;
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+  -o-box-shadow:none;
+  box-shadow: none;
+}
+
+.gallery_control .bx-viewport{
+  width:auto !important;
+  height: 100% !important;
+  border: none !important;
+  padding-top: 3px;
+  padding-bottom: 20px;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -o-border-bottom-right-radius: 5px;
+  -o-border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.gallery_big ul, .gallery_big li , .gallery_big li img{
+  margin: auto;
+}
+
+.bx-caption{
+  padding-left: 30px;
+  background-color: rgba(0,0,0,0) !important;
+}
+
+.bx-wrapper .bxslider img{
+  /*max-width: 80%;*/
+  height: 480px;
+}
+
+.bx-wrapper a{
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+  padding: 0 !important;
+  margin: 3px 3px !important;
+}
+
+.gallery_control .bx-controls{
+  display: none;
+}
+
+.bx-pager{
+  display: none;
+}
+
+.control_li{
+  margin:3px !important;
+  width:100px !important;
+  opacity: 0.6;
+  display: block;
+  margin: 0 5px;
+  padding: 3px;
+  -webkit-transition: 0.3s ease-out;
+  -moz-transition: 0.3s ease-out;
+  -o-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.control_li:hover,
+.control_li.active {
+  opacity: 1;
+  -webkit-transition: 0.3s ease-out;
+  -moz-transition: 0.3s ease-out;
+  -o-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+.thumbs{
+  max-width:150px !important;
+  max-height:150px !important;
+
+}
+div.thumb{
+  width:100px !important;
+  height:100px !important;
+  overflow: hidden;
+}
+
+.bx-next{
+  right:20px !important;
 }
 
 #map{ 
@@ -125,6 +235,7 @@ body {
 .popup_div .popup:first-child{
   margin: 0 0 0 10px;
 }
+
 
 @media (max-width: 767px) {
   .sidebar-nav-fixed{

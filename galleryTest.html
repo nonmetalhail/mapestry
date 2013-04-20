@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mapestry: Talk to the Map</title>
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+      <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+    <![endif]-->
+    
+    <link type = "text/css" rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <link type = "text/css" rel = "stylesheet" href = "css/bootstrap.css" />
+    <link type = "text/css" rel = "stylesheet" href = "css/flat-ui.css" />
+
+    <script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type = "text/javascript" src = "scripts/bootstrap.js"></script>
+
+    <!-- Flat UI Scripts...so many... -->
+      <script src="js/jquery-ui-1.10.0.custom.min.js"></script>
+      <script src="js/jquery.dropkick-1.0.0.js"></script>
+      
+      <script src="js/custom_checkbox_and_radio.js"></script>
+      <script src="js/custom_radio.js"></script>
+      
+      <script src="js/jquery.tagsinput.js"></script>
+      
+      <script src="js/bootstrap-tooltip.js"></script>
+     
+      <script src="js/jquery.placeholder.js"></script>
+      <!-- 
+      <script src="http://vjs.zencdn.net/c/video.js"></script>
+      -->
+      <script src="js/application.js"></script>
+
+    <!-- gallery view js -->
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+      <!-- Second, add the Timer and Easing plugins -->
+      <script type="text/javascript" src="js/jquery.timers-1.2.js"></script>
+      <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+      <!-- Third, add the GalleryView Javascript and CSS files -->
+      <script type="text/javascript" src="js/jquery.galleryview-3.0-dev.js"></script>
+      <link type="text/css" rel="stylesheet" href="css/jquery.galleryview-3.0-dev.css" />
+
+    <!-- bxSlider Javascript file -->
+    <script src="js/jquery.bxslider.js"></script>
+    <!-- bxSlider CSS file -->
+    <link href="css/jquery.bxslider.css" rel="stylesheet" />
+
+
+    <!-- leaflet -->
+    <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+
+    <!-- ours! -->
+    <link type = "text/css" rel = "stylesheet" href = "css/mapestry.css" />
+    <script type = "text/javascript" src = "galleryTest.js"></script>
+
+  </head>
+
+  <body>
+    
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Mapestry</a>
+          <div class="nav-collapse collapse">
+    
+            <p class="navbar-text pull-right">
+              <a href="#" class="navbar-link">Username</a>
+            </p>
+            
+            <!-- <ul class="nav">
+              <li><a href="#about">About</a></li>
+              
+              <li class="active"><a href="#">My Stories</a>
+                <ul>
+                  <li><a href="#">Jen's Mom</a></li>
+                  <li><a href="#">Ryan's G-Mom</a></li>
+                  <li><a href="#">Your Mom</a></li>
+                </ul> 
+              </li>
+
+              <li><a href="#contact">Contact</a></li>
+            </ul> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+
+        <div class="span9">
+          <div id="gallery">
+            <ul class="bxslider">
+              <li class = "0"><img title = "Photo1" src="images/story/DSC_1140.jpg" /></li>
+              <li class = "0"><img title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></li>
+              <li class = "2"><img title = "Photo3" src="images/story/DSC_1169.jpg" /></li>
+              <li class = "2"><img title = "Photo4" src="images/story/DSC_1254.jpg" /></li>
+              <li class = "0"><img title = "Photo1" src="images/story/DSC_1140.jpg" /></li>
+              <li class = "0"><img title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></li>
+              <li class = "2"><img title = "Photo3" src="images/story/DSC_1169.jpg" /></li>
+              <li class = "2"><img title = "Photo4" src="images/story/DSC_1254.jpg" /></li>
+              <li class = "0"><img title = "Photo1" src="images/story/DSC_1140.jpg" /></li>
+              <li class = "0"><img title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></li>
+              <li class = "2"><img title = "Photo3" src="images/story/DSC_1169.jpg" /></li>
+              <li class = "2"><img title = "Photo4" src="images/story/DSC_1254.jpg" /></li>
+              <li class = "0"><img title = "Photo1" src="images/story/DSC_1140.jpg" /></li>
+              <li class = "0"><img title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></li>
+              <li class = "2"><img title = "Photo3" src="images/story/DSC_1169.jpg" /></li>
+              <li class = "2"><img title = "Photo4" src="images/story/DSC_1254.jpg" /></li>
+            </ul>
+
+            <ul class="sliderControl">
+              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
+              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
+              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
+              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
+              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
+              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
+              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
+              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
+              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
+              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
+              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
+              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
+              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
+              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
+              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
+              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
+            </ul>
+          </div>
+        </div><!--/span-->
+
+        <div class="span3">
+          <div class="well sidebar-nav sidebar-nav-fixed" id = "storybar">  
+          
+            <div class="btn-toolbar">
+              <div class="btn-group">
+                <a class="btn btn-primary map_photo active" id = "map_button"><i class="fui-location-16"></i></a>
+                <a class="btn btn-primary map_photo" id = "photo_button"><i class="fui-camera-16"></i></a>
+              </div>
+            </div> <!-- /toolbar -->
+            <hr>
+            <div>
+              <input name="tags" id="tags" class="tagsinput" value="" />
+            </div>
+
+          </div><!--/.well -->
+        </div><!--/span-->
+
+      </div><!--/row-->
+
+      <!-- <hr>
+
+      <footer>
+        <p>&copy; Company 2013</p>
+      </footer> -->
+
+    </div><!--/.fluid-container-->
+  </body>
+</html>
