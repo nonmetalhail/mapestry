@@ -1,3 +1,7 @@
+/** {
+  outline: 1px #ccc dashed;
+}*/
+
 body {
   padding-top: 35px;
   /*padding-bottom: 40px;*/
@@ -259,16 +263,16 @@ h2 {
   overflow:hidden; /* this is important */
   position:relative; /* this is important too */
   border:1px solid #ccc;
-  width:190px;
+  width:170px;
   height:140px;
   }
 .crop img{
   position:absolute;
   }
 
-/*administrative*/
+/*administrative body overrides body css */
 .admin_menu{
-  width: 37.7%;
+  overflow: visible;
 }
 
 
