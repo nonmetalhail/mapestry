@@ -275,7 +275,14 @@ h2 {
   overflow: visible;
 }
 
+.projects{
+  overflow: hidden;
+  position: static;
+}
 
+.tabs{
+  text-align: center;
+}
 
 @media (max-width: 767px) {
   .sidebar-nav-fixed{

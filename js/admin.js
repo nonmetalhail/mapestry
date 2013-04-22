@@ -9,6 +9,10 @@ $(document).ready(function(){
 			photo_inputs();
 			$("#saved_content").show();
 			$("form").hide();
+			alert ("it worked?")
+			return false;
+			//blank forms need to remain unchanged
+			//need to show what IS submitted
 
 	});
 });
