@@ -4,6 +4,7 @@
 
 $(document).ready(function(){
 	$("#saved_content").hide();
+	$("#saved_video").hide();
 	$("#photo_test").submit(function(){
 	
 			photo_inputs();
@@ -20,7 +21,7 @@ $(document).ready(function(){
 	
 			photo_inputs();
 			$("#video").hide();
-			$("#saved_content_video1").show();
+			$("#saved_video").show();
 
 			alert ("it worked?")
 			return false;
