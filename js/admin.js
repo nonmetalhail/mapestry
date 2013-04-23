@@ -7,8 +7,9 @@ $(document).ready(function(){
 	$("form").submit(function(){
 	
 			photo_inputs();
+			$("#photo_test").hide();
 			$("#saved_content").show();
-			$("form").hide();
+
 			alert ("it worked?")
 			return false;
 			//blank forms need to remain unchanged
