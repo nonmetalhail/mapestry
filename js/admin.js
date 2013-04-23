@@ -4,11 +4,23 @@
 
 $(document).ready(function(){
 	$("#saved_content").hide();
-	$("form").submit(function(){
+	$("#photo_test").submit(function(){
 	
 			photo_inputs();
 			$("#photo_test").hide();
 			$("#saved_content").show();
+
+			alert ("it worked?")
+			return false;
+			//blank forms need to remain unchanged
+			//need to show what IS submitted
+
+	});
+	$("#video").submit(function(){
+	
+			photo_inputs();
+			$("#video").hide();
+			$("#saved_content_video1").show();
 
 			alert ("it worked?")
 			return false;
