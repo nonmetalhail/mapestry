@@ -9,17 +9,17 @@
     "photos":[{
       "image":"DSC_1140.jpg",
       "t":"DSC_1140",
-      "d":"blah blah blah photo"
+      "time":0
       },
       {
       "image":"DSC_1169.jpg",
       "title":"DSC_1169",
-      "desc":"blah blah blah photo"
+      "time":350
       },
       {
       "image":"DSC_1255.jpg",
       "title":"DSC_1255",
-      "desc":"blah blah blah photo"
+      "time":1000
       }],
     "segment":[
       {
@@ -52,17 +52,17 @@
     "photos":[{
       "image":"DSC_1254.jpg",
       "t":"DSC_1254",
-      "d":"blah blah blah photo"
+      "time":0
       },
       {
       "image":"DSC_1278.jpg",
       "title":"DSC_1169",
-      "desc":"blah blah blah photo"
+      "time":200
       },
       {
       "image":"DSC_1255.jpg",
       "title":"DSC_1255",
-      "desc":"blah blah blah photo"
+      "time":800
       }],
     "segment":[
       {
@@ -95,17 +95,17 @@
     "photos":[{
       "image":"DSC_1140.jpg",
       "t":"DSC_1140",
-      "d":"blah blah blah photo"
+      "time":0
       },
       {
       "image":"DSC_1169.jpg",
       "title":"DSC_1169",
-      "desc":"blah blah blah photo"
+      "time":1000
       },
       {
       "image":"DSC_1285.jpg",
       "title":"DSC_1285",
-      "desc":"blah blah blah photo"
+      "time":1500
       }],
     "segment":[
       {
