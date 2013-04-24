@@ -286,6 +286,51 @@ div.thumb{
   margin: 0 0 0 10px;
 }
 
+
+/* administrative*/
+.folders {
+  height: 100px;
+  overflow-y:scroll;
+  margin- top: 10px;
+}
+
+#admin-tabs {
+  overflow: visible;
+}
+
+/*adjusting margins*/
+h2 {
+  margin: 0px;
+}
+
+/*fake cropping for images in photo tab*/
+.crop{
+  float:left;
+  margin:.5em 10px .5em 0;
+  overflow:hidden; /* this is important */
+  position:relative; /* this is important too */
+  border:1px solid #ccc;
+  width:170px;
+  height:140px;
+  }
+.crop img{
+  position:absolute;
+  }
+
+/*administrative body overrides body css */
+.admin_menu{
+  overflow: visible;
+}
+
+.projects{
+  overflow: hidden;
+  position: static;
+}
+
+.tabs{
+  text-align: center;
+}
+
 @media (max-width: 767px) {
   .sidebar-nav-fixed{
     position:static;
