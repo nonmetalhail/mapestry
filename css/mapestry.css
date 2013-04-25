@@ -4,6 +4,10 @@
   overflow: hidden;
 }
 
+#player .hero-unit{
+  border: 3px solid #333;
+}
+
 .ilb{
   display:inline-block;
 }
@@ -274,18 +278,21 @@ div.thumb{
 }
 
 .popup_div{
-  width: 150px;
+  min-width: 150px;
   margin:20px 0;
 }
 .popup{
   display:inline;
   margin: 0 10px;
-  
 }
 .popup_div .popup:first-child{
   margin: 0 0 0 10px;
 }
 
+a.popup{
+  padding: 5px 20px;
+  font-size: 24px;
+}
 
 /* administrative*/
 .folders {
@@ -299,7 +306,7 @@ div.thumb{
 }
 
 /*adjusting margins*/
-h2 {
+h2.no_margin {
   margin: 0px;
 }
 

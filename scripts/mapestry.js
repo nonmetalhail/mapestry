@@ -18,7 +18,7 @@ var story_color = L.icon({
 });
 //global vars
 var map;
-var layerG = new L.layerGroup();
+var layerG = new L.featureGroup();
 var markers = {};
 var slider, scontrol;
 var galleryOpen = false;
@@ -35,17 +35,23 @@ $(document).ready(function(){
 
     $('#map').css('height',mapHeight);
     $('.sidebar-nav-fixed').css('height',mapHeight - 32);
-
+    var stamenAtr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>';
+    var stamen = new L.StamenTileLayer("toner",{  //terrain
+      maxZoom: 16, 
+      attribution: stamenAtr
+    });
     map = L.map('map',{
       center: new L.LatLng(34.0621, -118.1193),
       zoom: 15,
+      maxZoom:16,
       layers: layerG
     });
-
-    L.tileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
-      maxZoom: 18
-    }).addTo(map);
+    map.addLayer(stamen);
+    map.attributionControl.addAttribution(stamenAtr);
+    // L.tileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {
+    //   attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
+    //   maxZoom: 18
+    // }).addTo(map);
     smMapH = mapHeight - $('#gallery').outerHeight() - 11;
   })
   .done(function(){
@@ -115,6 +121,7 @@ $(document).ready(function(){
 
           markers[$(this).parent().siblings("audio").attr('id')].expanded = true;
           addRemoveLayers(map,markers);
+
           // markers[$(this).parent().siblings("audio").attr('id')].opacity = 100;
           // changeOpacity(map,markers);
         }
@@ -356,6 +363,12 @@ function addRemoveLayers(map,markers){
       layerG.addLayer(markers[story].lg);
     }
   }
+  if(layerG.getBounds()._northEast){
+    map.fitBounds(layerG.getBounds());
+    if(galleryOpen){
+      map.panBy([0,(mapHeight-smMapH)/2],0.9);
+    }
+  }
 }
 
 function pauseOther(){
@@ -436,7 +449,7 @@ function insertStory(d){
     var popup = $('<div><hr></div>');
     for(var s in d){
       for(var i in d[s]){
-        var link = $('<a class="btn btn-large btn-block btn-primary popup" id="'+s+'_'+d[s][i].c+'">Play</a>').on("click",function(){
+        var link = $('<a class="btn btn-large btn-block btn-primary popup" id="'+s+'_'+d[s][i].c+'"><i class="icon-play-circle icon-large"></i></a>').on("click",function(){
           var audioTrack = $(this).attr('id');
           pauseOther();
           if($('#'+audioTrack.split('_')[0]).siblings(".collapsable").attr("class").indexOf('collapse') > -1){
@@ -561,7 +574,7 @@ function insertStory(d){
       _getTags(d[i].sTags);
       markers[d[i].story] = new MapMarkers();
       // markers[d[i].story].photos = d[i].photos;
-      markers[d[i].story].lg = L.layerGroup();
+      markers[d[i].story].lg = L.featureGroup();
     }
     return story.join('');
   }
