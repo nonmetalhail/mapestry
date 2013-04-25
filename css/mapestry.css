@@ -298,7 +298,7 @@ a.popup{
 .folders {
   height: 100px;
   overflow-y:scroll;
-  margin- top: 10px;
+  margin-top: 10px;
 }
 
 #admin-tabs {
@@ -337,6 +337,9 @@ h2.no_margin {
 .tabs{
   text-align: center;
 }
+
+
+
 
 @media (max-width: 767px) {
   .sidebar-nav-fixed{

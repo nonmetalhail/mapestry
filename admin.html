@@ -56,36 +56,36 @@
 <div class="container-fluid" id="admin-tabs">
   <div class="row-fluid">
 
-      <div class="span3" class = "projects">
-        <div >  
-          <h5>Projects <a class="fui-plus-16"></a></h5></p>
-        </div>
-
-        <div class="well folders">  
-          
-            <h5><!--// In the future this page should be generated via a template when a new project is made //-->
-              <a href="family.html">Family History</a><br>
-            </h5>
-          <p>
-            Audio: 3 <br>
-            Photos: 15 photo <br>
-            Videos: 0
-          </p>
-        </div>
-
-        <div class="well folders">  
-          <h5>
-            <a href="project">Game of Thrones</a><br>
-          </h5>
-          <p>
-            Audio: 1 <br>
-            Photos: 15 photo <br>
-            Videos: 10
-          </p>
-        </div>
-
+    <div class="span3" class = "projects">
+      <div >  
+        <h5>Projects <a class="fui-plus-16"></a></h5></p>
       </div>
 
+      <div class="well folders">  
+        
+          <h5><!--// In the future this page should be generated via a template when a new project is made //-->
+            <a href="family.html">Family History</a><br>
+          </h5>
+        <p>
+          Audio: 3 <br>
+          Photos: 15 photo <br>
+          Videos: 0
+        </p>
+      </div>
+
+      <div class="well folders">  
+        <h5>
+          <a href="project">Game of Thrones</a><br>
+        </h5>
+        <p>
+          Audio: 1 <br>
+          Photos: 15 photo <br>
+          Videos: 10
+        </p>
+      </div>
+    </div>
+
+<!--/   END LEFT MENU COLUMN  /-->
 
       <div class="span9">
         <div><h5>Recent Uploads&nbsp;&frasl;&nbsp;<a href ="#">All files</a></h5></div>
@@ -97,29 +97,26 @@
               <li class="span4"><a href="#tab3" data-toggle="tab" id = "video_button" class="tabs"><i class="fui-video-16"></i>&nbsp;Video</a></li>
               
           </ul>
+<!--/ start: AUDIO TAB CONTENT /-->
         <div class="tab-content">
-          <div class="row-fluid">
-              <div class="span6">
-                <h5>File Name</h5>
-              </div>
-
-              <div class="span4">
-                <h5>Details</h5>
-              </div>
-
-              <div class="span2">
-                 <a href="" class= "btn btn-large btn-block btn-primary">Add file</a>
-              </div>
-
-
-          </div>
-          <hr>
-
-          <!--/ start tab1-->
+          
           <div class="tab-pane active" id="tab1" >
             <div class="row-fluid">
               <div class="span6">
+                <h5>File Name</h5>
+              </div>
+              <div class="span4">
+                <h5>Details</h5>
+              </div>
+              <div class="span2">
+                 <a href="" class= "btn btn-large btn-block btn-primary">Add file</a>
+              </div>
+            </div>
+          <hr><!---//   HORIZONTAL RULE HERE  //-->
+            <div class="row-fluid">
+              <div class="span6">
                 <h2 class="no_margin">14 April 2013</h2>
+                <p><a href="#">Edit</a></p>
               </div>
 
               <div class="span6">
@@ -128,24 +125,25 @@
               </div>
             </div>
 
-            <hr>
+          <hr><!---//   HORIZONTAL RULE HERE  //-->
 
             <div class="row-fluid">
               <div class="span6">
                 <h2 class="no_margin">3 March 2013</h2>
+                <p><a href="#">Edit</a></p>
               </div>
               <div class="span6">
                 <p>Uploaded: April 18</p>
                 <p>31 minutes</p>
               </div>
-
             </div>
 
-            <hr>
+           <hr><!---//   HORIZONTAL RULE HERE  //-->
 
             <div class="row-fluid">
               <div class="span6">
                 <h2 class="no_margin">3 March 2013</h2>
+                <p><a href="#">Edit</a></p>
               </div>
 
               <div class="span6">
@@ -155,136 +153,150 @@
 
             </div>
 
-            <hr>
+           <hr><!---//   HORIZONTAL RULE HERE  //-->
 
-        </div><!--/end tab1-->
+        </div>
+<!--// end: AUDIO TAB CONTENT //-->
 
-        <!--/start Photo tab-->
+<!--// start: PHOTO TAB  //-->       
         <div class="tab-pane" id="tab2">
-            <div class="row-fluid"><!--/photo description block-->
-              
-              <div class="span3">
-                <div class="crop"><img src="images/story/DSC_1140.jpg"/></div>
-              </div> 
+          <div class="row-fluid">
+              <div class="span10"></div>
 
-              <form id="photo_test">
-                <div class="span9">
-                  <div class="span6">
-                    <label for="person">Name</label>
-                    <input class="span12" type="text" name="name" id="name" placeholder="Who is this?"/>
-                  </div>
-                  <div class="span3">
-                    <label for="year">When was this?</label>
-                    <input class="span12" required type="date" name="date" id="date"/>
-                  </div>
-                </div>
-                
-                <div class="row-fluid">
-                  <div class="span9">  
-                    <label for="description">What&#39;s the story?</label>
-                    <textarea class="span9" name="desc" id="desc"></textarea>
-                  </div>
-                </div>
-                <!--/submit button-->
-                <div class="row-fluid">
-                  <div class="span2">
-                      <input type="submit" value="Save" class="btn btn-large btn-block btn-warning submitting"></input>
-                  </div>
-                </div>
-                  <!--/showing photo description inputs-->                 
-              </form><!--/end of form/-->
-              <div id="saved_content">
-                <div class="row-fluid">
-                  <div class="span6"><span class="input_name">name goes here</span></div>
-                  <div class="span3"><span class="input_date">date goes here</span></div>
-                </div>
-                <div class="row-fluid">
-                  <div class="span9"><span class="input_desc">description goes here</span></div>
-                </div>
+              <div class="span2">
+                 <a href="" class= "btn btn-large btn-block btn-primary">Add file</a>
               </div>
-
-
-
-              <hr>
-            </div><!--/end photo description block-->
-            <div class="row-fluid"><!--/photo description block-->
-              
-              <div class="span3">
-                <div class="crop"><img src="images/story/DSC_1167.jpg"/></div>
-              </div> 
-
-              <form>
-                <div class="span9">
-                  <div class="span6">
-                    <label for="person">Name</label>
-                    <input class="span12" type="text" placeholder="Who is this?"/>
-                  </div>
-                  <div class="span3">
-                    <label for="year">When was this?</label>
-                    <input class="span12" required type="date"/>
-                  </div>
-                </div>
-                
-                <div class="row-fluid">
-                    <div class="span9">
-                      <label for="description">What&#39;s the story?</label>
-                      <textarea class="span9"></textarea>
-                    </div>
-                </div>
-              <div class="row-fluid">
-                <div class="span2">
-                    <input type="submit" value="Save" class="btn btn-large btn-block btn-warning submitting"></input>
-                </div>
-              </div>
-
-              </form>
-              <hr>
-            </div><!--/end photo description block-->
-            <div class="row-fluid"><!--/photo description block-->
-              
-              <div class="span3">
-                <div class="crop"><img src="images/story/DSC_1169.jpg"/></div>
-              </div> 
-
-              <form>
-                <div class="span9">
-                  <div class="span6">
-                    <label for="person">Name</label>
-                    <input class="span12" type="text" placeholder="Who is this?"/>
-                  </div>
-                  <div class="span3">
-                    <label for="year">When was this?</label>
-                    <input class="span12" required type="date"/>
-                  </div>
-                </div>
-                
-                <div class="row-fluid">
-                  <div class="span9">  
-                    <label for="description">What&#39;s the story?</label>
-                    <textarea class="span9"></textarea>
-                  </div>
-                </div>
-
-                <!--/submit button-->
-                <div class="row-fluid">
-                  <div class="span2">
-                      <input type="submit" value="Save" class="btn btn-large btn-block btn-warning submitting"></input>
-                  </div>
-                </div>
-
-              </form>
-              <hr>
-            </div><!--/end photo description block-->
-        </div><!--/end Photo tab-->
-
-        <div class="tab-pane" id="tab3"><!--/start Video tab-->
+          </div>
+          <hr><!--//horizontal rule-->
+            
+            <!--/row-fluid: photo description block-->
             <div class="row-fluid">
+              <form id="photo_test">
               
-              <div class="span3">
-                <div class="crop"><img src="images/story/DSC_1140.jpg"/></div>
-              </div> 
+                <div class="crop">
+                  <img src="images/story/DSC_1140.jpg"/>
+                </div>
+                           
+                <div class="span9">
+                  <div class="span6">
+                    <label for="person">Name</label>
+                    <input class="span12" type="text" name="name" id="name" placeholder="Who is this?"/>
+                  </div>
+                  <div class="span3">
+                    <label for="year">When was this?</label>
+                    <input class="span12" required type="date" name="date" id="date"/>
+                  </div>
+                </div>   
+                
+                  <div class="span9">  
+                    <label for="description">What&#39;s the story?</label>
+                    <textarea class="span9" name="desc" id="desc"></textarea>
+                  </div>
+                
+                <!--/submit button-->
+                <div class="row-fluid">
+                  <div class="span2">
+                      <input type="submit" value="Save" class="btn btn-large btn-block btn-warning submitting"></input>
+                  </div>
+                </div>
+                  
+              </form>
+              <!--/end of form/-->
 
+<!--/ showing photo description input /--> 
+              <div class="row-fluid" id="saved_photo">
+                  <div class="crop">
+                    <img src="images/story/DSC_1140.jpg"/>
+                    <br>
+                    <a href="#">Edit content</a>
+                  </div>
+                  <div class="span9">
+                    <div class="span6 display_text"><h3><span class="input_name"></span></h3></div>
+                    <div class="span3"><h3><span class="input_date"></span></h3></div>
+                  </div>
+                  <div class="span9">
+                    <span class="input_desc"></span>
+                  </div>
+              </div>
+<!--// end photo description input //-->
+             <hr>  
+            </div>
+<!--/row-fluid: end photo description block-->
+<!--/row-fluid: photo2 description block-->
+            <div class="row-fluid">
+              <form id="photo_test2">
+              
+                <div class="crop">
+                  <img src="images/story/DSC_1167.jpg"/>
+                </div>
+                           
+                <div class="span9">
+                  <div class="span6">
+                    <label for="person">Name</label>
+                    <input class="span12" type="text" name="name" id="name2" placeholder="Who is this?"/>
+                  </div>
+                  <div class="span3">
+                    <label for="year">When was this?</label>
+                    <input class="span12" required type="date" name="date" id="date2"/>
+                  </div>
+                </div>   
+                
+                  <div class="span9">  
+                    <label for="description">What&#39;s the story?</label>
+                    <textarea class="span9" name="desc" id="desc2"></textarea>
+                  </div>
+                
+                <!--/submit button-->
+                <div class="row-fluid">
+                  <div class="span2">
+                      <input type="submit" value="Save" class="btn btn-large btn-block btn-warning submitting"></input>
+                  </div>
+                </div>
+                  
+              </form>
+              <!--/end of form/-->
+<!--/ showing photo2 description input /--> 
+              <div class="row-fluid" id="saved_photo2">
+                  <div class="crop">
+                    <img src="images/story/DSC_1167.jpg"/>
+                    <br>
+                    <a href="#">Edit content</a>
+                  </div>
+                  <div class="span9">
+                    <div class="span6 display_text"><h3><span class="input_name"></span></h3></div>
+                    <div class="span3"><h3><span class="input_date"></span></h3></div>
+                  </div>
+                  <div class="span9">
+                    <span class="input_desc"></span>
+                  </div>
+              </div>
+<!--// end photo2 description input //-->
+<hr>
+
+
+
+          </div></div>
+
+<!--// end: PHOTO TAB  //-->
+
+<!--// start: VIDEO TAB  //-->
+        <div class="tab-pane" id="tab3">
+          
+            
+            <div class="row-fluid">
+              <div class="span10">
+              </div>
+              <div class="span2">
+                 <a href="" class= "btn btn-large btn-block btn-primary">Add file</a>
+              </div>
+            </div>
+          <hr><!---//   HORIZONTAL RULE HERE  //-->
+            <div class="row-fluid">
               <form id="video">
+              <div class="crop">
+                <img src="images/story/DSC_1140.jpg"/>
+              </div>
+
                 <div class="span9">
                   <div class="span6">
                     <label for="person">Name</label>
@@ -296,11 +308,9 @@
                   </div>
                 </div>
                 
-                <div class="row-fluid">
-                  <div class="span9">  
-                    <label for="description">What&#39;s the story?</label>
-                    <textarea class="span9" name="desc" id="desc"></textarea>
-                  </div>
+                <div class="span9">  
+                  <label for="description">What&#39;s the story?</label>
+                  <textarea class="span9" name="desc" id="desc"></textarea>
                 </div>
                 <!--/submit button-->
                 <div class="row-fluid">
@@ -310,21 +320,23 @@
                 </div>
                   <!--/showing photo description inputs-->
               </form>
+
               <div id="saved_video">
                 <div class="row-fluid">
-                  <div class="span6"><span class="input_name">name goes here</span></div>
-                  <div class="span3"><span class="input_date">date goes here</span></div>
+                  <div class="span6"><span class="input_name"></span></div>
+                  <div class="span3"><span class="input_date"></span></div>
                 </div>
                 <div class="row-fluid">
-                  <div class="span9"><span class="input_desc">description goes here</span></div>
+                  <div class="span9"><span class="input_desc"></span></div>
                 </div>
               </div>
 
               <hr>
-            </div><!--/end Video tab-->
+            </div><!--/  end: row-fluid -->
+<!--// end: VIDEO TAB  //-->
             
             </div>
-        </div><!--/end tab3-->
+        
         </div><!--/end tab-content-->
         </div><!--/end tabbale-->
 
