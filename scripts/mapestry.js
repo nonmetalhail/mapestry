@@ -1,7 +1,8 @@
 var jsonFile = "example.json";
+var jsonPhotoFile = "examplePhoto.json";
 //Cloudemade info for leaflet map
 var CM_API_KEY = 'cc3cabfbed9842c29f808df2cc6c3f64';
-var CM_STYLE = '44094';
+var CM_STYLE = '998'; //44094
 //leaflet icons
 var default_color = L.icon({
   iconUrl: 'images/leaflet/marker-icon_grey.png',
@@ -19,11 +20,16 @@ var story_color = L.icon({
 var map;
 var layerG = new L.layerGroup();
 var markers = {};
+var slider, scontrol;
 var galleryOpen = false;
 var mapHeight,smMapH;
+var photoList = {};
+var playing = 'all';
+var advPhoto = false;
 
 $(document).ready(function(){
-  $.when(loadData())
+  createMainGallery();
+  $.when(loadPhotos(),loadAudio())
   .pipe(function(){
     mapHeight = (window.innerHeight - $('.navbar').outerHeight())*.97;
 
@@ -40,38 +46,66 @@ $(document).ready(function(){
       attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
       maxZoom: 18
     }).addTo(map);
-    galleryView();
-    smMapH = mapHeight - $('.gallery_big').outerHeight() - 11;
+    smMapH = mapHeight - $('#gallery').outerHeight() - 11;
   })
   .done(function(){
     $('#photo_button').on("click",function(){
       if(!galleryOpen){
         $('#map').animate({'height':''+smMapH+'px'},"slow");
-        $('.gallery_big').slideDown("slow");
+        $('#gallery').slideDown("slow");
+        filterGallery(playing);
         map.panBy([0,(mapHeight-smMapH)/2],0.9);
+        $('#photoControls').slideDown("slow");
         galleryOpen = true;
       }
     });
 
     $('#map_button').on("click",function(){
       if(galleryOpen){
-        $('.gallery_big').slideUp("slow");
+        $('#gallery').slideUp("slow");
         $('#map').animate({'height':mapHeight},"slow");
         map.panBy([0,(-mapHeight+smMapH)/2],0.9);
+        $('#photoControls').slideUp("slow");
         galleryOpen = false;
       }
     });
+
+    //listeners for photo switches
+    $('#radioONS').parent('.radio').addClass('disabled');
+    $('#radioOFFS').parent('.radio').addClass('disabled');
+    $('#radioAll').on('change', function(){
+      console.log('All change');
+      filterGallery('all');
+      $('#radioOFFS').trigger('click');
+      $('#radioONS').parent('.radio').addClass('disabled');
+      $('#radioOFFS').parent('.radio').addClass('disabled');
+    });
+    $('#radioStory').on('change',function(){
+      console.log('Story change');
+      filterGallery(playing);
+      $('#radioONS').parent('.radio').removeClass('disabled');
+      $('#radioOFFS').parent('.radio').removeClass('disabled');
+    });
+    $('#radioONS').on('change', function(){
+      advPhoto = true;
+    });
+    $('#radioOFFS').on('change', function(){
+      advPhoto = false;
+    });
     
+    //pause other audio when one is clicked
+    // $('audio').on("click",function(){
+    //   pauseOther();
+    // });
+
     //turn off the base flat-ui listener
     $(".todo li").off();
 
-    smallGallery();
     for(var s in markers){
       var audioStory = new AudioStory(s,markers[s]);
       audioStory.getTimeStamps();
       audioStory.audioEvents();
     }
-
     //listener to expand story view
     $(".teaser").on("click",function(){
       $(this).children(".open-icon").addClass(function(index,currentClass){
@@ -132,11 +166,12 @@ $(document).ready(function(){
         }
       }
     });
+    createSmallGalleries();
     $(".teaser:first").trigger("click");
   });
 });
 
-function loadData(){
+function loadAudio(){
   var d = $.Deferred();
   $.getJSON(jsonFile,function(stories){
     insertStory(stories);
@@ -145,11 +180,21 @@ function loadData(){
   }).fail(d.reject);
   return d.promise();
 }
+function loadPhotos(){
+  var d = $.Deferred();
+  $.getJSON(jsonPhotoFile,function(photos){
+    processPhotos(photos);
+  }).done(function(p){
+    d.resolve(p);
+  }).fail(d.reject);
+  return d.promise();
+ }
 
 function AudioStory(tag,markers){
   this.tag = tag;
   this.elem = document.getElementById(tag);
   this.point = -1;
+  this.photoPoint = -1;
   this.timestamps = [];
   this.markers = markers;
 }
@@ -176,6 +221,16 @@ AudioStory.prototype.audioEvents = function(){
   
   //listener for when starts playing
   as.elem.addEventListener("play", function(e){
+    //update gallery if open
+    if(playing != as.tag){
+      playing = as.tag;
+      //no fucking clue...
+      $('#radioStory').trigger('click');
+      $('#radioStory').trigger('click');
+      $('#radioONS').trigger('click');
+      $('#radioONS').trigger('click');
+    }
+
     //change set to story_color
     for(var i in as.markers.markers){
       as.markers.markers[i].setIcon(story_color);
@@ -239,6 +294,23 @@ AudioStory.prototype.audioEvents = function(){
         //update point in story
         as.point = time;
       }
+      if(galleryOpen){
+        if(advPhoto){
+          var pTime = 0;
+          for(var i in photoList[as.tag].times){
+            if(e.target.currentTime > photoList[as.tag].times[i]){
+              pTime = i;
+            }
+            if(e.target.currentTime < photoList[as.tag].times[i]){
+              break;
+            }
+          }
+          if(pTime != as.photoPoint){
+            $('.p_'+as.tag+'_'+photoList[as.tag].times[pTime]).trigger('click');
+            as.photoPoint = pTime;
+          }
+        }
+      }
     });
     
     //change the final todo when ends
@@ -250,10 +322,10 @@ AudioStory.prototype.audioEvents = function(){
   });
 }
 
-function PhotoMarkers(){
+function MapMarkers(){
   /*
     story = {
-      storyName: new PhotoMarkers();
+      storyName: new MapMarkers();
 
       {
         lg:L.layerGroup([markers]),
@@ -292,10 +364,73 @@ function pauseOther(){
   });
 }
 
+function processPhotos(p){
+  var times = {};
+  function _createStoryTimes(d){
+    var storyTimes = [];
+    for(var story in d){
+      if(!times[story]){
+        times[story] = [];
+      }
+      for(var i in d[story]){
+        storyTimes.push('p_'+story+'_'+d[story][i])
+        times[story].push(d[story][i]);
+      }
+    }
+    return storyTimes.join(' ');
+  }
+  //populate all photots obj
+  photoList['all'] = new PhotoObj();
+  for(var photo in p){
+    var st = _createStoryTimes(p[photo].s);
+    var main = '<li class = "'+st+'">'+
+      '<img title = "'+p[photo].t+'" src="images/story/'+photo+'" />'+
+      '</li>';
+    var control = '<li class = "control_li '+st+'">'+
+      '<div class = "thumb">'+
+        '<img class = "thumbs" title = "'+p[photo].t+'" src="images/story/'+photo+'" />'+
+      '</div></li>';
+    for(var story in p[photo].s){
+      if(!photoList[story]){
+        photoList[story] = new PhotoObj();
+      }
+      photoList[story].photos.push({
+        'p':main,
+        'c':control
+      });
+      photoList[story].times = times[story];
+    }
+    photoList['all'].photos.push({
+        'p':main,
+        'c':control
+      });
+      photoList['all'].times = [];
+  }
+}
+
+function PhotoObj(){
+  // {
+  //   "mom1":{
+  //     "times":[0,1,2,5,7,9],
+  //     "photos":[
+  //       {
+  //         "p":"li",
+  //         "c":"li"
+  //       },
+  //       {
+  //         "p":"li",
+  //         "c":"li"
+  //       },
+  //     ]
+  //   }
+  // }
+  this.times = [];
+  this.photos = [];
+}
+
 function insertStory(d){
   var markerIndex = {};
   var tagList = {};
-  var photoList = {};
 
   function _buildPopUp(d){
     var popup = $('<div><hr></div>');
@@ -319,7 +454,7 @@ function insertStory(d){
     return popup;
   }
   function _buildMarker(){
-    // markers['mom1'] = new PhotoMarkers();
+    // markers['mom1'] = new MapMarkers();
     // markers['mom1'].markers.push(L.marker([34.06418,-118.1197],{icon: default_color}).bindPopup(test));
     // markers['mom1'].markers.push(L.marker([34.0621,-118.1156],{icon: default_color}).bindPopup("<b>Hello world!</b><br>I am a popup."));
     // markers['mom1'].markers.push(L.marker([34.0617,-118.1194],{icon: default_color}).bindPopup("<b>Hello world!</b><br>I am a popup."));
@@ -328,7 +463,6 @@ function insertStory(d){
     for(var ll in markerIndex){
       var m = L.marker(markerIndex[ll]['latlong'],{icon: default_color})
         .bindPopup(_buildPopUp(markerIndex[ll]['popup'])[0]);
-      console.log(markerIndex[ll]['popup']);
       for(var s in markerIndex[ll]['popup']){
         for(var i in markerIndex[ll]['popup'][s]){
           markers[s].markers[''+s+'_'+markerIndex[ll]['popup'][s][i].c] = m;
@@ -365,7 +499,6 @@ function insertStory(d){
     for(var tag in tagList){
       tags.push(tag);
     }
-    console.log(tags);
     $('#tags').attr('value',tags.join(','));
     $(".tagsinput").tagsInput({'interactive':false});
     $(".tag").on('click',function(){
@@ -379,11 +512,6 @@ function insertStory(d){
         }
       });
     });
-  }
-  function _addPhotos(d){
-    if(!photoList[d.image]){
-      photoList[d.image] = {'t':d.t,'d':d.d};
-    }
   }
   function _buildSegment(d,s){
     var segment = [];
@@ -399,14 +527,6 @@ function insertStory(d){
       _buildMarkerIndex(d[i],s,i);
     }
   return segment.join('');
-  }
-  function _buildGallery(d){
-    var photo = [];
-    for(var i in d){
-      photo.push('<li><img data-frame="images/story/'+d[i].image+'" src="images/story/'+d[i].image+'" title="'+d[i].t+'" data-description="'+d[i].d+'" />'); 
-      _addPhotos(d[i]);
-    }
-    return photo.join('');
   }
   function _buildStory(d){
     var story = [];
@@ -434,104 +554,111 @@ function insertStory(d){
           '</p>'+
           '<hr>'+
           '<ul id="'+d[i].story+'_Gallery" class = "smallGallery">'+
-            _buildGallery(d[i].photos)+
           '</ul>'+
         '</div> <!--collapse -->'+
       '</div>  <!--segment -->'
       );
       _getTags(d[i].sTags);
-      markers[d[i].story] = new PhotoMarkers();
+      markers[d[i].story] = new MapMarkers();
       // markers[d[i].story].photos = d[i].photos;
       markers[d[i].story].lg = L.layerGroup();
     }
     return story.join('');
   }
-  function _buildMainGallery(){
-    var photo = [];
-    for(var i in photoList){
-      photo.push('<li><img data-frame="images/story/'+i+'" src="images/story/'+i+'" title="'+photoList[i].t+'" data-description="'+photoList[i].d+'" />'); 
-    }
-    $('#myGallery').append(photo.join(''));
-  }
   
   $('#storybar').append(_buildStory(d));
   _buildMarker();
   _addTags();
-  _buildMainGallery();
 }
 
-function galleryView(){
-  var w = $('.span9').width() - 59;
-  $('#myGallery').galleryView({
-    transition_speed: 500,       //INT - duration of panel/frame transition (in milliseconds)
-    transition_interval: 4000,    //INT - delay between panel/frame transitions (in milliseconds)
-    easing: 'swing',              //STRING - easing method to use for animations (jQuery provides 'swing' or 'linear', more available with jQuery UI or Easing plugin)
-    show_panels: true,            //BOOLEAN - flag to show or hide panel portion of gallery
-    show_panel_nav: false,        //BOOLEAN - flag to show or hide panel navigation buttons
-    enable_overlays: true,        //BOOLEAN - flag to show or hide panel overlays
-    panel_width: w,             //INT - width of gallery panel (in pixels)
-    panel_height: 500,            //INT - height of gallery panel (in pixels)
-    panel_animation: 'slide',     //STRING - animation method for panel transitions (crossfade,fade,slide,none)
-    panel_scale: 'fit',          //STRING - cropping option for panel images (crop = scale image and fit to aspect ratio determined by panel_width and panel_height, fit = scale image and preserve original aspect ratio)
-    overlay_position: 'bottom',   //STRING - position of panel overlay (bottom, top)
-    pan_images: true,             //BOOLEAN - flag to allow user to grab/drag oversized images within gallery
-    pan_style: 'drag',            //STRING - panning method (drag = user clicks and drags image to pan, track = image automatically pans based on mouse position
-    pan_smoothness: 15,           //INT - determines smoothness of tracking pan animation (higher number = smoother)
-    start_frame: 1,               //INT - index of panel/frame to show first when gallery loads
-    show_filmstrip: true,         //BOOLEAN - flag to show or hide filmstrip portion of gallery
-    show_filmstrip_nav: true,     //BOOLEAN - flag indicating whether to display navigation buttons
-    enable_slideshow: false,      //BOOLEAN - flag indicating whether to display slideshow play/pause button
-    autoplay: false,              //BOOLEAN - flag to start slideshow on gallery load
-    show_captions: true,          //BOOLEAN - flag to show or hide frame captions 
-    filmstrip_size: 3,            //INT - number of frames to show in filmstrip-only gallery
-    filmstrip_style: 'scroll',    //STRING - type of filmstrip to use (scroll = display one line of frames, scroll filmstrip if necessary, showall = display multiple rows of frames if necessary)
-    filmstrip_position: 'bottom', //STRING - position of filmstrip within gallery (bottom, top, left, right)
-    frame_width: 164,             //INT - width of filmstrip frames (in pixels)
-    frame_height: 80,             //INT - width of filmstrip frames (in pixels)
-    frame_opacity: 0.5,           //FLOAT - transparency of non-active frames (1.0 = opaque, 0.0 = transparent)
-    frame_scale: 'crop',          //STRING - cropping option for filmstrip images (same as above)
-    frame_gap: 5,                 //INT - spacing between frames within filmstrip (in pixels)
-    show_infobar: true,           //BOOLEAN - flag to show or hide infobar
-    infobar_opacity: 1            //FLOAT - transparency for info bar
-  });
-
-  $('.gv_galleryWrap').addClass('gallery_big').addClass('hero-unit').hide();
+function buildGalleryList(s,type){
+  var photo = [];
+  for(var i in photoList[s].photos){
+    photo.push(photoList[s].photos[i][type]);
+  }
+  return photo.join('');
 }
 
-function smallGallery(){
+function createSmallGalleries(){
   var w = $('.sidebar-nav-fixed').width() - 10;
-  $('.smallGallery').galleryView({
-    transition_speed: 500,       //INT - duration of panel/frame transition (in milliseconds)
-    transition_interval: 4000,    //INT - delay between panel/frame transitions (in milliseconds)
-    easing: 'swing',              //STRING - easing method to use for animations (jQuery provides 'swing' or 'linear', more available with jQuery UI or Easing plugin)
-    show_panels: false,            //BOOLEAN - flag to show or hide panel portion of gallery
-    show_panel_nav: false,        //BOOLEAN - flag to show or hide panel navigation buttons
-    enable_overlays: false,        //BOOLEAN - flag to show or hide panel overlays
-    panel_width: w,             //INT - width of gallery panel (in pixels)
-    panel_height: 1,            //INT - height of gallery panel (in pixels)
-    panel_animation: 'slide',     //STRING - animation method for panel transitions (crossfade,fade,slide,none)
-    panel_scale: 'crop',          //STRING - cropping option for panel images (crop = scale image and fit to aspect ratio determined by panel_width and panel_height, fit = scale image and preserve original aspect ratio)
-    overlay_position: 'bottom',   //STRING - position of panel overlay (bottom, top)
-    pan_images: false,             //BOOLEAN - flag to allow user to grab/drag oversized images within gallery
-    pan_style: 'drag',            //STRING - panning method (drag = user clicks and drags image to pan, track = image automatically pans based on mouse position
-    pan_smoothness: 15,           //INT - determines smoothness of tracking pan animation (higher number = smoother)
-    start_frame: 1,               //INT - index of panel/frame to show first when gallery loads
-    show_filmstrip: true,         //BOOLEAN - flag to show or hide filmstrip portion of gallery
-    show_filmstrip_nav: true,     //BOOLEAN - flag indicating whether to display navigation buttons
-    enable_slideshow: false,      //BOOLEAN - flag indicating whether to display slideshow play/pause button
-    autoplay: false,              //BOOLEAN - flag to start slideshow on gallery load
-    show_captions: false,          //BOOLEAN - flag to show or hide frame captions 
-    filmstrip_size: 3,            //INT - number of frames to show in filmstrip-only gallery
-    filmstrip_style: 'scroll',    //STRING - type of filmstrip to use (scroll = display one line of frames, scroll filmstrip if necessary, showall = display multiple rows of frames if necessary)
-    filmstrip_position: 'bottom', //STRING - position of filmstrip within gallery (bottom, top, left, right)
-    frame_width: 80,             //INT - width of filmstrip frames (in pixels)
-    frame_height: 80,             //INT - width of filmstrip frames (in pixels)
-    frame_opacity: 1,           //FLOAT - transparency of non-active frames (1.0 = opaque, 0.0 = transparent)
-    frame_scale: 'fit',          //STRING - cropping option for filmstrip images (same as above)
-    frame_gap: 3,                 //INT - spacing between frames within filmstrip (in pixels)
-    show_infobar: false,           //BOOLEAN - flag to show or hide infobar
-    infobar_opacity: 1            //FLOAT - transparency for info bar
+  $('.smallGallery').each(function(){
+    var story = $(this).attr('id').split('_')[0];
+    $(this).append(buildGalleryList(story,'p'));
+
+    var g = $(this).bxSlider({
+      slideWidth: w,
+    });  
+    $(this).parents('.bx-wrapper').addClass('gallery_small');
+  })
+}
+
+function createMainGallery(){
+  var w = $('.span9').width() - 51;
+
+  $('#control_window').css('width',w);
+  slider = $('#mainGallery').bxSlider({
+    slideWidth: w,
+    infiniteLoop: false,
+    hideControlOnEnd:true,
+    pager:false,
+    onSlideNext:function(slideElement, oldIndex, newIndex){
+      var ca = $('.control_li.active');
+      ca.removeClass('active');
+      scontrol.goToSlide(newIndex);
+      ca.next().addClass('active');
+    },
+    onSlidePrev:function(slideElement, oldIndex, newIndex){
+      var ca = $('.control_li.active');
+      ca.removeClass('active');
+      scontrol.goToSlide(newIndex);
+      ca.prev().addClass('active');
+    }
   });
-  
-  $('.gv_galleryWrap:not(.gallery_big)').addClass("gallery_small");
+  $('#mainGallery').parents('.bx-wrapper').addClass('gallery_big');
+
+  scontrol = $('#sliderGallery').bxSlider({
+    slideWidth: 150,
+    infiniteLoop: false,
+    hideControlOnEnd:true,
+    controls:false,
+    // captions:true,
+    pager:false,
+    moveSlides: 1,
+    slideMargin: 1
+  });  
+  $('#sliderGallery').parents('.bx-wrapper').addClass('gallery_control');
+  $('.control_li:first').addClass('active');
+
+  $('#sliderGallery').on('click','.control_li',function(){
+    var self = this;
+    $('.control_li.active').removeClass('active');
+    $('.control_li').each(function(i){
+      if(this == self){
+        scontrol.goToSlide(i);
+        slider.goToSlide(i);
+        $(self).addClass('active');
+        return;
+      }
+    });
+  });
+  $('#gallery').hide();
+  $('#photoControls').hide();
+}
+
+function filterGallery(story){
+  slider.fadeOut("slow",function(){
+    $('#mainGallery').html(buildGalleryList(story,'p'));
+    slider.reloadSlider();
+    slider.hide();
+    $('#mainGallery').parents('.bx-wrapper').addClass('gallery_big');
+    slider.fadeIn("slow");            
+  });
+  scontrol.fadeOut("slow",function(){
+    $('#sliderGallery').html(buildGalleryList(story,'c'));
+    scontrol.reloadSlider();
+    scontrol.hide();
+    $('#sliderGallery').parents('.bx-wrapper').addClass('gallery_control');
+    $('.control_li:first').addClass('active');
+    scontrol.fadeIn("slow");
+  });
 }

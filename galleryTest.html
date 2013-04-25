@@ -58,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body id ="player">
     
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -98,7 +98,7 @@
 
         <div class="span9">
           <div id="gallery">
-            <ul class="bxslider">
+            <ul id= "mainGallery">
               <li class = "0"><img title = "Photo1" src="images/story/DSC_1140.jpg" /></li>
               <li class = "0"><img title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></li>
               <li class = "2"><img title = "Photo3" src="images/story/DSC_1169.jpg" /></li>
@@ -116,25 +116,26 @@
               <li class = "2"><img title = "Photo3" src="images/story/DSC_1169.jpg" /></li>
               <li class = "2"><img title = "Photo4" src="images/story/DSC_1254.jpg" /></li>
             </ul>
-
-            <ul class="sliderControl">
-              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
-              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
-              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
-              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
-              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
-              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
-              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
-              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
-              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
-              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
-              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
-              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
-              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
-              <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
-              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
-              <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
-            </ul>
+            <div id = "control_window">
+              <ul id="sliderGallery">
+                <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
+                <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
+                <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
+                <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
+                <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
+                <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
+                <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
+                <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
+                <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
+                <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
+                <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
+                <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
+                <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo1" src="images/story/DSC_1140.jpg" /></div></li>
+                <li class = "0 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo2 very very very long title" src="images/story/DSC_1167.jpg" /></div></li>
+                <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo3" src="images/story/DSC_1169.jpg" /></div></li>
+                <li class = "2 control_li"><div class = "thumb"> <img class = "thumbs" title = "Photo4" src="images/story/DSC_1254.jpg" /></div></li>
+              </ul>
+            </div>
           </div>
         </div><!--/span-->
 
