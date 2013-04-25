@@ -99,14 +99,18 @@
   background-color: rgba(0,0,0,0) !important;
 }
 
-#mainGallery img{
+#mainGallery img, #mainGallery iframe{
   height: 480px;
 }
 
-.smallGallery img{
+#mainGallery iframe{
+  width:100%;
+}
+
+.smallGallery img, .smallGallery iframe{
   height: 100px;
 }
-.smallGallery,.smallGallery li, .smallGallery li img{
+.smallGallery,.smallGallery li, .smallGallery li img, .smallGallery iframe{
   margin:auto !important;
 }
 

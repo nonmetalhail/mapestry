@@ -600,6 +600,7 @@ function createSmallGalleries(){
 
     var g = $(this).bxSlider({
       slideWidth: w,
+       video: true
     });  
     $(this).parents('.bx-wrapper').addClass('gallery_small');
   })
@@ -614,6 +615,7 @@ function createMainGallery(){
     infiniteLoop: false,
     hideControlOnEnd:true,
     pager:false,
+    video: true,
     onSlideNext:function(slideElement, oldIndex, newIndex){
       var ca = $('.control_li.active');
       ca.removeClass('active');
@@ -634,6 +636,7 @@ function createMainGallery(){
     infiniteLoop: false,
     hideControlOnEnd:true,
     controls:false,
+    video: true,
     // captions:true,
     pager:false,
     moveSlides: 1,
