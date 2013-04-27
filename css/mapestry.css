@@ -314,19 +314,15 @@ h2.no_margin {
   margin: 0px;
 }
 
-/*fake cropping for images in photo tab*/
-.crop{
-  float:left;
-  margin:.5em 10px .5em 0;
-  overflow:hidden; /* this is important */
-  position:relative; /* this is important too */
+.crop_image{
+  height:200px;
+  width:200px;
   border:1px solid #ccc;
-  width:170px;
-  height:140px;
-  }
-.crop img{
-  position:absolute;
-  }
+  background-image: url("");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
 
 /*administrative body overrides body css */
 .admin_menu{
@@ -341,9 +337,30 @@ h2.no_margin {
 .tabs{
   text-align: center;
 }
+.saved_photo{
+  position: relative;
+}
 
+.photo_data{
+  overflow:hidden;
+  height:100%;
+}
 
+.content {
+  height:100%;
+  /*width:100%;*/
+  position: absolute;
+}
 
+.form_slide{
+  margin-left: 0 !important;
+}
+
+.button_bottom{
+  position:absolute; 
+  bottom:0;
+  /*right:0;*/
+}
 
 @media (max-width: 767px) {
   .sidebar-nav-fixed{

@@ -32,6 +32,7 @@ $(document).ready(function(){
     hideControlOnEnd:true,
     captions:true,
     pager:false,
+    video:true,
     moveSlides: 1,
     slideMargin: 1
   });  

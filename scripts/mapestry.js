@@ -36,7 +36,7 @@ $(document).ready(function(){
     $('#map').css('height',mapHeight);
     $('.sidebar-nav-fixed').css('height',mapHeight - 32);
     var stamenAtr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>';
-    var stamen = new L.StamenTileLayer("toner",{  //terrain
+    var stamen = new L.StamenTileLayer("terrain",{  //toner
       maxZoom: 16, 
       attribution: stamenAtr
     });
