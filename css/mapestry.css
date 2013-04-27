@@ -316,12 +316,25 @@ h2.no_margin {
 
 .crop_image{
   height:200px;
-  width:200px;
+  /*width:200px;*/
   border:1px solid #ccc;
   background-image: url("");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+
+  -webkit-transition: 0.3s ease-out;
+  -moz-transition: 0.3s ease-out;
+  -o-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
+a.thumbnail:hover,
+a.thumbnail:focus {
+  border-color: #1ABC9C;
+  -webkit-box-shadow: 0 1px 4px rgba(22, 160, 133, 0.25);
+  -moz-box-shadow: 0 1px 4px rgba(22, 160, 133, 0.25);
+  box-shadow: 0 1px 4px rgba(22, 160, 133, 0.25);
 }
 
 /*administrative body overrides body css */
@@ -337,6 +350,11 @@ h2.no_margin {
 .tabs{
   text-align: center;
 }
+.saved_audio{
+  position: relative;
+  /*height:67px;*/
+}
+
 .saved_photo{
   position: relative;
 }
@@ -350,6 +368,10 @@ h2.no_margin {
   height:100%;
   /*width:100%;*/
   position: absolute;
+}
+
+.saved_audio{
+  min-height: 67px;
 }
 
 .form_slide{
