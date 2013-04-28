@@ -1,3 +1,4 @@
+var projectCount = 2;
 $(document).ready(function(){
   $('.default_hidden').hide();
   
@@ -9,9 +10,10 @@ $(document).ready(function(){
   $('.thumbnail').imageZoom();
 
   $('#addProject').on('click',function(){
-    //add form for title and counter for id
+    //add form for title
+    projectCount++;
     var el = '' + 
-    '<div class="well folders" id = "p3">'+
+    '<div class="well folders" id = "pj'+projectCount+'">'+
       '<div class="row-fluid">'+
         '<div class="span11">'+
           '<h5>'+
@@ -135,9 +137,9 @@ function assetListeners(assets){
       helper: function(e){
         if(this.getAttribute('type') == 'audio'){
           var helperDiv = [];
-          helperDiv.push('<div class="helper"><h2>');
+          helperDiv.push('<div class="helper"><h5>');
           helperDiv.push($(this).find('.asset_name').text());
-          helperDiv.push('</h2><i class="icon-volume-up icon-large"></i></div>');
+          helperDiv.push('</h5><i class="icon-volume-up icon-large"></i></div>');
           return $(helperDiv.join(''));
         }
         else{

@@ -407,16 +407,25 @@ a.thumbnail:focus {
 }
 
 .helper{
-  width:200px;
-  height:200px;
+  width:100px;
+  height:100px;
   background-color: rgba(189,195,199,.8);
-  padding: 25px;
+  padding: 15px 25px 35px 25px;
   text-align: center;
   border-radius: 15px;
 }
 
 .helper i{
+  font-size: 50px;
+}
+
+.audio_icon i{
   font-size: 100px;
+}
+
+.audio_icon{
+  height:200px;
+  text-align: center;
 }
 
 .helper_photo{
