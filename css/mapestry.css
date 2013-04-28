@@ -300,9 +300,37 @@ a.popup{
 
 /* administrative*/
 .folders {
-  height: 100px;
-  overflow-y:scroll;
+  /*height: 100px;*/
+  /*overflow-y:scroll;*/
   margin-top: 10px;
+}
+
+.activeDrop{
+  border: 1px solid #1ABC9C;
+  -webkit-transition: 0.3s ease-out;
+  -moz-transition: 0.3s ease-out;
+  -o-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+.hoverDrop{
+  background-color: #1ABC9C;
+  color:white;
+  -webkit-transition: 0.3s ease-out;
+  -moz-transition: 0.3s ease-out;
+  -o-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+.hoverDrop a{
+  color: white;
+}
+
+.media{
+  margin:0 5px;
+}
+.components{
+  /*visibility: none;*/
+  margin-top:5px;
+  padding-left:10px;
 }
 
 #admin-tabs {
@@ -337,41 +365,35 @@ a.thumbnail:focus {
   box-shadow: 0 1px 4px rgba(22, 160, 133, 0.25);
 }
 
-/*administrative body overrides body css */
-.admin_menu{
-  overflow: visible;
+
+/*admin*/
+
+.projects_sidebar{
+  position: static;
 }
 
-.projects{
-  overflow: hidden;
-  position: static;
+.admin-open-icon {
+  font-size: 18px;
+  color: #16A085;
+  padding:8px 5px;
 }
 
 .tabs{
   text-align: center;
 }
-.saved_audio{
-  position: relative;
-  /*height:67px;*/
-}
 
-.saved_photo{
+.asset{
   position: relative;
-}
-
-.photo_data{
   overflow:hidden;
+}
+
+.asset_data{
   height:100%;
 }
 
 .content {
   height:100%;
-  /*width:100%;*/
   position: absolute;
-}
-
-.saved_audio{
-  min-height: 67px;
 }
 
 .form_slide{
@@ -382,6 +404,26 @@ a.thumbnail:focus {
   position:absolute; 
   bottom:0;
   /*right:0;*/
+}
+
+.helper{
+  width:200px;
+  height:200px;
+  background-color: rgba(189,195,199,.8);
+  padding: 25px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.helper i{
+  font-size: 100px;
+}
+
+.helper_photo{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  opacity: .8;
 }
 
 @media (max-width: 767px) {
