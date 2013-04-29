@@ -435,6 +435,67 @@ a.thumbnail:focus {
   opacity: .8;
 }
 
+/*audio bar*/
+#audioBar{
+  margin: 50px 100px;
+}
+rect {
+  fill: none;
+  pointer-events: all;
+}
+
+.smallTextStroke {
+  font-family: sans-serif;
+  font-size: 12px;
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
+}
+.smallText {
+  font-family: sans-serif;
+  font-size: 12px;
+  fill: white;
+}
+
+.bigTextStroke {
+  font-family: sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  fill: none;
+  stroke: black;
+  stroke-width: 4px;
+}
+.bigText {
+  font-family: sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  fill: white;
+}
+
+.cell {
+  fill:#95A5A6;
+}
+
+.wall {
+  fill: #34495E;
+  stroke: #2C3E50;
+}
+
+.cell.air {
+  fill: #ddd;
+  stroke: #999;
+}
+
+.cell.hovered {
+  fill: #2ECC71;
+  opacity: .7;
+}
+
+.cell.highlighted {
+  fill: #1ABC9C;
+}
+
+
 @media (max-width: 767px) {
   .sidebar-nav-fixed{
     position:static;
