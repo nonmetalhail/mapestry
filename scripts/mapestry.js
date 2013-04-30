@@ -35,23 +35,23 @@ $(document).ready(function(){
 
     $('#map').css('height',mapHeight);
     $('.sidebar-nav-fixed').css('height',mapHeight - 32);
-    var stamenAtr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>';
-    var stamen = new L.StamenTileLayer("terrain",{  //toner
-      maxZoom: 16, 
-      attribution: stamenAtr
-    });
+    // var stamenAtr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>';
+    // var stamen = new L.StamenTileLayer("terrain",{  //toner
+    //   maxZoom: 16, 
+    //   attribution: stamenAtr
+    // });
     map = L.map('map',{
       center: new L.LatLng(34.0621, -118.1193),
       zoom: 15,
       maxZoom:16,
       layers: layerG
     });
-    map.addLayer(stamen);
-    map.attributionControl.addAttribution(stamenAtr);
-    // L.tileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {
-    //   attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
-    //   maxZoom: 18
-    // }).addTo(map);
+    // map.addLayer(stamen);
+    // map.attributionControl.addAttribution(stamenAtr);
+    L.tileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
+      maxZoom: 18
+    }).addTo(map);
     smMapH = mapHeight - $('#gallery').outerHeight() - 11;
   })
   .done(function(){

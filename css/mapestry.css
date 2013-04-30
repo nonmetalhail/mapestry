@@ -4,12 +4,27 @@
   overflow: hidden;
 }
 
+.navbar-inverse .navbar-inner{
+  background-image: -moz-linear-gradient(left, #57b0a5 0%, #ffdd00 25%, #ff9600 50%, #ed135a 75%);
+  background-image: -webkit-linear-gradient(left, #57b0a5 25%, #ffdd00 50%, #ff9600 75%, #ed135a 95%);
+  background-image: -o-linear-gradient(left, #57b0a5 0%, #ffdd00 25%, #ff9600 50%, #ed135a 75%);
+  background-image: linear-gradient(left, #57b0a5 25%, #ffdd00 50%, #ff9600 75%, #ed135a 95%);
+}
+
+/*.nav .active{
+  color:#1ABC9C !important;
+}*/
+
 #player .hero-unit{
-  border: 3px solid #333;
+  border: 5px solid #ECF0F1;
 }
 
 .ilb{
   display:inline-block;
+}
+
+.well.sidebar-nav-fixed{
+  border:none;
 }
 
 .sidebar-nav {
@@ -298,7 +313,15 @@ a.popup{
   font-size: 24px;
 }
 
+
+
 /* administrative*/
+.admin_menu{
+  padding-top: 50px;
+}
+.tab-pane .radio{
+  margin-top:15px;
+}
 .folders {
   /*height: 100px;*/
   /*overflow-y:scroll;*/
@@ -365,9 +388,6 @@ a.thumbnail:focus {
   box-shadow: 0 1px 4px rgba(22, 160, 133, 0.25);
 }
 
-
-/*admin*/
-
 .projects_sidebar{
   position: static;
 }
@@ -420,11 +440,11 @@ a.thumbnail:focus {
 }
 
 .audio_icon i{
-  font-size: 100px;
+  font-size: 50px;
 }
 
 .audio_icon{
-  height:200px;
+  height:50px;
   text-align: center;
 }
 
@@ -433,6 +453,10 @@ a.thumbnail:focus {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   opacity: .8;
+}
+
+.placeholder{
+  font-style: italic;
 }
 
 /*audio bar*/
