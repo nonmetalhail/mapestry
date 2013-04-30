@@ -27,7 +27,7 @@
   border:none;
 }
 
-.sidebar-nav {
+.player_sidebar{
   margin-top: 25px;
   margin-left: -50px;
   padding: 15px 15px;
@@ -35,7 +35,7 @@
 
 .sidebar-nav-fixed {
   position:fixed;
-  height:100px;
+  min-height:100px;
   width:22%;
   overflow-y:scroll;
 }
@@ -388,10 +388,6 @@ a.thumbnail:focus {
   box-shadow: 0 1px 4px rgba(22, 160, 133, 0.25);
 }
 
-.projects_sidebar{
-  position: static;
-}
-
 .admin-open-icon {
   font-size: 18px;
   color: #16A085;
@@ -519,6 +515,20 @@ rect {
   fill: #1ABC9C;
 }
 
+.big{
+  height:500px;
+}
+
+/*Projects*/
+
+.projects_sidebar{
+  margin-top: 25px;
+  overflow-y:scroll;
+}
+
+#storyList{
+  overflow-y:scroll;
+}
 
 @media (max-width: 767px) {
   .sidebar-nav-fixed{
