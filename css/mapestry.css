@@ -1,7 +1,24 @@
+#logo{
+  height:30px;
+  margin-left:5px;
+}
+
+.navbar{
+  font-size: 16px;
+  font-weight: 300;
+}
 #player {
   padding-top: 35px;
   /*padding-bottom: 40px;*/
   overflow: hidden;
+}
+[class*=" icon-"],[class*=" fui-"]{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .navbar-inverse .navbar-inner{
@@ -10,7 +27,6 @@
   background-image: -o-linear-gradient(left, #57b0a5 0%, #ffdd00 25%, #ff9600 50%, #ed135a 75%);
   background-image: linear-gradient(left, #57b0a5 25%, #ffdd00 50%, #ff9600 75%, #ed135a 95%);
 }
-
 /*.nav .active{
   color:#1ABC9C !important;
 }*/
@@ -522,6 +538,7 @@ rect {
 /*Projects*/
 
 .projects_sidebar{
+  height:100%;
   margin-top: 25px;
   overflow-y:scroll;
 }

@@ -72,7 +72,7 @@ $.inlineEdit.defaults = {
     hover: 'ui-state-hover',
     value: '',
     save: '',
-    buttons: '<button class="save btn btn-success"><i class="fui-checkmark-16 icon-large"></i></button> <button class="cancel btn btn-danger"><i class="fui-cross-16 icon-large"></i></button>',
+    buttons: '<div><button class="save btn btn-success"><i class="fui-checkmark-16 icon-large"></i></button> <button class="cancel btn btn-danger"><i class="fui-cross-16 icon-large"></i></button></div>',
     placeholder: 'liste sans titre',
     control: 'input',
     cancelOnBlur: false,
