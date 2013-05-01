@@ -670,7 +670,6 @@ function filterGallery(story){
     slider.reloadSlider();
     slider.hide();
     $('#mainGallery').parents('.bx-wrapper').addClass('gallery_big');
-    console.log("height");
     $('#mainGallery').css('height',''+galleryHeight-120+'px');
     slider.fadeIn("slow");            
   });

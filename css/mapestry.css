@@ -144,9 +144,10 @@
 
 #mainGallery{
   /*height:480px;*/
+  height:100%;
 }
 #mainGallery li{
-  /*height:85%;*/
+  height:100%;
 }
 
 #mainGallery img, #mainGallery iframe{
