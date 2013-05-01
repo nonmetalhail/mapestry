@@ -22,7 +22,7 @@ var layerG = new L.featureGroup();
 var markers = {};
 var slider, scontrol;
 var galleryOpen = false;
-var mapHeight,smMapH;
+var mapHeight,galleryHeight,smMapH;
 var photoList = {};
 var playing = 'all';
 var advPhoto = false;
@@ -31,7 +31,10 @@ $(document).ready(function(){
   createMainGallery();
   $.when(loadPhotos(),loadAudio())
   .pipe(function(){
+    console.log(window.innerHeight);
     mapHeight = (window.innerHeight - $('.navbar').outerHeight())*.97;
+    galleryHeight = mapHeight * 0.6666;
+    $('#gallery').outerHeight(galleryHeight);
 
     $('#map').css('height',mapHeight);
     $('.sidebar-nav-fixed').css('height',mapHeight - 32);
@@ -52,7 +55,7 @@ $(document).ready(function(){
       attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
       maxZoom: 18
     }).addTo(map);
-    smMapH = mapHeight - $('#gallery').outerHeight() - 11;
+    smMapH = mapHeight - galleryHeight - 11;
   })
   .done(function(){
     $('#photo_button').on("click",function(){
@@ -667,6 +670,8 @@ function filterGallery(story){
     slider.reloadSlider();
     slider.hide();
     $('#mainGallery').parents('.bx-wrapper').addClass('gallery_big');
+    console.log("height");
+    $('#mainGallery').css('height',''+galleryHeight-120+'px');
     slider.fadeIn("slow");            
   });
   scontrol.fadeOut("slow",function(){

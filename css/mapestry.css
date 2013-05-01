@@ -1,5 +1,5 @@
 #logo{
-  height:30px;
+  height:35px;
   margin-left:5px;
 }
 
@@ -7,6 +7,16 @@
   font-size: 16px;
   font-weight: 300;
 }
+.navbar .brand{
+  padding-bottom: 0 !important;
+  padding-top: 10px !important;
+}
+.navbar-link{
+  color:#fff !important;
+  text-decoration: none;
+  height:100%;
+}
+
 #player {
   padding-top: 35px;
   /*padding-bottom: 40px;*/
@@ -58,6 +68,7 @@
 
 .hero-unit{
   padding:0;
+  margin:25px;
 }
 
 .gallery_small{
@@ -76,7 +87,8 @@
 
 .gallery_big{
   margin: 25px 0 0px 30px !important;
-  height: 600px;
+  /*min-height: 600px;*/
+  height:100%;
 }
 
 .gallery_control{
@@ -130,8 +142,16 @@
   background-color: rgba(0,0,0,0) !important;
 }
 
+#mainGallery{
+  /*height:480px;*/
+}
+#mainGallery li{
+  /*height:85%;*/
+}
+
 #mainGallery img, #mainGallery iframe{
-  height: 480px;
+  /*height: 480px;*/
+  height:100%;
 }
 
 #mainGallery iframe{
@@ -217,7 +237,7 @@ div.thumb{
 
 #map{ 
   height: 800px; 
-  margin: 25px;
+  /*margin: 25px;*/
 }
 
 .btn-group{
