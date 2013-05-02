@@ -15,6 +15,12 @@ $(document).ready(function(){
   $('.asset_desc').inlineEdit({
     control:'textarea'
   }); 
+  $('.asset_location').inlineEdit(); 
+  $('.asset_address').inlineEdit(); 
+  $('.asset_city').inlineEdit(); 
+  $('.asset_state').inlineEdit(); 
+  $('.asset_zip').inlineEdit(); 
+  $('.asset_country').inlineEdit(); 
   // $('.asset_date').inlineEdit({
   //   control:'date'}); 
 
@@ -28,6 +34,30 @@ $(document).ready(function(){
   $('#videosOnly').on('change',function(){
     $('.asset[type="video"]').show();
     $('.asset[type="photo"]').hide();
+  });
+
+  $('.deletePhoto').on('click',function(){
+    var a = confirm("Are you sure?\n\nYour stories will miss this "+$(this).parents('.asset').attr('type')+"...");
+    if(a==true){
+      $(this).parents('.asset').fadeOut(750,function(){
+        $(this).remove();
+      });
+    }
+  });
+
+  $('.syncRecorder').on('click',function(){
+    $(this).fadeOut(750,function(){
+      var par = $(this).parent();
+      $(this).remove();
+      $('<h3 class="placeholder">Sent!</h3>').appendTo(par).hide().fadeIn();
+    });
+  });
+
+  $('.addFile').on('click',function(){
+    alert("Thanks for trying to add a file! \n\nThis feature has not been implemented in this prototype. Why dont you go ahead an pretend you uploaded a file and call it a day.")
+  });
+  $('.download').on('click',function(){
+    alert("This feature is not implemented in our prototype. \n\nAfter all, the entire point of a download feature is so you have access to YOUR content, not take ours...")
   });
 });
 

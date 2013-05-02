@@ -14,12 +14,12 @@
     <link type = "text/css" rel = "stylesheet" href = "css/bootstrap.css" />
     <link type = "text/css" rel = "stylesheet" href = "css/flat-ui.css" />
 
-    <script type="text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script type="text/javascript" src = "js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type = "text/javascript" src = "scripts/bootstrap.js"></script>
 
     <!-- Flat UI Scripts...so many... -->
-      <script src="js/jquery-ui-1.10.0.custom.min.js"></script>
+      <!--<script src="js/jquery-ui-1.10.0.custom.min.js"></script>-->
       <script src="js/jquery.dropkick-1.0.0.js"></script>
       
       <script src="js/custom_checkbox_and_radio.js"></script>
@@ -58,17 +58,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Mapestry</a>
+          <a class="brand" href="index.html">
+            <img id="logo" src="images/mapestry_logotype_small.png"/>
+          </a>
           <div class="nav-collapse collapse">
-    
-            <p class="navbar-text pull-right">
-              <a href="#" class="navbar-link">Username</a>
-            </p>
-            
             <ul class="nav">
-              <li><a class="active" href="#">Media Library</a></li>
+              <li><a class="active" href="admin.html">Media Library</a></li>
               <li><a href="projects.html">Projects</a></li>
               <li><a href="mapestry.html">Listen</a></li>
+            </ul>
+            <ul class="nav pull-right">
+              <li><a href="#" class="navbar-link">Ryan McAdam <i class="icon-angle-down icon-large"></i></a></li>
             </ul>
           </div>
         </div>
@@ -89,384 +89,560 @@
               <li class="span2">
                 <a href="#tab2" data-toggle="tab" id = "photo_button" class="tabs"><i class="fui-camera-16"></i>&nbsp;Media</a>
               </li>
-            </ul> <!--/ start: AUDIO TAB CONTENT /-->
-          
+              <li class="span2">
+                <a href="#tab3" data-toggle="tab" id = "map_button" class="tabs"><i class="fui-location-16"></i>&nbsp;Locations</a>
+              </li>
+            </ul> 
+
+            <!--/ start: AUDIO TAB CONTENT /-->
             <div class="tab-content">
               <div class="tab-pane active" id="tab1" >
                 <div class="row-fluid">
                   <div class="span10">
                   </div>
                   <div class="span2">
-                     <a href="" class= "btn btn-large btn-block btn-primary">Add file</a>
+                     <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
                   </div>
                 </div>
 
                 <hr><!---//   HORIZONTAL RULE HERE  //-->
 
                 <div class="row-fluid" type="audio" id = "a1">
+                  <div class = "row-fluid raw_audio">
+                    <div class="span1">
+                    </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="icon-volume-up icon-large"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">  
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h3 class="asset_name editable">Interview with Grandma</h3>
+                        </div>
+                        <div class="span5">
+                          <h3 class="asset_date editable">3 March 2013</h3>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12 asset_desc editable">Talked to Grandma for a class project</div>
+                      </div>
+                    </div> <!--// photo data //-->
+                    <div class="span2">
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-large btn-block btn-warning createStory">Create New Story</div>
+                        </div>
+                      </div>
+
+                      <div class="row-fluid">
+                        <div class="span6">
+                          <div class="btn btn-block btn-default editOriginal">Edit Original</div>
+                        </div>
+                        <div class="span6">
+                          <div class="btn btn-block btn-default download">Download</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!-- raw audio -->
+
                   <div class="row-fluid">
                     <div class="span1">
                     </div>
-                    <div class = "span11">
-                      <div class = "row-fluid raw_audio">
-                        <div class="span2">
-                          <div class="audio_icon">
-                            <i class="icon-volume-up icon-large"></i>
-                          </div>
-                        </div>
-                        <div class="span6 asset_data">  
-                          <div class="row-fluid">
-                            <div class="span6 display_text">
-                              <h3 class="asset_name editable">Interview with Grandma</h3>
-                            </div>
-                            <div class="span6">
-                              <h3 class="asset_date editable">3 March 2013</h3>
-                            </div>
-                          </div>
-                          <div class="row-fluid">
-                            <div class="span6 asset_desc editable">Talked to Grandma for a class project</div>
-                          </div>
-                        </div> <!--// photo data //-->
-                        <div class="span2">
-                        </div>
-                        <div class="span2">
-                          <div class="row-fluid">
-                            <a class="btn btn-large btn-block btn-warning createStory">Create New Story</a>
-                          </div>
-                          <div class="row-fluid">
-                            <h5><a class = "edit_story">Edit Original</a></h5>
-                          </div>
-                        </div>
-                      </div> <!-- raw audio -->
-
+                    <div class="span11">
                       <hr>
-                      <div class="row-fluid audio_story">
-                        <div class="span2">
-                        </div>
-                        <div class="span6 asset_data">  
-                          <div class="row-fluid">
-                            <div class="span6 display_text">
-                              <h4 class="asset_name editable">Mom's Childhood</h4>
-                            </div>
-                            <div class="span6">
-                              <h4 class="asset_date editable">28 March 2013</h4>
-                            </div>
-                          </div>
-                          <div class="row-fluid">
-                            <div class="span6 asset_desc editable">Grandma talking about Mom's Childhood</div>
-                          </div>
-                        </div> <!--// photo data //-->
-                        <div class="span2">
-                            Used in projects:
-                            <ul class="asset_projects">
-                              <li class="placeholder">Mom's Childhood</li>
-                              <li class="placeholder">Grandma + Grandpa</li>
-                            </ul>
-                        </div>
-                        <div class="span2">
-                          <h5><a class = "edit_story">Edit Story</a></h5>
-                        </div>
-                      </div> <!-- audio story-->
-
-                      <hr>
-                      <div class="row-fluid audio_story">
-                        <div class="span2">
-                        </div>
-                        <div class="span6 asset_data">  
-                          <div class="row-fluid">
-                            <div class="span6 display_text">
-                              <h4 class="asset_name editable">The Great Depression</h4>
-                            </div>
-                            <div class="span6">
-                              <h4 class="asset_date editable">4 April 2013</h4>
-                            </div>
-                          </div>
-                          <div class="row-fluid">
-                            <div class="span6 asset_desc editable">Stories from her childhood</div>
-                          </div>
-                        </div> <!--// photo data //-->
-                        <div class="span2">
-                            Used in projects:
-                            <ul class="asset_projects">
-                              <li class="placeholder">Grandma + Grandpa</li>
-                            </ul>
-                        </div>
-                        <div class="span2">
-                          <h5><a class = "edit_story">Edit Story</a></h5>
-                        </div>
-                      </div> <!-- audio story-->
-                    </div> <!--// span11 //-->
+                    </div>
                   </div>
-                </div>
+
+                  <div class="row-fluid audio_story">
+                    <div class="span3">
+                    </div>
+                    <div class="span5 asset_data">  
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h4 class="asset_name editable">Mom's Childhood</h4>
+                        </div>
+                        <div class="span5">
+                          <h6 class="asset_date editable">28 March 2013</h6>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12 asset_desc editable">Grandma talking about Mom's Childhood</div>
+                      </div>
+                    </div> <!--// photo data //-->
+                    <div class="span2">
+                        Used in projects:
+                        <ul class="asset_projects">
+                          <li class="placeholder">Mom's Childhood</li>
+                          <li class="placeholder">Grandma + Grandpa</li>
+                        </ul>
+                    </div>
+                    <div class="span2">
+                      <h5><a class = "edit_story">Edit Story</a></h5>
+                    </div>
+                  </div> <!-- audio story-->
+
+                  <div class="row-fluid">
+                    <div class="span1">
+                    </div>
+                    <div class="span11">
+                      <hr>
+                    </div>
+                  </div>
+
+                  <div class="row-fluid audio_story">
+                    <div class="span3">
+                    </div>
+                    <div class="span5 asset_data">  
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h4 class="asset_name editable">The Great Depression</h4>
+                        </div>
+                        <div class="span5">
+                          <h6 class="asset_date editable">4 April 2013</h6>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12 asset_desc editable">Stories from her childhood</div>
+                      </div>
+                    </div> <!--// photo data //-->
+                    <div class="span2">
+                        Used in projects:
+                        <ul class="asset_projects">
+                          <li class="placeholder">Grandma + Grandpa</li>
+                        </ul>
+                    </div>
+                    <div class="span2">
+                      <h5><a class = "edit_story">Edit Story</a></h5>
+                    </div>
+                  </div> <!-- audio story-->
                 
                 <hr>
 
                 <div class="row-fluid" type="audio" id = "a2">
+                  <div class = "row-fluid raw_audio">
+                    <div class="span1">
+                    </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="icon-volume-up icon-large"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">  
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h3 class="asset_name editable">Interview with Mom</h3>
+                        </div>
+                        <div class="span5">
+                          <h3 class="asset_date editable">8 March 2013</h3>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12 asset_desc editable">Talked to Mom for a class project</div>
+                      </div>
+                    </div> <!--// photo data //-->
+                    <div class="span2">
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-large btn-block btn-warning createStory">Create New Story</div>
+                        </div>
+                      </div>
+
+                      <div class="row-fluid">
+                        <div class="span6">
+                          <div class="btn btn-block btn-large  btn-default editOriginal">Edit Original</div>
+                        </div>
+                        <div class="span6">
+                          <div class="btn btn-block btn-large btn-default download">Download</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!-- raw audio -->
+
                   <div class="row-fluid">
                     <div class="span1">
                     </div>
-                    <div class = "span11">
-                      <div class = "row-fluid raw_audio">
-                      <div class="span2">
-                        <div class="audio_icon">
-                          <i class="icon-volume-up icon-large"></i>
+                    <div class="span11">
+                      <hr>
+                    </div>
+                  </div>
+
+                  <div class="row-fluid audio_story">
+                    <div class="span3">
+                    </div>
+                    <div class="span5 asset_data">  
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h4 class="asset_name editable">Mom's Childhood</h4>
+                        </div>
+                        <div class="span5">
+                          <h6 class="asset_date editable">28 March 2013</h6>
                         </div>
                       </div>
-                        <div class="span6 asset_data">  
-                          <div class="row-fluid">
-                            <div class="span6 display_text">
-                              <h3 class="asset_name editable">Interview with Mom</h3>
-                            </div>
-                            <div class="span6">
-                              <h3 class="asset_date editable">8 March 2013</h3>
-                            </div>
-                          </div>
-                          <div class="row-fluid">
-                            <div class="span6 asset_desc editable">Talked to Mom for a class project</div>
-                          </div>
-                        </div> <!--// photo data //-->
-                        <div class="span2">
-                        </div>
-                        <div class="span2">
-                          <div class="row-fluid">
-                            <a class="btn btn-large btn-block btn-warning createStory">Create New Story</a>
-                          </div>
-                          <div class="row-fluid">
-                            <h5><a class = "edit_story">Edit Original</a></h5>
-                          </div>
-                        </div>
-                      </div> <!-- raw audio -->
-
-                      <hr>
-                      <div class="row-fluid audio_story">
-                        <div class="span2">
-                        </div>
-                        <div class="span6 asset_data">  
-                          <div class="row-fluid">
-                            <div class="span6 display_text">
-                              <h4 class="asset_name editable">Mom's Childhood</h4>
-                            </div>
-                            <div class="span6">
-                              <h4 class="asset_date editable">28 March 2013</h4>
-                            </div>
-                          </div>
-                          <div class="row-fluid">
-                            <div class="span6 asset_desc editable">Mom on her childhood</div>
-                          </div>
-                        </div> <!--// photo data //-->
-                        <div class="span2">
-                            Used in projects:
-                            <ul class="asset_projects">
-                              <li class="placeholder">Mom's Story</li>
-                            </ul>
-                        </div>
-                        <div class="span2">
-                          <h5><a class = "edit_story">Edit Story</a></h5>
-                        </div>
-                      </div> <!-- audio story-->
-                    </div> <!--// span11 //-->
-                  </div>
+                      <div class="row-fluid">
+                        <div class="span12 asset_desc editable">Mom on her childhood</div>
+                      </div>
+                    </div> <!--// photo data //-->
+                    <div class="span2">
+                        Used in projects:
+                        <ul class="asset_projects">
+                          <li class="placeholder">Mom's Story</li>
+                        </ul>
+                    </div>
+                    <div class="span2">
+                      <h5><a class = "edit_story">Edit Story</a></h5>
+                    </div>
+                  </div> <!-- audio story-->
                 </div>
                 
                 <hr>
 
                 
                 <div class="row-fluid" type="audio" id = "a3">
-                  <div class="row-fluid">
+                  <div class = "row-fluid raw_audio">
                     <div class="span1">
                     </div>
-                    <div class = "span11">
-                      <div class = "row-fluid raw_audio">
-                      <div class="span2">
-                        <div class="audio_icon">
-                          <i class="icon-volume-up icon-large"></i>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="icon-volume-up icon-large"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">  
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h3 class="asset_name editable"><span class="placeholder">Interview Title</span></h3>
+                        </div>
+                        <div class="span5">
+                          <h3 class="asset_date editable"><span class="placeholder">Interview Date</span></h3>
                         </div>
                       </div>
-                        <div class="span6 asset_data">  
-                          <div class="row-fluid">
-                            <div class="span6 display_text">
-                              <h3 class="asset_name editable"><span class="placeholder">Interview Title</span></h3>
-                            </div>
-                            <div class="span6">
-                              <h3 class="asset_date editable"><span class="placeholder">Interview Date</span></h3>
-                            </div>
-                          </div>
-                          <div class="row-fluid">
-                            <div class="span6 asset_desc editable">Interview Description</div>
-                          </div>
-                        </div> <!--// photo data //-->
-                        <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12 asset_desc editable">Interview Description</div>
+                      </div>
+                    </div> <!--// photo data //-->
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="btn btn-large btn-block btn-primary createStory">Create New Story</div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span6">
+                          <div class="btn btn-large btn-block btn-warning editOriginal">Edit Original</div>
                         </div>
-                        <div class="span2">
-                          <div class="row-fluid">
-                            <a class="btn btn-large btn-block btn-warning createStory">Create New Story</a>
-                          </div>
-                          <div class="row-fluid">
-                            <h5><a class = "edit_story">Edit Original</a></h5>
-                          </div>
+                        <div class="span6">
+                          <div class="btn btn-large btn-block btn-default download">Download</div>
                         </div>
-                      </div> <!-- raw audio -->
-                    </div> <!--// span11 //-->
-                  </div>
+                      </div>
+                    </div>
+                  </div> <!-- raw audio -->
                 </div>
                 
                 <hr>
                 
               </div>
+            </div>
     <!--// end: AUDIO TAB CONTENT //-->
 
       <!--// start: PHOTO TAB  //-->       
-              <div class="tab-pane" id="tab2">
-                <div class="row-fluid">
-                  <div class="span4">
-                    <div class="row-fluid">
-                      <div class="span4">
-                        <label class="radio">
-                          <input type="radio" name="mediaTypes" id="allMedia" value="allMedia" checked="">
-                          All Media
-                        </label>
-                      </div>
-                      <div class="span4">
-                        <label class="radio">
-                          <input type="radio" name="mediaTypes" id="photosOnly" value="photosOnly">
-                          Photos Only
-                        </label>
-                      </div>
-                      <div class="span4">
-                        <label class="radio">
-                          <input type="radio" name="mediaTypes" id="videosOnly" value="videosOnly">
-                          Videos Only
-                        </label>
-                      </div>
+            <div class="tab-pane" id="tab2">
+              <div class="row-fluid">
+                <div class="span4">
+                  <div class="row-fluid">
+                    <div class="span4">
+                      <label class="radio">
+                        <input type="radio" name="mediaTypes" id="allMedia" value="allMedia" checked="">
+                        All Media
+                      </label>
+                    </div>
+                    <div class="span4">
+                      <label class="radio">
+                        <input type="radio" name="mediaTypes" id="photosOnly" value="photosOnly">
+                        Photos Only
+                      </label>
+                    </div>
+                    <div class="span4">
+                      <label class="radio">
+                        <input type="radio" name="mediaTypes" id="videosOnly" value="videosOnly">
+                        Videos Only
+                      </label>
                     </div>
                   </div>
-                  <div class="span6">
-                  </div>
-                  <div class="span2">
-                    <a href="" class= "btn btn-large btn-block btn-primary">Add file</a>
-                  </div>
-                </div> <!--// row fluid //-->
+                </div>
+                <div class="span6">
+                </div>
+                <div class="span2">
+                  <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
+                </div>
+              </div> <!--// row fluid //-->
 
-                <hr><!--//horizontal rule-->
-
-                <div class="row-fluid asset" type="photo" id = "p1">
+              <hr><!--//horizontal rule-->
+              <div class="asset" type="photo" id = "p1">
+                <div class="row-fluid">
                   <div class="span3 thumbnails">
                     <a class="thumbnail" href="images/story/DSC_1140.jpg">
                       <div class="crop_image" image = "DSC_1140.jpg"></div>
                     </a>
                   </div>
-                  <div class="span9 asset_data">
+                  <div class="span5 asset_data">
                     <div class="row-fluid">
-                      <div class="span6 display_text">
+                      <div class="span7 display_text">
                         <h3 class="asset_name editable">Person</h3>
                       </div>
-                      <div class="span6">
+                      <div class="span5">
                         <h3 class="asset_date editable">3 March 2013</h3>
                       </div>
+                      <div class="span12 asset_desc editable">Blah Blah BLah</div>
+                    </div>
+                  </div>
+                  <div class="span2">
+                    <div class="row-fluid">
+                      Used in stories:
+                      <ul class="asset_stories">
+                        <li class="placeholder">None</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="span2">
+                    <div class="row-fluid">
+                      <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
                     </div>
                     <div class="row-fluid">
-                      <div class="span6 asset_desc editable">Blah Blah BLah</div>
-                      <div class="span3">
-                        Used in projects:
-                        <ul class="asset_projects">
-                          <li class="placeholder">None</li>
-                        </ul>
+                      <div class="span6">
+                      </div>
+                      <div class="span6">
+                        <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
                       </div>
                     </div>
-                  </div> <!--// photo data //-->
-                  <hr>
+                  </div>
                 </div> <!--// row fluid //-->
+                <hr>
+              </div>
 
-                <div class="row-fluid  asset" type="photo" id = "p2">
+              <div class="asset" type="photo" id = "p2">
+                <div class="row-fluid">
                   <div class="span3 thumbnails">
                     <a class="thumbnail">
                       <div class="crop_image" image = "DSC_1278.jpg"></div>
                     </a>
                   </div>
-                  <div class="span9 asset_data">
+                  <div class="span5 asset_data">
                     <div class="row-fluid">
-                      <div class="span6 display_text">
-                        <h3 class="asset_name editable placeholder">Title</h3>
-                      </div>
-                      <div class="span6">
-                        <h3 class="asset_date editable placeholder">Date of Photo</h3>
-                      </div>
-                    </div>
-                    <div class="row-fluid">
-                      <div class="span6 asset_desc editable placeholder">Description</div>
-                      <div class="span3">
-                        Used in projects:
-                        <ul class="asset_projects">
-                          <li class="placeholder">None</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div> <!--// photo data //-->
-                  <hr>
-                </div> <!--// row fluid //-->
-
-                <div class="row-fluid  asset" type="photo" id = "p3">
-                  <div class="span3 thumbnails">
-                    <a class="thumbnail">
-                      <div class="crop_image" image = "DSC_1169.jpg"></div>
-                    </a>
-                  </div>
-                  <div class="span9 asset_data">
-                    <div class="row-fluid">
-                      <div class="span6 display_text">
+                      <div class="span7 display_text">
                         <h3 class="asset_name editable">Person</h3>
                       </div>
-                      <div class="span6">
+                      <div class="span5">
                         <h3 class="asset_date editable">3 March 2013</h3>
                       </div>
+                      <div class="span12 asset_desc editable">Blah Blah BLah</div>
                     </div>
-                    <div class="row-fluid">
-                      <div class="span6 asset_desc editable">Blah Blah BLah</div>
-                      <div class="span3">
-                        Used in projects:
-                        <ul class="asset_projects">
-                          <li class="placeholder">None</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div> <!--// photo data //-->
-                  <hr>
-                </div> <!--// row fluid //-->
-
-                <div class="row-fluid asset" type="video" id = "v1">
-                  <div class="span3 thumbnails">
-                    <a class="thumbnail">
-                      <div class="crop_image" image = "DSC_1169.jpg"></div>
-                    </a>
                   </div>
-                  <div class="span9 asset_data">
+                  <div class="span2">
                     <div class="row-fluid">
-                      <div class="span6 display_text">
-                        <h3 class="asset_name editable">Person</h3>
+                      Used in stories:
+                      <ul class="asset_stories">
+                        <li class="placeholder">None</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="span2">
+                    <div class="row-fluid">
+                      <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
+                    </div>
+                    <div class="row-fluid">
+                      <div class="span6">
                       </div>
                       <div class="span6">
-                        <h3 class="asset_date editable">3 March 2013</h3>
+                        <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
                       </div>
                     </div>
-                    <div class="row-fluid">
-                      <div class="span6 asset_desc editable">Blah Blah BLah</div>
-                      <div class="span3">
-                        Used in projects:
-                        <ul class="asset_projects">
-                          <li class="placeholder">None</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div> <!--// photo data //-->
-                  <hr>
+                  </div>
                 </div> <!--// row fluid //-->
-
+                <hr>
               </div>
+
+              <div class="asset" type="photo" id = "p3">
+                <div class="row-fluid">
+                  <div class="span3 thumbnails">
+                    <a class="thumbnail">
+                      <div class="crop_image" image = "DSC_1169.jpg"></div>
+                    </a>
+                  </div>
+                  <div class="span5 asset_data">
+                    <div class="row-fluid">
+                      <div class="span7 display_text">
+                        <h3 class="asset_name editable">Person</h3>
+                      </div>
+                      <div class="span5">
+                        <h3 class="asset_date editable">3 March 2013</h3>
+                      </div>
+                      <div class="span12 asset_desc editable">Blah Blah BLah</div>
+                    </div>
+                  </div>
+                  <div class="span2">
+                    <div class="row-fluid">
+                      Used in stories:
+                      <ul class="asset_stories">
+                        <li class="placeholder">None</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="span2">
+                    <div class="row-fluid">
+                      <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
+                    </div>
+                    <div class="row-fluid">
+                      <div class="span6">
+                      </div>
+                      <div class="span6">
+                        <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
+                      </div>
+                    </div>
+                  </div>
+                </div> <!--// row fluid //-->
+                <hr>
+              </div>
+
+              <div class="asset" type="video" id = "v1">
+                <div class="row-fluid">
+                  <div class="span3 thumbnails">
+                    <a class="thumbnail">
+                      <div class="crop_image" image = "DSC_1169.jpg"></div>
+                    </a>
+                  </div>
+                  <div class="span5 asset_data">
+                    <div class="row-fluid">
+                      <div class="span7 display_text">
+                        <h3 class="asset_name editable">Person</h3>
+                      </div>
+                      <div class="span5">
+                        <h3 class="asset_date editable">3 March 2013</h3>
+                      </div>
+                      <div class="span12 asset_desc editable">Blah Blah BLah</div>
+                    </div>
+                  </div>
+                  <div class="span2">
+                    <div class="row-fluid">
+                      Used in stories:
+                      <ul class="asset_stories">
+                        <li class="placeholder">None</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="span2">
+                    <div class="row-fluid">
+                      <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
+                    </div>
+                    <div class="row-fluid">
+                      <div class="span6">
+                      </div>
+                      <div class="span6">
+                        <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
+                      </div>
+                    </div>
+                  </div>
+                </div> <!--// row fluid //-->
+                <hr>
+              </div>
+            </div>
       <!--// end: PHOTO TAB  //-->
+
+      <!--// start: MAP TAB  //-->       
+            <div class="tab-pane" id="tab3">
+              <div class="row-fluid">
+                <div class="span4">
+                  <div class="row-fluid">
+                    <div class="span6">
+                      <div class="btn btn-large btn-block btn-warning newLocation">Create New Lcoation</div>
+                    </div>
+                    <div class="span6">
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="span6">
+                </div>
+                <div class="span2">
+                  <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
+                </div>
+              </div> <!--// row fluid //-->
+
+              <hr><!--//horizontal rule-->
+              <div class="asset" type="location" id = "l1">
+                <div class="row-fluid">
+                  <div class="span1">
+                  </div>
+                  <div class="span2">
+                    <div class="audio_icon">
+                      <i class="fui-location-16"></i>
+                    </div>
+                  </div>
+                  <div class="span5 asset_data">
+                    <div class="row-fluid">
+                      <div class="span7 display_text">
+                        <div class="row-fluid">
+                          <h3 class="asset_location editable">Grandma's Home 1964</h3>
+                        </div>
+                        <div class="row-fluid">
+                          <span class="asset_address editable"> 123 Ur Gma Ln</span>
+                        </div>
+                        <div class="row-fluid">
+                          <span class="asset_city editable">Fall River</span>
+                          <span class="asset_state editable">IA</span>,
+                          <span class="asset_zip editable">12345</span>
+                        </div>
+                        <div class="row-fluid">
+                          <div class="asset_country editable">USA</div>
+                        </div>
+                      </div>
+                      <div class="span5">
+                        <h3>Places:</h3>
+                        <ul>
+                          <li><h4 class="place_tag editable">Fall River</h4></li>
+                          <li><h4 class="place_tag editable">IA</h4></li>
+                          <li><h4 class="place_tag editable">USA</h4></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span2">
+                    <div class="row-fluid">
+                      Used in stories:
+                      <ul class="asset_stories">
+                        <li class="placeholder">None</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="span2">
+                    <div class="row-fluid">
+                      <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
+                    </div>
+                    <div class="row-fluid">
+                      <div class="span6">
+                      </div>
+                      <div class="span6">
+                        <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
+                      </div>
+                    </div>
+                  </div>
+                </div> <!--// row fluid //-->
+                <hr>
+              </div>
+
+              
+
+              
+            </div>
+      <!--// end: MAP TAB  //-->
 
             </div><!--/end tab-content-->
           </div><!--/end tabbale-->
-        </div><!--/end span9-->
+        </div><!--/end span12-->
       </div><!-- /row-fluid -->
     </div><!-- /container-fluid -->
   </body>

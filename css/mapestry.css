@@ -11,6 +11,11 @@
   padding-bottom: 0 !important;
   padding-top: 10px !important;
 }
+
+.nav{
+  padding-top:2px;
+}
+
 .navbar-link{
   color:#fff !important;
   text-decoration: none;
@@ -20,9 +25,10 @@
 #player {
   padding-top: 35px;
   /*padding-bottom: 40px;*/
-  overflow: hidden;
 }
-[class*=" icon-"],[class*=" fui-"]{
+
+
+[class*=" icon-"],[class*=" fui-"],.btn{
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -32,9 +38,9 @@
 }
 
 .navbar-inverse .navbar-inner{
-  background-image: -moz-linear-gradient(left, #57b0a5 0%, #ffdd00 25%, #ff9600 50%, #ed135a 75%);
+  background-image: -moz-linear-gradient(left, #57b0a5 25%, #ffdd00 50%, #ff9600 75%, #ed135a 95%);
   background-image: -webkit-linear-gradient(left, #57b0a5 25%, #ffdd00 50%, #ff9600 75%, #ed135a 95%);
-  background-image: -o-linear-gradient(left, #57b0a5 0%, #ffdd00 25%, #ff9600 50%, #ed135a 75%);
+  background-image: -o-linear-gradient(left, #57b0a5 25%, #ffdd00 50%, #ff9600 75%, #ed135a 95%);
   background-image: linear-gradient(left, #57b0a5 25%, #ffdd00 50%, #ff9600 75%, #ed135a 95%);
 }
 /*.nav .active{
@@ -238,7 +244,7 @@ div.thumb{
 
 #map{ 
   height: 800px; 
-  /*margin: 25px;*/
+  overflow: hidden;
 }
 
 .btn-group{
@@ -384,7 +390,7 @@ a.popup{
   color: white;
 }
 
-.media{
+.media,.audio{
   margin:0 5px;
 }
 .components{
@@ -453,12 +459,6 @@ a.thumbnail:focus {
   margin-left: 0 !important;
 }
 
-.button_bottom{
-  position:absolute; 
-  bottom:0;
-  /*right:0;*/
-}
-
 .helper{
   width:100px;
   height:100px;
@@ -490,6 +490,14 @@ a.thumbnail:focus {
 
 .placeholder{
   font-style: italic;
+}
+
+.createStory{
+  margin-bottom: 5px;
+}
+
+.syncRecorder{
+  margin-bottom: 10px;
 }
 
 /*audio bar*/
@@ -559,13 +567,30 @@ rect {
 /*Projects*/
 
 .projects_sidebar{
-  height:100%;
   margin-top: 25px;
   overflow-y:scroll;
 }
 
+.story_del{
+  /*margin-left: 10%;*/
+  float: right;
+  color:#95A5A6;
+}
+
+.story_del:hover{
+  color:#7F8C8D;
+}
+
 #storyList{
-  overflow-y:scroll;
+  background-color: white;
+}
+
+.asset_media{
+  margin-top: 30px;
+}
+
+.preview{
+  margin-top: 15px;
 }
 
 @media (max-width: 767px) {

@@ -1,13 +1,15 @@
 var projectCount = 2;
 $(document).ready(function(){
-  $('.default_hidden').hide();
-  
-  $('.crop_image').each(function(){
-    var f = $(this).attr('image');
-    $(this).css('background-image','url(images/story/'+f+')');
-  });
+  $('.projects_sidebar').height((window.innerHeight - $('.navbar').outerHeight())*.92);
 
-  $('.thumbnail').imageZoom();
+  $('.editable').inlineEdit(); 
+  $('.projects').on('change','.project_name',function(){
+    var pid = $(this).parents('.folders').attr('id');
+    var newText = $(this).find('input').val();
+    $(this).find('button:first-child').mouseup(function(){
+      $('.'+pid).text(newText);
+    });
+  });
 
   $('#addProject').on('click',function(){
     //add form for title
@@ -16,8 +18,8 @@ $(document).ready(function(){
     '<div class="well folders" id = "pj'+projectCount+'">'+
       '<div class="row-fluid">'+
         '<div class="span11">'+
-          '<h5>'+
-            '<a class="project_name">Family History</a>'+
+          '<h5 class="project_name editable">'+
+            '<span class="placeholder">Project Name</span>'+
           '</h5>'+
         '</div>'+
         '<div class="span1">'+
@@ -25,29 +27,28 @@ $(document).ready(function(){
         '</div>'+
       '</div>'+
       '<div class="row-fluid">'+
-        '<div class = "media audio">'+
+        '<div class = "audio">'+
           'Audio: <span class="count">0</span>'+
           '<ol class = "components">'+
           '</ol>'+
         '</div>'+
-        '<div class = "media photo">'+
+        '<div class = "media">'+
           'Photos: <span class="count">0</span>'+
-          '<ol class = "components">'+
-          '</ol>'+
         '</div>'+
-        '<div class = "media video">'+
-          'Videos: <span class="count">0</span>'+
-          '<ol class = "components">'+
-          '</ol>'+
+      '</div>'+
+      '<div class="row-fluid">'+
+        '<div class="span6">'+
+          '<div class="btn btn-block btn-warning preview">Preview</div>'+
         '</div>'+
       '</div>'+
     '</div>';
     projectListeners($(el).appendTo('.projects'));
+    $('.editable').inlineEdit(); 
   });
 
   //jquery ui doesnt allow for bubbling listeners, so do this manually on creation
   projectListeners($('.folders'));
-  assetListeners($('.asset'));
+  assetListeners($('.audio_story'));
 });
 
 
@@ -58,96 +59,59 @@ function projectListeners(projects){
     });
     
     $(this).droppable({ 
-      accept: ".asset",
+      accept: ".audio_story",
       activeClass: "activeDrop",
       hoverClass: "hoverDrop",
        tolerance: 'pointer',
       // over: function( event, ui ) {console.log('over');},
       drop: function( event, ui ) {
-        var type = ui.draggable.attr('type');
         var itemID = ui.draggable.attr('id');
-        var text = ui.draggable.find('.asset_name:first-child').text()
-        var el = $(this).find('.' + type);
-        
+        var text = ui.draggable.find('.asset_name:first-child').text();
+        var mCount = ui.draggable.find('.media_count').text();
+        var el = $(this);
+
         var projectName = $(this).find('.project_name').text();
         var pid = $(this).attr('id');
 
-        el.children('.count').text(parseInt(el.children('.count').text()) + 1);
-        el.children('.components').append('<li class="'+itemID+'">'+text+'</li>');
+        el.find('.audio .count').text(parseInt(el.find('.audio .count').text()) + 1);
+        el.find('.components').append('<li class="'+itemID+'">'+text+' <i class="story_del fui-cross-16"></i></li>');
+        el.find('.media .count').text(parseInt(el.find('.media .count').text())+parseInt(mCount));
 
-        ui.draggable.find( ".placeholder" ).remove();
-        ui.draggable.find('.asset_projects').append('<li class="'+pid+'">'+projectName+'</li>');
+        ui.draggable.find( ".none" ).remove();
+        ui.draggable.find('.asset_projects').append('<li class="placeholder '+pid+'">'+projectName+'</li>');
       }
     }); 
 
     $(this).find('.components').sortable().hide();
+    $(this).on("click",'.story_del',function(){
+      var el = $(this);
+      var sid = el.parent().attr('class');
+      var pid = el.parents('.folders').attr('id');
+      var mCount = parseInt($('#'+sid).find('.media_count').text());
+      var pC = parseInt(el.parents('.audio').siblings('.media').find('.count').text());
+      
+      el.parents('.audio').find('.count').text(parseInt(el.parents('.audio').find('.count').text()) - 1);
+      el.parents('.audio').siblings('.media').find('.count').text(pC-mCount);
+
+      el.parent().remove();
+      $('#'+sid).find('.'+pid+':last').remove();
+    });
   });
 }
 
 function assetListeners(assets){
   assets.each(function(){
-    $(this).on('click','.edit_asset',function(){
-      var assetData = $(this).parents('.asset_data');
-      var pdisplay = assetData.children('.display_slide');
-      var pform = assetData.children('.form_slide');
-
-      var name = pdisplay.find('.asset_name').text();
-      var date = convertDateToForm(pdisplay.find('.asset_date').text());
-      var desc = pdisplay.find('.asset_desc').text();
-
-      pform.find('.asset_name').val(name);
-      pform.find('.asset_date').val(date);
-      pform.find('.asset_desc').val(desc);
-
-      pdisplay.toggleClass('content');
-      slideOutIn(pdisplay,pform);
-      pdisplay.toggleClass('content');
-      
-    });
-
-    $(this).on('click','.submitting',function(e){
-      var assetData = $(this).parents('.asset_data');
-      var pdisplay = assetData.children('.display_slide');
-      var pform = assetData.children('.form_slide');
-      
-      var name = pform.find('.asset_name').val();
-      var date = convertDateFromForm(pform.find('.asset_date').val());
-      var desc = pform.find('.asset_desc').val();    
-
-      pdisplay.find('.asset_name').text(name);
-      pdisplay.find('.asset_date').text(date);
-      pdisplay.find('.asset_desc').text(desc);
-
-      var id = $(this).parents('.asset').attr('id');
-      $('.'+id).each(function(){
-        $(this).text(name)
-      });
-
-      pdisplay.toggleClass('content');
-      slideOutIn(pdisplay, pform);
-      pdisplay.toggleClass('content');
-      e.preventDefault();
-    });
-
     $(this).draggable({
       appendTo:'body',
       revert: 'invalid', 
       helper: "clone",
       revertDuration:250,
       helper: function(e){
-        if(this.getAttribute('type') == 'audio'){
-          var helperDiv = [];
-          helperDiv.push('<div class="helper"><h5>');
-          helperDiv.push($(this).find('.asset_name').text());
-          helperDiv.push('</h5><i class="icon-volume-up icon-large"></i></div>');
-          return $(helperDiv.join(''));
-        }
-        else{
-          var f = $(this).find('.crop_image').attr('image');
-          var el = $('<div class="helper helper_photo"></div>');
-          el.css('background-image','url(images/story/'+f+')');
-          return el
-        }
+        var helperDiv = [];
+        helperDiv.push('<div class="helper"><h5>');
+        helperDiv.push($(this).find('.asset_name').text());
+        helperDiv.push('</h5><i class="icon-volume-up icon-large"></i></div>');
+        return $(helperDiv.join(''));
       }
     });
   });
