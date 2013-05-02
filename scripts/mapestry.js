@@ -596,7 +596,7 @@ function buildGalleryList(s,type){
 }
 
 function createSmallGalleries(){
-  var w = $('.sidebar-nav-fixed').width() - 10;
+  var w = $('.sidebar-nav-fixed').width();
   $('.smallGallery').each(function(){
     var story = $(this).attr('id').split('_')[0];
     $(this).append(buildGalleryList(story,'p'));

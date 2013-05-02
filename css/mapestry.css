@@ -282,6 +282,14 @@ div.thumb{
   width: 50%;
 }
 
+audio{
+  width:100%;
+}
+
+.mrm{
+  margin-right: 0px;
+}
+
 .todo li, .tag,#photoControls{
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -502,7 +510,7 @@ a.thumbnail:focus {
 
 /*audio bar*/
 #audioBar{
-  margin: 50px 100px;
+  margin: 50px 25px;
 }
 rect {
   fill: none;
@@ -538,7 +546,7 @@ rect {
 }
 
 .cell {
-  fill:#95A5A6;
+  fill:#7F8C8D;
 }
 
 .wall {
@@ -562,6 +570,16 @@ rect {
 
 .big{
   height:500px;
+}
+
+.theme{
+  stroke:#000;
+  stroke-width:3px;
+}
+
+.generic{
+  stroke:#BDC3C7;
+  stroke-width:3px; 
 }
 
 /*Projects*/
