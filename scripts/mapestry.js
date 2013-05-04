@@ -32,12 +32,12 @@ $(document).ready(function(){
   $.when(loadPhotos(),loadAudio())
   .pipe(function(){
     console.log(window.innerHeight);
-    mapHeight = (window.innerHeight - $('.navbar').outerHeight())*.97;
+    mapHeight = (window.innerHeight - $('.navbar').outerHeight())*.96;
     galleryHeight = mapHeight * 0.6666;
     $('#gallery').outerHeight(galleryHeight);
 
     $('#map').css('height',mapHeight);
-    $('.sidebar-nav-fixed').css('height',mapHeight - 32);
+    $('.sidebar-nav-fixed').css('height',mapHeight - 20);
     // var stamenAtr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>';
     // var stamen = new L.StamenTileLayer("terrain",{  //toner
     //   maxZoom: 16, 

@@ -24,7 +24,7 @@
 
 #player {
   padding-top: 35px;
-  /*padding-bottom: 40px;*/
+  overflow: hidden;
 }
 
 
@@ -369,6 +369,7 @@ a.popup{
 /* administrative*/
 .admin_menu{
   padding-top: 50px;
+  overflow: hidden;
 }
 .tab-pane .radio{
   margin-top:15px;
@@ -508,10 +509,36 @@ a.thumbnail:focus {
   margin-bottom: 10px;
 }
 
-/*audio bar*/
-#audioBar{
-  margin: 50px 25px;
+
+/*audio bar --------------------------------------*/
+#storyBuilder{
+  padding-top: 60px;
+  overflow: hidden;
 }
+#audioBar{
+  /*padding: 15px 5px 0px 5px;*/
+  width:100%;
+  background-color: white;
+}
+
+.tabScroll{
+  height:400px;
+  overflow-y: scroll;
+}
+
+.audio_helper{
+  width:25px;
+  height:25px;
+  background-color: rgba(189,195,199,.7);
+  padding: 10px 5px 5px 5px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.audio_helper i {
+  font-size: 20px
+}
+
 rect {
   fill: none;
   pointer-events: all;
@@ -548,7 +575,6 @@ rect {
 .cell {
   fill:#7F8C8D;
 }
-
 .wall {
   fill: #34495E;
   stroke: #2C3E50;
@@ -560,7 +586,7 @@ rect {
 }
 
 .cell.hovered {
-  fill: #2ECC71;
+  fill: #E74C3C;
   opacity: .7;
 }
 
@@ -575,14 +601,21 @@ rect {
 .theme{
   stroke:#000;
   stroke-width:3px;
+  stroke-linecap:round;
 }
 
 .generic{
   stroke:#BDC3C7;
-  stroke-width:3px; 
+  stroke-width:3px;
+  stroke-linecap:round;
 }
 
-/*Projects*/
+.activeBar{
+  fill:red;
+}
+
+
+/*Projects ---------------------------------------*/
 
 .projects_sidebar{
   margin-top: 25px;
@@ -601,6 +634,8 @@ rect {
 
 #storyList{
   background-color: white;
+  height:400px;
+  overflow-y: scroll;
 }
 
 .asset_media{

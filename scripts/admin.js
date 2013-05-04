@@ -1,4 +1,7 @@
 $(document).ready(function(){
+  var tabHeight = (window.innerHeight - $('.navbar').outerHeight())*.7;
+  $('.tabScroll').css('height',tabHeight);
+
   $.inlineEdit.prototype.controls.date = function( value ) {
     return '<input type="date" value="'+ convertDateToForm(value.replace(/(\u0022)+/g, '')) +'">' + this.buttonHtml();
   }

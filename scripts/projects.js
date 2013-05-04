@@ -1,6 +1,8 @@
 var projectCount = 2;
 $(document).ready(function(){
-  $('.projects_sidebar').height((window.innerHeight - $('.navbar').outerHeight())*.92);
+  var wHeight = window.innerHeight - $('.navbar').outerHeight();
+  $('.projects_sidebar').css('height',wHeight * .92);
+  $('#storyList').css('height',wHeight *.96);
 
   $('.editable').inlineEdit(); 
   $('.projects').on('change','.project_name',function(){
@@ -38,7 +40,7 @@ $(document).ready(function(){
       '</div>'+
       '<div class="row-fluid">'+
         '<div class="span6">'+
-          '<div class="btn btn-block btn-warning preview">Preview</div>'+
+          '<a href="mapestry.html" class="btn btn-block btn-warning preview">Preview</a>'+
         '</div>'+
       '</div>'+
     '</div>';
@@ -112,6 +114,10 @@ function assetListeners(assets){
         helperDiv.push($(this).find('.asset_name').text());
         helperDiv.push('</h5><i class="icon-volume-up icon-large"></i></div>');
         return $(helperDiv.join(''));
+      },
+      start: function (event, ui) {
+        $(ui.helper).css("margin-left", event.clientX - $(event.target).offset().left);
+        $(ui.helper).css("margin-top", event.clientY - $(event.target).offset().top);
       }
     });
   });
