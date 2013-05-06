@@ -64,7 +64,7 @@ function projectListeners(projects){
       accept: ".audio_story",
       activeClass: "activeDrop",
       hoverClass: "hoverDrop",
-       tolerance: 'pointer',
+      tolerance: 'pointer',
       // over: function( event, ui ) {console.log('over');},
       drop: function( event, ui ) {
         var itemID = ui.draggable.attr('id');
@@ -106,7 +106,6 @@ function assetListeners(assets){
     $(this).draggable({
       appendTo:'body',
       revert: 'invalid', 
-      helper: "clone",
       revertDuration:250,
       helper: function(e){
         var helperDiv = [];
