@@ -1,3 +1,96 @@
+body {
+  color: #34495e;
+  font: 14px/1.231 "Lato", sans-serif; }
+/*-----index page----*/
+#index {
+  overflow-y: scroll;
+}
+
+p {
+    font-family: "Lato-Light";
+    text-align: left;
+    line-height: 1.5;
+}
+
+#footer {
+   left:0px;
+   bottom:0px;
+/*   height:150px;*/
+   width:100%;
+   background:#999;
+   padding: 10px;
+}
+
+h2.no_margin {
+  margin: 0px;
+}
+
+h3 {
+  font-family: "Lato-Light";
+  text-align: left;
+  line-height: 1.6;
+  font-size: 1.5em;
+
+ } 
+
+/* * {
+  outline: 1px dashed;
+ }
+*/
+
+h3.collect {
+  color: #57b0a5;
+  text-align: center;
+}
+
+h3.org {
+  color: #ff9600;
+  text-align: center;
+}
+
+h3.sharing {
+  color: #ed135a;
+  text-align: center;
+}
+
+.index_copy {
+  margin-top: 100px;
+  height: 400px;
+}
+
+.white_rect {
+  position: relative;
+  background-color: white;
+  opacity: .7;
+  margin-top: -20em;
+  width: 80%;
+  height: 85%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 15px;
+}
+
+.index_pic {
+  position: static;
+  top: 50px;
+  margin-top: 50px;
+  z-index: -1;
+}
+
+/* IE 6 */
+* html #footer {
+   position:absolute;
+   top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
+}
+
+.span4 .pic {
+  margin: 10px;
+}
+
+
+
+/*-----end index page----*/
+
 #logo{
   height:35px;
   margin-left:5px;
@@ -413,9 +506,6 @@ a.popup{
 }
 
 /*adjusting margins*/
-h2.no_margin {
-  margin: 0px;
-}
 
 .crop_image{
   height:200px;
