@@ -6,7 +6,7 @@ body {
   overflow-y: scroll;
 }
 
-p {
+.p_index {
     font-family: "Lato-Light";
     text-align: left;
     line-height: 1.5;
@@ -19,36 +19,42 @@ p {
    width:100%;
    background:#999;
    padding: 10px;
-}
-
-h2.no_margin {
-  margin: 0px;
-}
-
-h3 {
-  font-family: "Lato-Light";
-  text-align: left;
-  line-height: 1.6;
-  font-size: 1.5em;
-
- } 
+} 
 
 /* * {
   outline: 1px dashed;
  }
 */
 
-h3.collect {
+.collect {
+  font-family: "Lato-Light";
+  text-align: left;
+  line-height: 1.6;
+  font-size: 1.5em;
   color: #57b0a5;
   text-align: center;
 }
 
-h3.org {
+.index_text {
+  font-family: "Lato-Light";
+  text-align: left;
+  line-height: 1.6;
+}
+
+.org {
+  font-family: "Lato-Light";
+  text-align: left;
+  line-height: 1.6;
+  font-size: 1.5em;
   color: #ff9600;
   text-align: center;
 }
 
-h3.sharing {
+.sharing {
+  font-family: "Lato-Light";
+  text-align: left;
+  line-height: 1.6;
+  font-size: 1.5em;
   color: #ed135a;
   text-align: center;
 }
