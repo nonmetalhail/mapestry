@@ -16,79 +16,23 @@ var photos = {
 
 //metadata brought in from recorder
 var themes = [0,80,200,310,360,400];
-var bookmarks = [
-  {
-    "time":100,
-    "start":-500
-
-  },
-  {
-    "time":120,
-    "start":-500
-
-  },
-  {
-    "time":160,
-    "start":-500
-
-  },
-  {
-    "time":220,
-    "start":-500
-
-  },
-  {
-    "time":250,
-    "start":-500
-
-  },
-  {
-    "time":290,
-    "start":-500
-
-  },
-  {
-    "time":340,
-    "start":-500
-
-  },
-  {
-    "time":400,
-    "start":-500
-
-  },
-  {
-    "time":473,
-    "start":-500
-
-  },
-  {
-    "time":500,
-    "start":-500
-
-  }
-]
+var bookmarks = [100,120,160,220,250,290,340,400,473,500]
 var images = [
   {
     "time":20,
     "id":"gg01.jpg",
-    "start":-500
-
   },
   {
     "time":80,
     "id":"gg09.jpg",
-    "start":-500
   },
   {
     "time":130,
     "id":"gg10.jpg",
-    "start":-500
   },
   {
     "time":370,
     "id":"gg11_2.jpg",
-    "start":-500
   }
 ];
 
@@ -96,32 +40,26 @@ var locations = [
   {
     "time":30,
     "id":'#l1',
-    "start":-500
   },
   {
     "time":90,
     "id":'#l2',
-    "start":-500
   },
   {
     "time":245,
     "id":'#l3',
-    "start":-500
   },
   {
     "time":295,
     "id":'#l4',
-    "start":-500
   },
   {
     "time":380,
     "id":'#l5',
-    "start":-500
   },
   {
     "time":480,
     "id":'#l6',
-    "start":-500
   }
 ];
 
@@ -129,6 +67,11 @@ var svg;
 var hovered;
 var mouseDown = false;
 var isHighlighted = false;
+
+//remove complains if null, so set it to nothing to start
+var bmarks = d3.selectAll('first'), 
+  placePins = d3.selectAll('first'),
+  mediaPins = d3.selectAll('first');
 
 var w = $(window).innerWidth()-100,
     h = 100,
@@ -193,7 +136,6 @@ $(document).ready(function(){
     .attr("ry", 3)
     .attr('t',t)
     .on("mouseover", function() {
-      var p = d3.mouse(this);
       hovered = d3.select(this);
       hovered.classed("hovered", true);
       if(mouseDown){
@@ -244,85 +186,135 @@ $(document).ready(function(){
   });
 
   assetListeners($('.asset'));
-  projectListeners($('#audioBar'))
+  projectListeners($('#audioBar'));
+  $('.asset').on({
+    mouseover:function(){
+      var aid = $(this).attr('id');
+      $('[aid="'+aid+'""]').toggleClass('assetHover');
+    },
+    mouseout:function(){
+      var aid = $(this).attr('id');
+      $('[aid="'+aid+'""]').toggleClass('assetHover');
+    }
+  });
 });
 
 function insertPins(){
-  var bmarks = svg.selectAll('bookmarks')
+  function _dragStuff(d,i){
+    var l = d3.select(this).select('line');
+    var t = d3.select(this).select('text');
+
+    var newX1 = parseInt(l.attr('x1')) + d3.event.dx;
+    var newX = parseInt(t.attr('x')) + d3.event.dx;
+    var newTime = (newX1-ch)/cw*timeInterval;
+    console.log(d);
+    if(newTime >= 0){
+      if(d.time){
+        d.time = newTime;
+      }
+      else{
+        console.log('else');
+        console.log(i);
+        bookmarks[i] = newTime;
+      }
+      console.log(d);
+
+      d3.select(this).attr('t',d);
+      l.attr('x1',newX1);
+      l.attr('x2',newX1);
+      t.attr('x',newX);
+    }
+  }
+
+  var drag = d3.behavior.drag()
+    .origin(Object)
+    .on("drag", _dragStuff);
+
+  bmarks.remove();
+  placePins.remove();
+  mediaPins.remove();
+
+  bmarks = svg.selectAll('bookmarks')
     .data(bookmarks)
     .enter().append("g")
-    .attr("class","bookmarks");
+    .attr("class","bookmarks")
+    .attr('t',function(d){ return d})
+    .on("mouseover", function() {
+      var bm = d3.selectAll(this.childNodes);
+      bm.classed("pinOver", true);
+    })
+    .on("mouseout", function() {
+      var bm = d3.selectAll(this.childNodes);
+      bm.classed("pinOver", false);
+    })
+    .call(drag);
 
     bmarks.append("line")
-    .attr('t',function(d){ return d })
     .attr("x1", timeX)
     .attr("x2", timeX)
-    .attr("y1", function(d){return d.start})
-    .attr("y2", function(d){return d.start})
-    .transition()
-    .duration(300)
     .attr("y1", offset+ch-30)
     .attr("y2", offset+ch*2+5);
 
     bmarks.append("text")
     .attr("x", function(d){ return timeX(d)-12 })
-    .attr("y", function(d){return d.start})
-    .transition()
-    .duration(300)
     .attr("y", offset+ch-40)
     .attr("font-family","FontAwesome")
     .attr("class","bookmarkIcon")
     .text("");  //star
 
-  var placePins = svg.selectAll('location')
+  placePins = svg.selectAll('location')
     .data(locations)
     .enter().append("g")
     .attr("class","location")
     .attr('t',function(d){ return d.time })
-    .attr('aid',function(d){ return d.id });
+    .attr('aid',function(d){ return d.id })
+    .on("mouseover", function() {
+      var bm = d3.selectAll(this.childNodes);
+      bm.classed("pinOver", true);
+    })
+    .on("mouseout", function() {
+      var bm = d3.selectAll(this.childNodes);
+      bm.classed("pinOver", false);
+    })
+    .call(drag);
 
     placePins.append("line")
     .attr("x1", function(d){ return timeX(d.time) })
     .attr("x2", function(d){ return timeX(d.time) })
-    .attr("y1", function(d){return d.start})
-    .attr("y2", function(d){return d.start})
-    .transition()
-    .duration(300)
     .attr("y1", offset+ch-30)
     .attr("y2", offset+ch*2+5);
 
     placePins.append("text")
     .attr("x", function(d){ return timeX(d.time)-7 })
-    .attr("y", function(d){return d.start})
-    .transition()
-    .duration(300)
     .attr("y", offset+ch-40)
     .attr("font-family","FontAwesome")
     .attr("class","pins")
     .text("");  //map
 
-  var mediaPins = svg.selectAll('media')
+  mediaPins = svg.selectAll('media')
     .data(images)
     .enter().append("g")
     .attr("class","media")
     .attr('t',function(d){ return d.time })
-    .attr('aid',function(d){ return d.id });;
+    .attr('aid',function(d){ return d.id })
+    .on("mouseover", function() {
+      var bm = d3.selectAll(this.childNodes);
+      bm.classed("pinOver", true);
+    })
+    .on("mouseout", function() {
+      var bm = d3.selectAll(this.childNodes);
+      bm.classed("pinOver", false);
+    })
+    .call(drag);
 
     mediaPins.append("line")
     .attr("x1", function(d){ return timeX(d.time) })
     .attr("x2", function(d){ return timeX(d.time) })
-    .attr("y1", function(d){return d.start})
-    .attr("y2", function(d){return d.start})
-    .transition()
-    .duration(300)
     .attr("y1", offset+ch-30)
     .attr("y2", offset+ch*2+5);
 
     mediaPins.append("text")
     .attr("x", function(d){ return timeX(d.time)-7 })
-    .attr("y", function(d){return d.start})
-    .transition()
-    .duration(300)
     .attr("y", offset+ch-40)
     .attr("font-family","FontAwesome")
     .attr("class","pins")

@@ -632,6 +632,12 @@ rect {
   stroke:#BDC3C7;
   stroke-width:3px;
   stroke-linecap:round;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .location,.media{
@@ -648,6 +654,20 @@ rect {
   stroke-width:0;
   fill:#34495E;
   font-size: 25px;
+}
+
+text.pinOver{
+  fill: #E74C3C;
+}
+line.pinOver{
+  stroke: #E74C3C;
+}
+
+.assetHover text{
+  fill:#1ABC9C;
+}
+.assetHover line{
+  stroke:#1ABC9C;
 }
 
 /*Projects ---------------------------------------*/
