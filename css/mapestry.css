@@ -549,6 +549,10 @@ a.thumbnail:focus {
   height:100%;
 }
 
+.asset_data .span5{
+  margin:0;
+}
+
 .content {
   height:100%;
   position: absolute;
@@ -693,17 +697,26 @@ rect {
   stroke-width:3px;
   stroke-linecap:round;
 }
-
-.generic{
+.bookmarks{
   stroke:#BDC3C7;
   stroke-width:3px;
   stroke-linecap:round;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+}
+
+.location,.media{
+  stroke:#34495E;
+  stroke-width:3px;
+  stroke-linecap:round;
+}
+.bookmarkIcon{
+  stroke-width:0;
+  fill:#BDC3C7;
+  font-size: 25px;
+}
+.pins{
+  stroke-width:0;
+  fill:#34495E;
+  font-size: 25px;
 }
 
 .activeBar{
