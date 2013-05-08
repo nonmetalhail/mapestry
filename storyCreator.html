@@ -86,7 +86,7 @@
           <div class="tabbable">
             <ul class="nav nav-tabs"> <!-- / menu tabs -->
               <li class="active span2">
-                <a href="#tab1" data-toggle="tab" id = "bookmark_button" class="tabs"><i class="icon-star-empty"></i>&nbsp;Bookmarks</a>
+                <a href="#tab1" data-toggle="tab" id = "bookmark_button" class="tabs"><i class="icon-star"></i>&nbsp;Bookmarks</a>
               </li>
               <li class="span2">
                 <a href="#tab2" data-toggle="tab" id = "photo_button" class="tabs"><i class="fui-camera-16"></i>&nbsp;Media</a>
@@ -470,6 +470,32 @@
       <div class="row-fluid">
         <div class="span12">
           <hr>
+          <div id = "audioControls">
+            <div class="row-fluid">
+              <audio id = "audioPlayer" preload="auto" type="audio/mp3">
+                <source src="audio/62.mp3" type="audio/mpeg">
+                You are using an obsolete browser, idiot...
+              </audio>
+              <div class="span1">
+                <div class="btn btn-large btn-block btn-primary" id="playButton"><i class="icon-play-circle icon-large"></i>
+                </div>
+              </div>
+              <div class="span5">
+                <div class="pagination">
+                  <ul>
+                    <li class="previous"><a href="#"><img src="images/pager/previous.png" /></a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">6</a></li>
+                    <li class="next"><a href="#"><img src="images/pager/next.png" /></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>  <!-- row -->
+          </div>  <!-- audioControls -->
           <div id="audioBar">
       
           </div>

@@ -5,7 +5,7 @@ var photos = {
   'p1':"gg01.jpg",
   'p2':"gg09.jpg",
   'p3':"gg10.jpg",
-  'p4':"gg11_2.jpg"
+  'v1':"gg11_2.jpg"
 };
 var photos = {
   'l1':{"lat":123.1,"lng":42.2},
@@ -16,50 +16,30 @@ var photos = {
 
 //metadata brought in from recorder
 var themes = [0,80,200,310,360,400];
-var bookmarks = [100,120,160,220,250,290,340,400,473,500]
+var bookmarks = [100,120,220,250,340,410,500]
 var images = [
   {
-    "time":20,
-    "id":"gg01.jpg",
-  },
-  {
-    "time":80,
-    "id":"gg09.jpg",
-  },
-  {
-    "time":130,
-    "id":"gg10.jpg",
+    "time":155,
+    "id":"p1",
   },
   {
     "time":370,
-    "id":"gg11_2.jpg",
+    "id":"v1",
   }
 ];
 
 var locations = [
   {
     "time":30,
-    "id":'#l1',
+    "id":'l1',
   },
   {
-    "time":90,
-    "id":'#l2',
-  },
-  {
-    "time":245,
-    "id":'#l3',
-  },
-  {
-    "time":295,
-    "id":'#l4',
-  },
-  {
-    "time":380,
-    "id":'#l5',
+    "time":230,
+    "id":'l3',
   },
   {
     "time":480,
-    "id":'#l6',
+    "id":'l3',
   }
 ];
 
@@ -72,6 +52,9 @@ var isHighlighted = false;
 var bmarks = d3.selectAll('first'), 
   placePins = d3.selectAll('first'),
   mediaPins = d3.selectAll('first');
+
+var audioTime,audioPlayer;
+var currentTime = [0];
 
 var w = $(window).innerWidth()-100,
     h = 100,
@@ -98,11 +81,13 @@ var recty = function(d) { return d.y+offset; };
 var t = function(d) { return d.t; };
 var timeX = function(d){
   var index = Math.round(d / timeInterval);
-  return index * cw + ch
+  return index * cw + ch + timeInterval
 }
 
 $(document).ready(function(){
-  var tabHeight = (window.innerHeight - $('.navbar').outerHeight())*.6;
+  $('.thumbnail').imageZoom();
+
+  var tabHeight = (window.innerHeight - $('.navbar').outerHeight())*.45;
   $('.tabScroll').css('height',tabHeight);
 
   $(document).on("mouseup",function(){
@@ -111,23 +96,15 @@ $(document).ready(function(){
 
   svg = d3.select("#audioBar").append("svg")
     .attr("width", w+ch+ch+cw)
-    .attr("height", h);
+    .attr("height", h+20);
 
-  // var topCell = function(c) { return cells[(c.r - 1) * cols + c.c]; };
-  // var leftCell = function(c) { return cells[c.r * cols + c.c - 1]; };
-  // var bottomCell = function(c) { return cells[(c.r + 1) * cols + c.c]; };
-  // var rightCell = function(c) { return cells[c.r * cols + c.c + 1]; };
-
-  // var topLeftCell = function(c) { return cells[(c.r - 1) * cols + c.c - 1]; };
-  // var bottomLeftCell = function(c) { return cells[(c.r + 1) * cols + c.c - 1]; };
-  // var bottomRightCell = function(c) { return cells[(c.r + 1) * cols + c.c + 1]; };
-  // var topRightCell = function(c) { return cells[(c.r - 1) * cols + c.c + 1]; };
-
-  
   var cell = svg.selectAll(".cell")
     .data(cells)
     .enter().append("rect")
-    .attr("class","cell")
+    .attr("class",function(d){
+      var n = findIndex(d.t,0,themes.length);
+      return (n % 2 == 0)?'cell cell1':'cell cell2'
+    })
     .attr("x", rectx)
     .attr("y", recty)
     .attr("width", cw)
@@ -140,45 +117,92 @@ $(document).ready(function(){
       hovered.classed("hovered", true);
       if(mouseDown){
         hovered.classed('highlighted',isHighlighted);
-        console.log(d3.select(this).attr('t'));
       }
     })
-    .on("mouseout", function() {
-      hovered.classed("hovered", false);
-    })
-    .on("mousedown", function() {
-      mouseDown = true;
-      isHighlighted = !(d3.select(this).classed("highlighted"));
-      d3.select(this).classed('highlighted',isHighlighted);
-      console.log(d3.select(this).attr('t'));
+    .on({
+      mouseout: function() {
+        hovered.classed("hovered", false);
+      },
+      mousedown: function() {
+        mouseDown = true;
+        isHighlighted = !(d3.select(this).classed("highlighted"));
+        d3.select(this).classed('highlighted',isHighlighted);
+      }
     })
     .on("click",function(){console.log($(this).attr('t'))});
-
-  // svg.append('rect')
-  // .attr("class","wall")
-  // .attr("x", cw)
-  // .attr("y", ch)
-  // .attr("width", ch)
-  // .attr("height", ch);
-
-  // svg.append('rect')
-  // .attr("class","wall")
-  // .attr("x", ch + cw + w)
-  // .attr("y", ch)
-  // .attr("width", ch)
-  // .attr("height", ch);  
 
   insertPins();
 
   var theme = svg.selectAll('theme')
     .data(themes)
-    .enter().append("line")
+    .enter().append("g");
+
+  theme.append("line")
     .attr("class","theme")
     .attr('t',function(d){ return d })
     .attr("x1", timeX)
     .attr("x2", timeX)
-    .attr("y1", offset+ch-5)
-    .attr("y2", offset+ch*2+5);
+    .attr("y1", offset+ch)
+    .attr("y2", offset+ch*2);
+  theme.append("text")
+  .attr("class","theme")
+  .attr("x", function(d){
+    return timeX(d) - 11
+  })
+  .attr("y", offset+ch*2+15)
+  .text(function(d){
+    var mm = parseInt(d/60);
+    var ss = ''+(d%60);
+    if(ss.length < 2){
+      ss = '0'+ss;
+    }
+    return ''+mm+':'+ss
+  });
+
+  function _dragAudio(d,i){
+    var at = d3.select(this);
+
+    var newX = d3.event.dx;
+    var newTime = currentTime[0] + newX/cw*timeInterval;
+    
+    console.log(currentTime[0]);
+    if(newTime >= 0){
+      currentTime[0] = newTime;
+      audioPlayer.currentTime = newTime;
+      audioTime.attr('transform','translate('+(timeX(currentTime[0])-ch-timeInterval)+',0)');
+    }
+  }
+
+  var dragAudio = d3.behavior.drag()
+    .origin(Object)
+    .on("drag", _dragAudio);
+
+  
+  audioTime = svg.selectAll('audioTime')
+    .data(currentTime)
+    .enter().append("polyline")
+    .attr("class","audioTime")
+    .attr('points',function(d){ 
+      var pts = [];
+      var x1 = timeX(d) - 5;
+      var x2 = timeX(d) + 5;
+      var x3 = timeX(d);
+      var y1 = offset+ch-25;
+      var y2 = offset+ch-15;
+      var y3 = offset+ch*2+15;
+      var y4 = offset+ch*2+25;
+
+      pts.push(''+x3+','+y2);
+      pts.push(''+x1+','+y1);
+      pts.push(''+x2+','+y1);
+      pts.push(''+x3+','+y2);
+      pts.push(''+x3+','+y3);
+      pts.push(''+x2+','+y4);
+      pts.push(''+x1+','+y4);
+      pts.push(''+x3+','+y3);
+      return pts.join(' ')
+    })
+    .call(dragAudio);
 
   $('.crop_image').each(function(){
     var f = $(this).attr('image');
@@ -190,12 +214,30 @@ $(document).ready(function(){
   $('.asset').on({
     mouseover:function(){
       var aid = $(this).attr('id');
-      $('[aid="'+aid+'""]').toggleClass('assetHover');
+      d3.selectAll('[aid="'+aid+'"]').classed('assetHover',true);
     },
     mouseout:function(){
       var aid = $(this).attr('id');
-      $('[aid="'+aid+'""]').toggleClass('assetHover');
+      d3.selectAll('[aid="'+aid+'"]').classed('assetHover',false);
     }
+  });
+
+  audioPlayer = $('#audioPlayer')[0];
+
+  $('#playButton').on("click", function(){
+    if($('#playButton i').hasClass('icon-pause')){
+      audioPlayer.pause();  
+    }
+    else{
+      audioPlayer.play();      
+    }
+    $('#playButton i').toggleClass('icon-play-circle');
+    $('#playButton i').toggleClass('icon-pause');
+  });
+  var lastTime = 0;
+  audioPlayer.addEventListener("timeupdate", function(e){
+    currentTime[0] = audioPlayer.currentTime;
+    audioTime.attr('transform','translate('+(timeX(currentTime[0])-ch-timeInterval)+',0)');
   });
 });
 
@@ -219,13 +261,12 @@ function insertPins(){
       }
       console.log(d);
 
-      d3.select(this).attr('t',d);
+      d3.select(this).attr('t',newTime);
       l.attr('x1',newX1);
       l.attr('x2',newX1);
       t.attr('x',newX);
     }
   }
-
   var drag = d3.behavior.drag()
     .origin(Object)
     .on("drag", _dragStuff);
@@ -239,28 +280,30 @@ function insertPins(){
     .enter().append("g")
     .attr("class","bookmarks")
     .attr('t',function(d){ return d})
-    .on("mouseover", function() {
-      var bm = d3.selectAll(this.childNodes);
-      bm.classed("pinOver", true);
-    })
-    .on("mouseout", function() {
-      var bm = d3.selectAll(this.childNodes);
-      bm.classed("pinOver", false);
+    .on({
+      mouseover: function() {
+        var bm = d3.selectAll(this.childNodes);
+        bm.classed("pinOver", true);
+      },
+      mouseout: function() {
+        var bm = d3.selectAll(this.childNodes);
+        bm.classed("pinOver", false);
+      }
     })
     .call(drag);
 
-    bmarks.append("line")
+  bmarks.append("line")
     .attr("x1", timeX)
     .attr("x2", timeX)
     .attr("y1", offset+ch-30)
     .attr("y2", offset+ch*2+5);
 
-    bmarks.append("text")
+  bmarks.append("text")
     .attr("x", function(d){ return timeX(d)-12 })
     .attr("y", offset+ch-40)
     .attr("font-family","FontAwesome")
     .attr("class","bookmarkIcon")
-    .text("");  //star
+    .text("");  //star
 
   placePins = svg.selectAll('location')
     .data(locations)
@@ -268,23 +311,29 @@ function insertPins(){
     .attr("class","location")
     .attr('t',function(d){ return d.time })
     .attr('aid',function(d){ return d.id })
-    .on("mouseover", function() {
-      var bm = d3.selectAll(this.childNodes);
-      bm.classed("pinOver", true);
-    })
-    .on("mouseout", function() {
-      var bm = d3.selectAll(this.childNodes);
-      bm.classed("pinOver", false);
+    .on({
+      mouseover: function() {
+        var aid = $(this).attr('aid');
+        var bm = d3.selectAll(this.childNodes);
+        bm.classed("pinOver", true);
+        $('#'+aid).toggleClass('pinHovered');
+      },
+      mouseout: function() {
+        var aid = $(this).attr('aid');
+        var bm = d3.selectAll(this.childNodes);
+        bm.classed("pinOver", false);
+        $('#'+aid).toggleClass('pinHovered');
+      }
     })
     .call(drag);
 
-    placePins.append("line")
+  placePins.append("line")
     .attr("x1", function(d){ return timeX(d.time) })
     .attr("x2", function(d){ return timeX(d.time) })
     .attr("y1", offset+ch-30)
     .attr("y2", offset+ch*2+5);
 
-    placePins.append("text")
+  placePins.append("text")
     .attr("x", function(d){ return timeX(d.time)-7 })
     .attr("y", offset+ch-40)
     .attr("font-family","FontAwesome")
@@ -297,28 +346,38 @@ function insertPins(){
     .attr("class","media")
     .attr('t',function(d){ return d.time })
     .attr('aid',function(d){ return d.id })
-    .on("mouseover", function() {
-      var bm = d3.selectAll(this.childNodes);
-      bm.classed("pinOver", true);
-    })
-    .on("mouseout", function() {
-      var bm = d3.selectAll(this.childNodes);
-      bm.classed("pinOver", false);
+    .on({
+      mouseover: function() {
+        var aid = $(this).attr('aid');
+        var bm = d3.selectAll(this.childNodes);
+        bm.classed("pinOver", true);
+        $('#'+aid).toggleClass('pinHovered');
+      },
+      mouseout: function() {
+        var aid = $(this).attr('aid');
+        var bm = d3.selectAll(this.childNodes);
+        bm.classed("pinOver", false);
+        $('#'+aid).toggleClass('pinHovered');
+      },
+      click:function(){
+        var aid = $(this).attr('aid');
+        $('#'+aid).find('.thumbnail').trigger("click");
+      }
     })
     .call(drag);
 
-    mediaPins.append("line")
+  mediaPins.append("line")
     .attr("x1", function(d){ return timeX(d.time) })
     .attr("x2", function(d){ return timeX(d.time) })
     .attr("y1", offset+ch-30)
     .attr("y2", offset+ch*2+5);
 
-    mediaPins.append("text")
-    .attr("x", function(d){ return timeX(d.time)-7 })
+  mediaPins.append("text")
+    .attr("x", function(d){ return timeX(d.time)-13 })
     .attr("y", offset+ch-40)
     .attr("font-family","FontAwesome")
     .attr("class","pins")
-    .text("");  //picture
+    .text("");  //picture
 }
 
 function projectListeners(projects){
@@ -329,11 +388,12 @@ function projectListeners(projects){
       drop: function( event, ui ) {
         if($('.cell.hovered').length > 0){
           var t = $('.cell.hovered').attr('t');
+          console.log(t);
           if(ui.draggable.attr('type') == 'location'){
             var aid = ui.draggable.attr('id');
             locations.push({"time":t,"id":aid});
           }
-          else if(ui.draggable.attr('type') == 'photo'){
+          else if(ui.draggable.attr('type') == 'photo' || ui.draggable.attr('type') == 'video' ){
             var aid = ui.draggable.attr('id');
             images.push({"time":t,"id":aid});
           }
@@ -341,36 +401,8 @@ function projectListeners(projects){
 
           insertPins();
         }
-        // var itemID = ui.draggable.attr('id');
-        // var text = ui.draggable.find('.asset_name:first-child').text();
-        // var mCount = ui.draggable.find('.media_count').text();
-        // var el = $(this);
-
-        // var projectName = $(this).find('.project_name').text();
-        // var pid = $(this).attr('id');
-
-        // el.find('.audio .count').text(parseInt(el.find('.audio .count').text()) + 1);
-        // el.find('.components').append('<li class="'+itemID+'">'+text+' <i class="story_del fui-cross-16"></i></li>');
-        // el.find('.media .count').text(parseInt(el.find('.media .count').text())+parseInt(mCount));
-
-        // ui.draggable.find( ".none" ).remove();
-        // ui.draggable.find('.asset_projects').append('<li class="placeholder '+pid+'">'+projectName+'</li>');
       }
     });  //droppable
-
-    // $(this).on("click",'.story_del',function(){
-    //   var el = $(this);
-    //   var sid = el.parent().attr('class');
-    //   var pid = el.parents('.folders').attr('id');
-    //   var mCount = parseInt($('#'+sid).find('.media_count').text());
-    //   var pC = parseInt(el.parents('.audio').siblings('.media').find('.count').text());
-      
-    //   el.parents('.audio').find('.count').text(parseInt(el.parents('.audio').find('.count').text()) - 1);
-    //   el.parents('.audio').siblings('.media').find('.count').text(pC-mCount);
-
-    //   el.parent().remove();
-    //   $('#'+sid).find('.'+pid+':last').remove();
-    // });
   }); //projects
 }
 
@@ -404,6 +436,33 @@ function assetListeners(assets){
   });
 }
 
+function findIndex(d,i,k){
+  var j = parseInt((k-i)/2)+i;
+  if(i==j){
+    return j
+  }
+  if(d < themes[j]){
+    if(d >= themes[j-1]){
+      return j-1
+    }
+    else{
+      return findIndex(d,i,j)
+    }
+  }
+  else{
+    if(j < k){
+      if(d < themes[j+1]){
+        return j
+      }
+      else{
+        return findIndex(d,j,k)
+      }
+    }
+    else{
+      return j
+    }
+  }
+}
 //how to get start and end of ranges.
  // var start = $('.cell:not(.highlighted) + .cell.highlighted');
   // var end = $('.cell.highlighted + .cell:not(.highlighted)').prev();

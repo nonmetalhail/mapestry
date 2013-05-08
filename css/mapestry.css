@@ -555,7 +555,7 @@ a.thumbnail:focus {
   height:100%;
 }
 
-.asset_data .span5{
+.asset_data .span5, .asset_data .span12{
   margin:0;
 }
 
@@ -672,9 +672,13 @@ rect {
   fill: white;
 }
 
-.cell {
+.cell1 {
   fill:#7F8C8D;
 }
+.cell2{
+  fill:#BDC3C7;
+}
+
 .wall {
   fill: #34495E;
   stroke: #2C3E50;
@@ -692,19 +696,24 @@ rect {
 
 .cell.highlighted {
   fill: #1ABC9C;
+  /*opacity: .5;*/
 }
 
 .big{
   height:500px;
 }
 
-.theme{
-  stroke:#000;
-  stroke-width:3px;
+line.theme{
+  stroke:#fff;
+  stroke-width:5px;
   stroke-linecap:round;
 }
+text.theme{
+  fill:#000;
+}
+
 .bookmarks{
-  stroke:#BDC3C7;
+  stroke:#95A5A6;
   stroke-width:3px;
   stroke-linecap:round;
 }
@@ -716,7 +725,7 @@ rect {
 }
 .bookmarkIcon{
   stroke-width:0;
-  fill:#BDC3C7;
+  fill:#95A5A6;
   font-size: 25px;
 }
 .pins{
@@ -741,6 +750,42 @@ line.pinOver{
 }
 .assetHover line{
   stroke:#1ABC9C;
+}
+
+.pinHovered{
+  color: #1ABC9C;
+}
+
+.audioTime{
+  stroke:#2980B9; 
+  fill:#2980B9; 
+  stroke-width:5px;
+}
+
+#audioControls{
+  margin-bottom: 20px;
+}
+
+#playButton{
+  font-size: 25px;
+  height:45px;
+}
+
+.pagination{
+  margin: 0;
+}
+
+.pagination ul{
+  height:45px;
+}
+.pagination ul > li.previous > a, .pagination ul > li.previous > span, .pagination ul > li.next > a, .pagination ul > li.next > span {
+  padding:14px 17px 15px 18px;
+}
+.pagination ul > li > a, .pagination ul > li > span {
+  margin: 10px 2px 9px;
+}
+.pagination ul > li.active > a{
+  margin: 13px 2px 12px;
 }
 
 /*Projects ---------------------------------------*/
