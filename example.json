@@ -1,85 +1,97 @@
 [
   {
-    "story":"mom1",
-    "audio":"301.mp3",
-    "storyTitle":"Interview with Mom",
+    "story":"courtshipMarriage",
+    "audio":"Gma-01-web-marriage.m4a",
+    "storyTitle":"Courtship & Marriage",
     "rDate":"15 March 2013",
-    "sText":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "sTags":[ "Mom", "Montery Park", "Taipei", "Taiwan"],
+    "sText":"Grandma Rose talks about how she pursued Grandpa.",
+    "sTags":[ "Grandma Rose", "Grandpa Wendell"],
     "segment":[
       {
-        "segTitle":"First Home",
+        "segTitle":"Spiegels",
         "time":0,
-        "desc":"Place lived during Elementary School",
-        "latlong":[34.06418,-118.1197]
+        "desc":"Where Rose met Wendell.",
+        "latlong":[42.498342,-92.335197]
       },
       {
-        "segTitle":"Friend's Home",
-        "time":330,
-        "desc":"Where friends lived",
-        "latlong":[34.0621,-118.1156]
+        "segTitle":"Cory Street Episcopal Methodist Church",
+        "time":144,
+        "desc":"Where they got married.",
+        "latlong":[41.719026,-71.150734]
+      }    
+    ]
+  },
+    {
+    "story":"jobHistory",
+    "audio":"Gma-01-web-jobhistory.m4a",
+    "storyTitle":"Job History of Grandma Rose",
+    "rDate":"15 March 2013",
+    "sText":"Places Rose worked growing up, during and after high school.",
+    "sTags":[ "Rose"],
+    "segment":[
+      {
+        "segTitle":"Anderson & Little Suit Store",
+        "time":10,
+        "desc":"Starting out here after high school, since college wasn't an option for women back then.",
+        "latlong":[41.690571,-71.134315]
       },
       {
-        "segTitle":"Going to School",
-        "time":2340,
-        "desc":"Route to School",
-        "latlong":[34.0617,-118.1194]
+        "segTitle":"Grant's Department Store",
+        "time":26,
+        "desc":"Getting fired for having agency during high school.",
+        "latlong":[41.697139,-71.16064]
+      },
+      {
+        "segTitle":"Crossing the Street",
+        "time":93,
+        "desc":"Leaving Grant's",
+        "latlong":[41.697075,-71.160466]
+      },
+      {
+        "segTitle":"Working at Anderson & Little",
+        "time":93,
+        "desc":"Working in the cutting room office after high school and moving up.",
+        "latlong":[41.690571,-71.134315]
+      },
+      {
+        "segTitle":"Moving to Iowa",
+        "time":205,
+        "desc":"Getting a job in Downtown Waterloo at Spiegals.",
+        "latlong":[41.690571,-71.134315]
+      },
+      {
+        "segTitle":"Moving to Iowa",
+        "time":205,
+        "desc":"Getting a job in Downtown Waterloo at Spiegals.",
+        "latlong":[42.498342,-92.335197]
       }
     ]
   },
     {
-    "story":"mom2",
-    "audio":"304.mp3",
-    "storyTitle":"Interview with Dad",
+    "story":"growingUp",
+    "audio":"Gma-01-web-growingup-movingtoiowa.m4a",
+    "storyTitle":"Moving to Iowa",
     "rDate":"15 March 2013",
-    "sText":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "sTags":[ "Mom", "Taipei"],
-    "segment":[
-      {
-        "segTitle":"First Home",
-        "time":0,
-        "desc":"Place lived during Elementary School",
-        "latlong":[34.0641,-118.118]
-      },
-      {
-        "segTitle":"Friend's Home",
-        "time":330,
-        "desc":"Where friends lived",
-        "latlong":[34.061,-118.116]
-      },
-      {
-        "segTitle":"Going to School",
-        "time":2340,
-        "desc":"Route to School",
-        "latlong":[34.061,-118.1200]
-      }
-    ]
-  },
-    {
-    "story":"mom3",
-    "audio":"62.mp3",
-    "storyTitle":"Interview with Nancy",
-    "rDate":"15 March 2013",
-    "sText":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "sText":"Growing up in Fall Rivers, early life, and moving to Four Wayne Street.",
     "sTags":["Montery Park"],
     "segment":[
       {
-        "segTitle":"First Home",
+        "segTitle":"A Cement Cottage",
         "time":0,
-        "desc":"Place lived during Elementary School",
-        "latlong":[34.0643,-118.116]
+        "desc":"Growing up in Fall Rivers.",
+        "latlong":[41.701491,-71.155045]
       },
       {
-        "segTitle":"Friend's Home",
-        "time":330,
-        "desc":"Where friends lived",
-        "latlong":[34.06418,-118.1197]
+        "segTitle":"The Narrows",
+        "time":37,
+        "desc":"Rose's grandfather's small farm, picking blueberries.",
+        "latlong":[41.698962,-71.139198]
       },
       {
-        "segTitle":"Going to School",
-        "time":2340,
-        "desc":"Route to School",
-        "latlong":[34.067,-118.119]
+        "segTitle":"Four Wayne Street",
+        "time":90,
+        "desc":"Moving at age 6.",
+        "latlong":[41.681591,-71.158229]
       }
     ]
   }
