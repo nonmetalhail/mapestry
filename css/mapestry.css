@@ -389,6 +389,14 @@ audio{
   margin-right: 0px;
 }
 
+.tagsinput .tag{
+  background-color: #7F8C8D;
+}
+.tagsinput .tag:hover {
+  background-color: #BDC3C7;
+  padding: 6px 13px 6px 19px;
+}
+
 .todo li, .tag,#photoControls{
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -398,19 +406,18 @@ audio{
   user-select: none;
 }
 
-/*.todo{
-  background-color: #95A5A6;
-  color: #BDC3C7;
+.todo{
+  background-color: #BDC3C7;
+  /*background-color: #7F8C8D;*/
+  color: #fff;
 }
-*/
-/*.todo li.todo-done {
-  background: transparent url("../images/todo/done.png") 92% center no-repeat;
-  background-size: 20px 20px;
-  color: #2ECC71 !important; 
+
+.todo li.todo-done,.todo li.todo-done .todo-name  {
+  /*color: #2ECC71 !important; */
+  /*color: #BDC3C7 !important; */
+  color: #7F8C8D; 
+  
 }
-.todo li.todo-done .todo-name {
-  color: #2ECC71 !important; 
-}*/
 
 .todo li.todo-hover{
   background: #16A085 url("../images/todo/todo.png") 92% center no-repeat;
@@ -421,7 +428,10 @@ audio{
 }
 .todo li.todo-hover.todo-done{
   background: #16A085 url("../images/todo/done.png") 92% center no-repeat;
-  color: white; 
+  color: #BDC3C7; 
+}
+.todo li.todo-done.todo-hover .todo-name{
+  color: #BDC3C7; 
 }
 .todo li.todo-active{
   background: #16A085 url("../images/todo/todo.png") 92% center no-repeat;
@@ -527,6 +537,10 @@ a.popup{
 
 /*adjusting margins*/
 
+.thumbnailImage{
+  margin-bottom: 15px;
+}
+
 .crop_image{
   height:200px;
   /*width:200px;*/
@@ -603,6 +617,7 @@ a.thumbnail:focus {
 .audio_icon{
   height:50px;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .helper_photo{
@@ -620,10 +635,6 @@ a.thumbnail:focus {
   margin-bottom: 5px;
 }
 
-.syncRecorder{
-  margin-bottom: 10px;
-}
-
 .cb{
   padding-top:25px;
 }
@@ -635,6 +646,13 @@ a.thumbnail:focus {
   display:none;
 }
 
+.dk_options_inner li:first-child{
+  margin-top: 10px;
+}
+
+.deletePhoto{
+  margin-bottom:5px;
+}
 .deletePhoto:hover{
   background-color: #E74C3C !important;
 }
@@ -648,7 +666,8 @@ a.thumbnail:focus {
 
 .shareNotification,.shareNotification:hover,.shareNotification:focus{
   background-color: white;
-  margin-bottom: 20px;
+  font-size: 14px;
+  cursor: default;
 }
 .private,.private:hover,.private:focus{
   color:#BDC3C7;
@@ -661,6 +680,11 @@ a.thumbnail:focus {
 
 .asset_latlng{
   margin-top: 10px;
+}
+
+.dk_options_inner{
+  left:85px !important;
+  width:130%;
 }
 
 /*audio bar --------------------------------------*/
