@@ -10,6 +10,7 @@ body {
     font-family: "Lato-Light";
     text-align: left;
     line-height: 1.5;
+    margin-top: 20px;
 }
 
 #footer {
@@ -77,10 +78,12 @@ body {
 }
 
 .index_pic {
-  position: static;
-  top: 50px;
-  margin-top: 50px;
-  z-index: -1;
+  background-image: url("../images/index_map_1200.png");
+  background-size: 80% auto;
+  /*position: static;*/
+  /*top: 50px;
+  margin-top: 50px;*/
+  /*z-index: -1;*/
 }
 
 /* IE 6 */
