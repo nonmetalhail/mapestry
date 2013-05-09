@@ -5,13 +5,37 @@
     "storyTitle":"Courtship & Marriage",
     "rDate":"15 March 2013",
     "sText":"Grandma Rose talks about how she pursued Grandpa.",
-    "sTags":[ "Grandma Rose", "Grandpa Wendell"],
+    "sTags":[ "Grandma Rose", "Grandpa Wendell","Waterloo","Fall River"],
     "segment":[
       {
         "segTitle":"Spiegels",
         "time":0,
         "desc":"Where Rose met Wendell.",
         "latlong":[42.498342,-92.335197]
+      },
+      {
+        "segTitle":"First Date",
+        "time":65,
+        "desc":"The Paramount Theatre",
+        "latlong":[42.49751,-92.3368]
+      },
+      {
+        "segTitle":"Home",
+        "time":86,
+        "desc":"Rose's Home",
+        "latlong":[42.48705,-92.33979]
+      },
+      {
+        "segTitle":"Corsage",
+        "time":90,
+        "desc":"The flower store",
+        "latlong":[42.49419,-92.33873]
+      },
+      {
+        "segTitle":"The Proposal",
+        "time":109,
+        "desc":"Rose proposes to Wendell..and he proposes back",
+        "latlong":[42.50056,-92.33387]
       },
       {
         "segTitle":"Cory Street Episcopal Methodist Church",
@@ -27,7 +51,7 @@
     "storyTitle":"Job History of Grandma Rose",
     "rDate":"15 March 2013",
     "sText":"Places Rose worked growing up, during and after high school.",
-    "sTags":[ "Rose"],
+    "sTags":[ "Grandma Rose"],
     "segment":[
       {
         "segTitle":"Anderson & Little Suit Store",
@@ -73,7 +97,7 @@
     "storyTitle":"Moving to Iowa",
     "rDate":"15 March 2013",
     "sText":"Growing up in Fall Rivers, early life, and moving to Four Wayne Street.",
-    "sTags":["Montery Park"],
+    "sTags":["Grandma Rose","Fall River"],
     "segment":[
       {
         "segTitle":"A Cement Cottage",

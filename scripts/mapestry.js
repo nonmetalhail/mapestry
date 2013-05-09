@@ -31,7 +31,7 @@ $(document).ready(function(){
   createMainGallery();
   $.when(loadPhotos(),loadAudio())
   .pipe(function(){
-    console.log(window.innerHeight);
+    // console.log(window.innerHeight);
     mapHeight = (window.innerHeight - $('.navbar').outerHeight())*.96;
     galleryHeight = mapHeight * 0.6666;
     $('#gallery').outerHeight(galleryHeight);
@@ -44,7 +44,7 @@ $(document).ready(function(){
     //   attribution: stamenAtr
     // });
     map = L.map('map',{
-      center: new L.LatLng(34.0621, -118.1193),
+      center: new L.LatLng(42.50056, -92.33387),
       zoom: 15,
       maxZoom:16,
       layers: layerG
@@ -83,14 +83,12 @@ $(document).ready(function(){
     $('#radioONS').parent('.radio').addClass('disabled');
     $('#radioOFFS').parent('.radio').addClass('disabled');
     $('#radioAll').on('change', function(){
-      console.log('All change');
       filterGallery('all');
       $('#radioOFFS').trigger('click');
       $('#radioONS').parent('.radio').addClass('disabled');
       $('#radioOFFS').parent('.radio').addClass('disabled');
     });
     $('#radioStory').on('change',function(){
-      console.log('Story change');
       filterGallery(playing);
       $('#radioONS').parent('.radio').removeClass('disabled');
       $('#radioOFFS').parent('.radio').removeClass('disabled');
@@ -296,10 +294,20 @@ AudioStory.prototype.audioEvents = function(){
         $('.'+as.tag+'_' + time).addClass('todo-active');
         as.markers.markers[as.tag+'_' + time].setIcon(playing_color);
         if(galleryOpen){
-          map.panTo(as.markers.markers[as.tag+'_' + time].getLatLng()).panBy([0,(mapHeight-smMapH)/2],0.9);
+          if(map.getZoom() < 13){
+            map.setView(as.markers.markers[as.tag+'_' + time].getLatLng(),14).panBy([0,(mapHeight-smMapH)/2],0.9);
+          }
+          else{
+            map.panTo(as.markers.markers[as.tag+'_' + time].getLatLng()).panBy([0,(mapHeight-smMapH)/2],0.9);
+          }
         }
         else{
-          map.panTo(as.markers.markers[as.tag+'_' + time].getLatLng());
+          if(map.getZoom() < 14){
+            map.setView(as.markers.markers[as.tag+'_' + time].getLatLng(),15);
+          }
+          else{
+            map.panTo(as.markers.markers[as.tag+'_' + time].getLatLng());
+          }
         }
         //update point in story
         as.point = time;
@@ -414,7 +422,7 @@ function processPhotos(p){
         'p':main,
         'c':control
       });
-      photoList[story].times = times[story];
+      photoList[story].times = times[story].sort(function(a,b){return a-b});
     }
     photoList['all'].photos.push({
         'p':main,
@@ -551,7 +559,7 @@ function insertStory(d){
         '<hr>'+
         '<div class = "teaser">'+
           '<div class="open-icon fui-plus-24" tags="'+d[i].sTags.join(',')+'"></div>'+
-          '<h2>'+d[i].storyTitle+'</h2>'+
+          '<h3>'+d[i].storyTitle+'</h3>'+
         '</div>'+
         '<audio id = "'+d[i].story+'" controls preload="auto" type="audio/mp3">'+
           '<source src="audio/'+d[i].audio+'" type="audio/mpeg">'+

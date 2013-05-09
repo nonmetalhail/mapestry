@@ -1,41 +1,52 @@
 {
-  "gg01.jpg":{
-    "t":"Grandma and Grandpa",
-    "s":{
-      "mom1":[0,500],
-      "mom3":[0,900]
-    }
-  },
   "gg09.jpg":{
     "t":"Grandma at 23",
     "s":{
-      "mom1":[350,600],
-      "mom3":[1000]
+      "courtshipMarriage":[0,75,600],
+      "growingUp":[1000]
+    }
+  },
+  "gg01.jpg":{
+    "t":"Grandma Rose and Grandpa Wendell",
+    "s":{
+      "courtshipMarriage":[10,100],
+      "growingUp":[0,900]
     }
   },
   "gg10.jpg":{
     "t":"Ryan Born",
     "s":{
-      "mom1":[1000],
-      "mom2":[800,1400]
+      "jobHistory":[800,1400]
     }
   },
   "gg11_2.jpg":{
     "t":"Family",
     "s":{
-      "mom2":[0,500]
+      "jobHistory":[0,500]
     }
   },
   "gg13.jpg":{
     "t":"Grandparents",
     "s":{
-      "mom2":[200,1200]
+      "jobHistory":[200,1200]
     }
   },
   "gg14.jpg":{
     "t":"Grandparents",
     "s":{
-      "mom3":[500]
+      "growingUp":[500]
+    }
+  },
+  "paramount_theater.jpg":{
+    "t":"Paramount Theater",
+    "s":{
+      "courtshipMarriage":[65]
+    }
+  },
+  "waterloo_home.jpg":{
+    "t":"Home in Waterloo",
+    "s":{
+      "courtshipMarriage":[86]
     }
   }
 }

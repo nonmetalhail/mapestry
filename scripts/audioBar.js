@@ -55,6 +55,8 @@ var bmarks = d3.selectAll('first'),
 
 var audioTime,audioPlayer;
 var currentTime = [0];
+var qStart = themes[0];
+var qEnd = themes[1];
 
 var w = $(window).innerWidth()-100,
     h = 100,
@@ -165,7 +167,6 @@ $(document).ready(function(){
     var newX = d3.event.dx;
     var newTime = currentTime[0] + newX/cw*timeInterval;
     
-    console.log(currentTime[0]);
     if(newTime >= 0){
       currentTime[0] = newTime;
       audioPlayer.currentTime = newTime;
@@ -238,6 +239,67 @@ $(document).ready(function(){
   audioPlayer.addEventListener("timeupdate", function(e){
     currentTime[0] = audioPlayer.currentTime;
     audioTime.attr('transform','translate('+(timeX(currentTime[0])-ch-timeInterval)+',0)');
+
+    if(currentTime[0] < qStart){
+      console.log("less");
+      console.log(qStart);
+      console.log(qEnd);
+      var oldTime = $('#questionList li.active');
+      var newTime = oldTime.prev();
+      qEnd = qStart;
+      qStart = newTime.attr('t');
+      oldTime.removeClass('active');
+      newTime.addClass('active');
+      console.log(qStart);
+      console.log(qEnd);
+    }
+    else if(qEnd < currentTime[0]){
+      console.log("greater");
+      console.log(qStart);
+      console.log(qEnd);
+      var oldTime = $('#questionList li.active');
+      var newTime = oldTime.next();
+      console.log(oldTime[0]);
+      console.log(newTime[0]);
+      qStart = qEnd;
+      qEnd = newTime.next().attr('t');
+      oldTime.removeClass('active');
+      newTime.addClass('active');
+      console.log(qStart);
+      console.log(qEnd); 
+    }
+  });
+
+  $('#questionList').on('click',"li",function(){
+    var t = $(this).attr('t');
+    if(t=='p'){
+      var oldTime = $(this).siblings('.active');
+      var newTime = $(this).siblings('.active').prev();
+      if(!newTime.hasClass('previous')){
+        oldTime.removeClass('active');
+        newTime.addClass('active');
+        audioPlayer.currentTime = newTime.attr('t');
+      }
+    }
+    else if(t=='n'){
+      var oldTime = $(this).siblings('.active');
+      var newTime = $(this).siblings('.active').next();
+      if(!newTime.hasClass('next')){
+        oldTime.removeClass('active');
+        newTime.addClass('active');
+        audioPlayer.currentTime = newTime.attr('t');
+      }
+    }
+    else{
+      $(this).siblings('.active').removeClass('active');
+      $(this).addClass('active');
+      audioPlayer.currentTime = t;
+    }
+    qStart = $('#questionList .active').attr('t');
+    qEnd = $('#questionList .active').next().attr('t');
+    if(qEnd == 'n'){
+      qEnd = audio_length;
+    }
   });
 });
 
