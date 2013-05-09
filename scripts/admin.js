@@ -11,7 +11,7 @@ $(document).ready(function(){
     $(this).css('background-image','url(images/story/'+f+')');
   });
 
-  $('.thumbnail').imageZoom();
+  $('.thumbnailImage').imageZoom();
 
   $('.asset_name').inlineEdit(); 
   $('.asset_date').inlineEdit(); 
@@ -23,7 +23,8 @@ $(document).ready(function(){
   $('.asset_city').inlineEdit(); 
   $('.asset_state').inlineEdit(); 
   $('.asset_zip').inlineEdit(); 
-  $('.asset_country').inlineEdit(); 
+  $('.asset_country').inlineEdit();
+  $('.asset_latlng').inlineEdit(); 
   // $('.asset_date').inlineEdit({
   //   control:'date'}); 
 
@@ -40,20 +41,35 @@ $(document).ready(function(){
   });
 
   $('.deletePhoto').on('click',function(){
-    var a = confirm("Are you sure?\n\nYour stories will miss this "+$(this).parents('.asset').attr('type')+"...");
-    if(a==true){
-      $(this).parents('.asset').fadeOut(750,function(){
-        $(this).remove();
-      });
-    }
+    var tab = $(this).parents('.tab-pane').attr('id');
+    $('#'+tab).find('.checked').each(function(){
+      var cid = $(this).attr('for').split('_')[0];
+      var type = $('#'+cid).attr('type');
+
+      if(type == 'audio'){
+        var a = confirm("Are you sure?\n\nDeleting an audio interview will delete stories created from it.");          
+      }
+      else{
+        var a = confirm("Are you sure?\n\nYour projects will miss this "+type+"...");        
+      }
+      if(a==true){
+        $('#'+cid).fadeOut(750,function(){
+          $(this).remove();
+        });
+      }
+    });
   });
 
   $('.syncRecorder').on('click',function(){
-    $(this).fadeOut(750,function(){
-      var par = $(this).parent();
-      $(this).remove();
-      $('<h3 class="placeholder">Sent!</h3>').appendTo(par).hide().fadeIn();
-    });
+    var tab = $(this).parents('.tab-pane').attr('id');
+    if(tab!="tab1"){
+      $('#'+tab).find('.checkbox.checked').each(function(){
+        console.log(this)
+        var cid = $(this).attr('for').split('_')[0];
+        $('#'+cid).find(".recorderNotification").fadeIn(750);
+        $(this).removeClass("checked");
+      });
+    }
   });
 
   $('.addFile').on('click',function(){

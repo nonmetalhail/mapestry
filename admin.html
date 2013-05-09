@@ -102,7 +102,32 @@
             <div class="tab-content">
               <div class="tab-pane active" id="tab1" >
                 <div class="row-fluid">
-                  <div class="span10">
+                  <div class="span2">
+                    <div class="dk_container span8 dk_shown dk_theme_default" id="dk_container_herolist" tabindex="1">
+                      <a class="dk_toggle">
+                        <span class="dk_label"><i class="asset_settings fui-settings-24"></i></span>
+                        <span class="select-icon"></span>
+                      </a>
+                      <div class="dk_options" style="top: 38px;">
+                        <ul class="dk_options_inner">
+                          <li>
+                            <a data-dk-dropdown-value="1">Edit</a>
+                          </li>
+                          <li>
+                            <a data-dk-dropdown-value="2">Share</a>
+                          </li>
+                          <li>
+                            <a data-dk-dropdown-value="3">Download</a>
+                          </li>
+                          <hr>
+                          <li>
+                            <a data-dk-dropdown-value="4" class="deletePhoto">Delete</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span8">
                   </div>
                   <div class="span2">
                      <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
@@ -113,7 +138,12 @@
                 <div class="tabScroll">
                   <div class="row-fluid" type="audio" id = "a1">
                     <div class = "row-fluid raw_audio">
-                      <div class="span1">
+                      <div class="span1 cb">
+                        <label class="checkbox" for="a1_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="a1_c">
+                        </label>
                       </div>
                       <div class="span2">
                         <div class="audio_icon">
@@ -138,31 +168,33 @@
                       <div class="span2">
                         <div class="row-fluid">
                           <div class="span12">
+                            <div class="btn btn-block btn-small shareNotification private">Private</div>
+                          </div>
+                        </div>
+                        <div class="row-fluid">
+                          <div class="span12">
                             <a class="btn btn-large btn-block btn-warning createStory" href="storyCreator.html">Create New Story</a>
                           </div>
                         </div>
-
-                        <div class="row-fluid">
-                          <div class="span6">
-                            <div class="btn btn-block btn-default editOriginal">Edit Original</div>
-                          </div>
-                          <div class="span6">
-                            <div class="btn btn-block btn-default download">Download</div>
-                          </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span1">
+                        </div>
+                        <div class="span11">
+                          <hr>
                         </div>
                       </div>
                     </div> <!-- raw audio -->
 
-                    <div class="row-fluid">
-                      <div class="span1">
+                    <div class="row-fluid audio_story" type="story" id="s1">
+                      <div class="span1 cb">
+                        <label class="checkbox" for="s1_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="s1_c">
+                        </label>
                       </div>
-                      <div class="span11">
-                        <hr>
-                      </div>
-                    </div>
-
-                    <div class="row-fluid audio_story">
-                      <div class="span3">
+                      <div class="span2">
                       </div>
                       <div class="span5 asset_data">  
                         <div class="row-fluid">
@@ -184,20 +216,31 @@
                           </ul>
                       </div>
                       <div class="span2">
-                        <h5><a class = "edit_story">Edit Story</a></h5>
+                        <div class="row-fluid">
+                          <div class="span12">
+                            <div class="btn btn-block btn-small shareNotification sharedAsset">Shared</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row-fluid">
+                        <div class="span1">
+                        </div>
+                        <div class="span11">
+                          <hr>
+                        </div>
                       </div>
                     </div> <!-- audio story-->
 
-                    <div class="row-fluid">
-                      <div class="span1">
+                    <div class="row-fluid audio_story" type="story" id="s2">
+                      <div class="span1 cb">
+                        <label class="checkbox" for="s2_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="s2_c">
+                        </label>
                       </div>
-                      <div class="span11">
-                        <hr>
-                      </div>
-                    </div>
-
-                    <div class="row-fluid audio_story">
-                      <div class="span3">
+                      <div class="span2">
                       </div>
                       <div class="span5 asset_data">  
                         <div class="row-fluid">
@@ -219,15 +262,24 @@
                           </ul>
                       </div>
                       <div class="span2">
-                        <h5><a class = "edit_story">Edit Story</a></h5>
+                        <div class="row-fluid">
+                          <div class="span12">
+                            <div class="btn btn-block btn-small shareNotification sharedAsset">Shared</div>
+                          </div>
+                        </div>
                       </div>
                     </div> <!-- audio story-->
-                  
-                  <hr>
+                    <hr>
+                  </div>
 
                   <div class="row-fluid" type="audio" id = "a2">
                     <div class = "row-fluid raw_audio">
-                      <div class="span1">
+                      <div class="span1 cb">
+                        <label class="checkbox" for="a2_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="a2_c">
+                        </label>
                       </div>
                       <div class="span2">
                         <div class="audio_icon">
@@ -252,36 +304,38 @@
                       <div class="span2">
                         <div class="row-fluid">
                           <div class="span12">
+                            <div class="btn btn-block btn-small shareNotification private">Private</div>
+                          </div>
+                        </div>
+                        <div class="row-fluid">
+                          <div class="span12">
                             <a class="btn btn-large btn-block btn-warning createStory" href="storyCreator.html">Create New Story</a>
                           </div>
                         </div>
-
-                        <div class="row-fluid">
-                          <div class="span6">
-                            <div class="btn btn-block btn-large  btn-default editOriginal">Edit Original</div>
-                          </div>
-                          <div class="span6">
-                            <div class="btn btn-block btn-large btn-default download">Download</div>
-                          </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span1">
+                        </div>
+                        <div class="span11">
+                          <hr>
                         </div>
                       </div>
                     </div> <!-- raw audio -->
 
-                    <div class="row-fluid">
-                      <div class="span1">
+                    <div class="row-fluid audio_story" type="story" id="s3">
+                      <div class="span1 cb">
+                        <label class="checkbox" for="s3_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="s3_c">
+                        </label>
                       </div>
-                      <div class="span11">
-                        <hr>
-                      </div>
-                    </div>
-
-                    <div class="row-fluid audio_story">
-                      <div class="span3">
+                      <div class="span2">
                       </div>
                       <div class="span5 asset_data">  
                         <div class="row-fluid">
                           <div class="span7 display_text">
-                            <h4 class="asset_name editable">Courtship & Marriage</h4>
+                            <li class="asset_name placeholder">Courtship & Marriage</li>
                           </div>
                           <div class="span5">
                             <h6 class="asset_date editable">16 April 2013</h6>
@@ -294,21 +348,31 @@
                       <div class="span2">
                           Used in projects:
                           <ul class="asset_projects">
-                            <li class="placeholder">Courtship & Marriage</li>
+                            <li class="placeholder">Maternal Grandmother - Rose Burroughs</li>
                           </ul>
                       </div>
                       <div class="span2">
-                        <h5><a class = "edit_story">Edit Story</a></h5>
+                        <div class="row-fluid">
+                          <div class="span12">
+                            <div class="btn btn-block btn-small shareNotification sharedAsset">Shared</div>
+                          </div>
+                        </div>
                       </div>
                     </div> <!-- audio story-->
+                    <hr>
                   </div>
                   
-                  <hr>
+                  
 
                   
                   <div class="row-fluid" type="audio" id = "a3">
                     <div class = "row-fluid raw_audio">
-                      <div class="span1">
+                      <div class="span1 cb">
+                        <label class="checkbox" for="a3_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="a3_c">
+                        </label>
                       </div>
                       <div class="span2">
                         <div class="audio_icon">
@@ -329,25 +393,20 @@
                         </div>
                       </div> <!--// photo data //-->
                       <div class="span2">
+                      </div>
+                      <div class="span2">
+                        <div class="row-fluid">
+                          <div class="span12">
+                            <div class="btn btn-block btn-small shareNotification private">Private</div>
+                          </div>
+                        </div>
                         <div class="row-fluid">
                           <a class="btn btn-large btn-block btn-warning createStory" href="storyCreator.html">Create New Story</a>
                         </div>
                       </div>
-                      <div class="span2">
-                        <div class="row-fluid">
-                          <div class="span6">
-                            <div class="btn btn-large btn-block btn-warning editOriginal">Edit Original</div>
-                          </div>
-                          <div class="span6">
-                            <div class="btn btn-large btn-block btn-default download">Download</div>
-                          </div>
-                        </div>
-                      </div>
                     </div> <!-- raw audio -->
+                    <hr>
                   </div>
-                </div>
-                
-                <hr>
                 
               </div>
             </div>
@@ -357,6 +416,34 @@
             <div class="tab-pane" id="tab2">
               <div class="row-fluid">
                 <div class="span12">
+                  <div class="span2">
+                    <div class="dk_container span8 dk_shown dk_theme_default" id="dk_container_herolist" tabindex="1">
+                      <a class="dk_toggle">
+                        <span class="dk_label"><i class="asset_settings fui-settings-24"></i></span>
+                        <span class="select-icon"></span>
+                      </a>
+                      <div class="dk_options" style="top: 38px;">
+                        <ul class="dk_options_inner">
+                          <li>
+                            <a data-dk-dropdown-value="0" class = "syncRecorder">Send to Recorder</a>
+                          </li>
+                          <li>
+                            <a data-dk-dropdown-value="1">Edit</a>
+                          </li>
+                          <li>
+                            <a data-dk-dropdown-value="2">Share</a>
+                          </li>
+                          <li>
+                            <a data-dk-dropdown-value="3">Download</a>
+                          </li>
+                          <hr>
+                          <li>
+                            <a data-dk-dropdown-value="4" class="deletePhoto">Delete</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                   <div class="span2">
                     <label class="radio">
                       <input type="radio" name="mediaTypes" id="allMedia" value="allMedia" checked="">
@@ -375,7 +462,7 @@
                       Videos Only
                     </label>
                   </div>
-                  <div class="span4">
+                  <div class="span2">
                   </div>
                   <div class="span2">
                     <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
@@ -387,7 +474,14 @@
               <div class="tabScroll">
                 <div class="asset" type="photo" id = "p1">
                   <div class="row-fluid">
-                    <div class="span3 thumbnails">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="p1_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="p1_c">
+                        </label>
+                      </div>
+                    <div class="span2 thumbnailImage">
                       <a class="thumbnail" href="images/story/gg01.jpg">
                         <div class="crop_image" image = "gg01.jpg"></div>
                       </a>
@@ -414,16 +508,13 @@
                     </div>
                     <div class="span2">
                       <div class="row-fluid">
-                        <div class="span11">
-                          <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
-                        </div>
-                        <div class="span1">
-                          <div class="asset_settings fui-settings-24"></div>
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
                         </div>
                       </div>
                       <div class="row-fluid">
-                        <div class="control-group sucess">
-                          <div class="btn  btn-block btn-large btn-share shared shareStatus">Shared</div>
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
                         </div>
                       </div>
                     </div>
@@ -433,7 +524,14 @@
 
                 <div class="asset" type="photo" id = "p2">
                   <div class="row-fluid">
-                    <div class="span3 thumbnails">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="p2_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="p2_c">
+                        </label>
+                      </div>
+                    <div class="span2 thumbnailImage">
                       <a class="thumbnail" href="images/story/gg09.jpg">
                         <div class="crop_image" image = "gg09.jpg"></div>
                       </a>
@@ -446,7 +544,7 @@
                         <div class="span5">
                           <h3 class="asset_date editable">3 March 2013</h3>
                         </div>
-                        <div class="span12 asset_desc editable">Photo of Grandma Rose at age 23</div>
+                        <div class="span12 asset_desc editable">Photo of Grandma Rose DeBonis at age 23</div>
                       </div>
                     </div>
                     <div class="span2">
@@ -460,20 +558,13 @@
                     </div>
                     <div class="span2">
                       <div class="row-fluid">
-                        <div class="span11">
-                        </div>
-                        <div class="span1">
-                          <div class="asset_settings fui-settings-24"></div>
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
                         </div>
                       </div>
                       <div class="row-fluid">
                         <div class="span12">
-                          <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
-                        </div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="control-group sucess">
-                          <div class="btn  btn-block btn-large btn-share shared shareStatus">Shared</div>
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
                         </div>
                       </div>
                     </div>
@@ -483,7 +574,14 @@
 
                 <div class="asset" type="photo" id = "p3">
                   <div class="row-fluid">
-                    <div class="span3 thumbnails">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="p3_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="p3_c">
+                        </label>
+                      </div>
+                    <div class="span2 thumbnailImage">
                       <a class="thumbnail" href="images/story/gg10.jpg">
                         <div class="crop_image" image = "gg10.jpg"></div>
                       </a>
@@ -491,12 +589,12 @@
                     <div class="span5 asset_data">
                       <div class="row-fluid">
                         <div class="span7 display_text">
-                          <h3 class="asset_name editable">Person</h3>
+                          <h3 class="asset_name editable">Grandma and Baby Ryan</h3>
                         </div>
                         <div class="span5">
                           <h3 class="asset_date editable">3 March 2013</h3>
                         </div>
-                        <div class="span12 asset_desc editable">Blah Blah BLah</div>
+                        <div class="span12 asset_desc editable">--</div>
                       </div>
                     </div>
                     <div class="span2">
@@ -509,19 +607,13 @@
                     </div>
                     <div class="span2">
                       <div class="row-fluid">
-                        <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span6">
-                          <div class="btn  btn-block btn-default shareButton">Share</div>
-                        </div>
-                        <div class="span6">
-                          <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
                         </div>
                       </div>
                       <div class="row-fluid">
-                        <div class="control-group sucess">
-                          <div class="btn  btn-block btn-large btn-share notShared shareStatus">Private</div>
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
                         </div>
                       </div>
                     </div>
@@ -529,9 +621,16 @@
                   <hr>
                 </div>
 
-                <div class="asset" type="video" id = "v1">
+                <div class="asset" type="photo" id = "p4">
                   <div class="row-fluid">
-                    <div class="span3 thumbnails">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="p4_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="p4_c">
+                        </label>
+                      </div>
+                    <div class="span2 thumbnailImage">
                       <a class="thumbnail" href="images/story/gg11_2.jpg">
                         <div class="crop_image" image = "gg11_2.jpg"></div>
                       </a>
@@ -539,12 +638,12 @@
                     <div class="span5 asset_data">
                       <div class="row-fluid">
                         <div class="span7 display_text">
-                          <h3 class="asset_name editable">Person</h3>
+                          <h3 class="asset_name editable">Family Photo, 1982</h3>
                         </div>
                         <div class="span5">
                           <h3 class="asset_date editable">3 March 2013</h3>
                         </div>
-                        <div class="span12 asset_desc editable">Blah Blah BLah</div>
+                        <div class="span12 asset_desc editable">Chris Larson, Wendell, Rose, Mary, Stuart, Ryan, Erin, Brad, Scott</div>
                       </div>
                     </div>
                     <div class="span2">
@@ -557,25 +656,266 @@
                     </div>
                     <div class="span2">
                       <div class="row-fluid">
-                        <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span6">
-                          <div class="btn  btn-block btn-default shareButton">Share</div>
-                        </div>
-                        <div class="span6">
-                          <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
                         </div>
                       </div>
                       <div class="row-fluid">
-                        <div class="control-group sucess">
-                          <div class="btn  btn-block btn-large btn-share shared shareStatus">Shared</div>
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
                         </div>
                       </div>
                     </div>
                   </div> <!--// row fluid //-->
+                  <hr>
                 </div>
-                <hr>
+
+                <div class="asset" type="photo" id = "p5">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                      <label class="checkbox" for="p5_c">
+                        <span class="icon"></span>
+                        <span class="icon-to-fade"></span>
+                        <input type="checkbox" value="" id="p5_c">
+                      </label>
+                    </div>
+                    <div class="span2 thumbnailImage">
+                      <a class="thumbnail" href="images/story/gg13.jpg">
+                        <div class="crop_image" image = "gg13.jpg"></div>
+                      </a>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h3 class="asset_name editable">The Grandparents</h3>
+                        </div>
+                        <div class="span5">
+                          <h3 class="asset_date editable">3 March 2013</h3>
+                        </div>
+                        <div class="span12 asset_desc editable">Grandma Rose, Grandpa Wendell, and Ryan</div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="placeholder">None</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+                <div class="asset" type="photo" id = "p6">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                      <label class="checkbox" for="p6_c">
+                        <span class="icon"></span>
+                        <span class="icon-to-fade"></span>
+                        <input type="checkbox" value="" id="p6_c">
+                      </label>
+                    </div>
+                    <div class="span2 thumbnailImage">
+                      <a class="thumbnail" href="images/story/gg14.jpg">
+                        <div class="crop_image" image = "gg14.jpg"></div>
+                      </a>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h3 class="asset_name editable">Thanksgiving, 1972</h3>
+                        </div>
+                        <div class="span5">
+                          <h3 class="asset_date editable">3 March 2013</h3>
+                        </div>
+                        <div class="span12 asset_desc editable">Thanksgiving dinner at Mary's house</div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="placeholder">None</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+                <div class="asset" type="photo" id = "p7">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                      <label class="checkbox" for="p7_c">
+                        <span class="icon"></span>
+                        <span class="icon-to-fade"></span>
+                        <input type="checkbox" value="" id="p7_c">
+                      </label>
+                    </div>
+                    <div class="span2 thumbnailImage">
+                      <a class="thumbnail" href="images/story/gg21.jpg">
+                        <div class="crop_image" image = "gg21.jpg"></div>
+                      </a>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h3 class="asset_name editable">Grandparents and Grandchildren</h3>
+                        </div>
+                        <div class="span5">
+                          <h3 class="asset_date editable">3 March 2013</h3>
+                        </div>
+                        <div class="span12 asset_desc editable">Rose, Ryan, Erin, and Wendell</div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="placeholder">None</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+                <div class="asset" type="photo" id = "p8">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                      <label class="checkbox" for="p8_c">
+                        <span class="icon"></span>
+                        <span class="icon-to-fade"></span>
+                        <input type="checkbox" value="" id="p8_c">
+                      </label>
+                    </div>
+                    <div class="span2 thumbnailImage">
+                      <a class="thumbnail" href="images/story/paramount_theater.jpg">
+                        <div class="crop_image" image = "paramount_theater.jpg"></div>
+                      </a>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h3 class="asset_name editable">The Paramount Theatre</h3>
+                        </div>
+                        <div class="span5">
+                          <h3 class="asset_date editable">16 April 2013</h3>
+                        </div>
+                        <div class="span12 asset_desc editable">Location of Rose and Wendell's first date</div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="placeholder">Courtship & Marriage</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+                <div class="asset" type="photo" id = "p9">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                      <label class="checkbox" for="p9_c">
+                        <span class="icon"></span>
+                        <span class="icon-to-fade"></span>
+                        <input type="checkbox" value="" id="p9_c">
+                      </label>
+                    </div>
+                    <div class="span2 thumbnailImage">
+                      <a class="thumbnail" href="images/story/waterloo_home.jpg">
+                        <div class="crop_image" image = "waterloo_home.jpg"></div>
+                      </a>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <h3 class="asset_name editable">Rose's home in Waterloo</h3>
+                        </div>
+                        <div class="span5">
+                          <h3 class="asset_date editable">16 April 2013</h3>
+                        </div>
+                        <div class="span12 asset_desc editable">Location of Rose home before marriage</div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="placeholder">Courtship & Marriage</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+
               </div>
             </div>
       <!--// end: PHOTO TAB  //-->
@@ -583,17 +923,38 @@
       <!--// start: MAP TAB  //-->       
             <div class="tab-pane" id="tab3">
               <div class="row-fluid">
-                <div class="span4">
-                  <div class="row-fluid">
-                    <div class="span6">
-                      <div class="btn btn-large btn-block btn-warning newLocation">Create New Lcoation</div>
-                    </div>
-                    <div class="span6">
-                      
+                <div class="span2">
+                  <div class="dk_container span8 dk_shown dk_theme_default" id="dk_container_herolist" tabindex="1">
+                    <a class="dk_toggle">
+                      <span class="dk_label"><i class="asset_settings fui-settings-24"></i></span>
+                      <span class="select-icon"></span>
+                    </a>
+                    <div class="dk_options" style="top: 38px;">
+                      <ul class="dk_options_inner">
+                        <li>
+                          <a data-dk-dropdown-value="0" class = "syncRecorder">Send to Recorder</a>
+                        </li>
+                        <li>
+                          <a data-dk-dropdown-value="1">Edit</a>
+                        </li>
+                        <li>
+                          <a data-dk-dropdown-value="2">Share</a>
+                        </li>
+                        <li>
+                          <a data-dk-dropdown-value="3">Download</a>
+                        </li>
+                        <hr>
+                        <li>
+                          <a data-dk-dropdown-value="4" class="deletePhoto">Delete</a>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
                 <div class="span6">
+                </div>
+                <div class="span2">
+                  <div class="btn btn-large btn-block btn-warning newLocation">Create New Lcoation</div>
                 </div>
                 <div class="span2">
                   <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
@@ -604,7 +965,12 @@
               <div class="tabScroll">
                 <div class="asset" type="location" id = "l1">
                   <div class="row-fluid">
-                    <div class="span1">
+                    <div class="span1 cb">
+                      <label class="checkbox" for="l1_c">
+                        <span class="icon"></span>
+                        <span class="icon-to-fade"></span>
+                        <input type="checkbox" value="" id="l1_c">
+                      </label>
                     </div>
                     <div class="span2">
                       <div class="audio_icon">
@@ -615,24 +981,96 @@
                       <div class="row-fluid">
                         <div class="span7 display_text">
                           <div class="row-fluid">
-                            <h3 class="asset_location editable">Grandma's Home 1964</h3>
+                            <h3 class="asset_location editable">Fall River, MA</h3>
                           </div>
                           <div class="row-fluid">
-                            <span class="asset_address editable"> 123 Ur Gma Ln</span>
+                            <span class="asset_address editable">--</span>
                           </div>
                           <div class="row-fluid">
                             <span class="asset_city editable">Fall River</span>
-                            <span class="asset_state editable">IA</span>,
-                            <span class="asset_zip editable">12345</span>
+                            <span class="asset_state editable">MA</span>,
+                            <span class="asset_zip editable">02720</span>
                           </div>
                           <div class="row-fluid">
                             <div class="asset_country editable">USA</div>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_latlng editable">41.7016,-71.1551</div>
                           </div>
                         </div>
                         <div class="span5">
                           <h3>Places:</h3>
                           <ul>
                             <li><h4 class="place_tag editable">Fall River</h4></li>
+                            <li><h4 class="place_tag editable">MA</h4></li>
+                            <li><h4 class="place_tag editable">USA</h4></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="placeholder">None</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+              
+                <div class="asset" type="location" id = "l2">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="l2_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="l2_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-location-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_location editable">Waterloo, IA</h3>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_address editable">--</span>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_city editable">Waterloo</span>
+                            <span class="asset_state editable">IA</span>,
+                            <span class="asset_zip editable">50701</span>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_country editable">USA</div>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_latlng editable">42.4927,-92.3429</div>
+                          </div>
+                        </div>
+                        <div class="span5">
+                          <h3>Places:</h3>
+                          <ul>
+                            <li><h4 class="place_tag editable">Waterloo</h4></li>
                             <li><h4 class="place_tag editable">IA</h4></li>
                             <li><h4 class="place_tag editable">USA</h4></li>
                           </ul>
@@ -649,85 +1087,29 @@
                     </div>
                     <div class="span2">
                       <div class="row-fluid">
-                        <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
                       </div>
                       <div class="row-fluid">
-                        <div class="span6">
-                        </div>
-                        <div class="span6">
-                          <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
                         </div>
                       </div>
                     </div>
                   </div> <!--// row fluid //-->
+                  <hr>
                 </div>
-                <hr>
-              
-                <div class="asset" type="location" id = "l2">
-                  <div class="row-fluid">
-                    <div class="span1">
-                    </div>
-                    <div class="span2">
-                      <div class="audio_icon">
-                        <i class="fui-location-16"></i>
-                      </div>
-                    </div>
-                    <div class="span5 asset_data">
-                      <div class="row-fluid">
-                        <div class="span7 display_text">
-                          <div class="row-fluid">
-                            <h3 class="asset_location editable">Work</h3>
-                          </div>
-                          <div class="row-fluid">
-                            <span class="asset_address editable"> 123 Addison Ave</span>
-                          </div>
-                          <div class="row-fluid">
-                            <span class="asset_city editable">Fall River</span>
-                            <span class="asset_state editable">IA</span>,
-                            <span class="asset_zip editable">12345</span>
-                          </div>
-                          <div class="row-fluid">
-                            <div class="asset_country editable">USA</div>
-                          </div>
-                        </div>
-                        <div class="span5">
-                          <h3>Places:</h3>
-                          <ul>
-                            <li><h4 class="place_tag editable">Fall River</h4></li>
-                            <li><h4 class="place_tag editable">IA</h4></li>
-                            <li><h4 class="place_tag editable">USA</h4></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="span2">
-                      <div class="row-fluid">
-                        Used in stories:
-                        <ul class="asset_stories">
-                          <li class="placeholder">Grandma + Grandpa</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="span2">
-                      <div class="row-fluid">
-                        <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span6">
-                        </div>
-                        <div class="span6">
-                          <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> <!--// row fluid //-->
-                </div>
-                <hr>
 
                 <div class="asset" type="location" id = "l3">
                   <div class="row-fluid">
-                    <div class="span1">
-                    </div>
+                    <div class="span1 cb">
+                        <label class="checkbox" for="l3_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="l3_c">
+                        </label>
+                      </div>
                     <div class="span2">
                       <div class="audio_icon">
                         <i class="fui-location-16"></i>
@@ -737,24 +1119,27 @@
                       <div class="row-fluid">
                         <div class="span7 display_text">
                           <div class="row-fluid">
-                            <h3 class="asset_location editable">The Movie Theater</h3>
+                            <h3 class="asset_location editable">Spiegels</h3>
                           </div>
                           <div class="row-fluid">
-                            <span class="asset_address editable"> 123 Some St</span>
+                            <span class="asset_address editable">212 E 4th St</span>
                           </div>
                           <div class="row-fluid">
-                            <span class="asset_city editable">Fall River</span>
+                            <span class="asset_city editable">Waterloo</span>
                             <span class="asset_state editable">IA</span>,
-                            <span class="asset_zip editable">12345</span>
+                            <span class="asset_zip editable">50703</span>
                           </div>
                           <div class="row-fluid">
                             <div class="asset_country editable">USA</div>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_latlng editable">42.498342,-92.335197</div>
                           </div>
                         </div>
                         <div class="span5">
                           <h3>Places:</h3>
                           <ul>
-                            <li><h4 class="place_tag editable">Fall River</h4></li>
+                            <li><h4 class="place_tag editable">Waterloo</h4></li>
                             <li><h4 class="place_tag editable">IA</h4></li>
                             <li><h4 class="place_tag editable">USA</h4></li>
                           </ul>
@@ -765,46 +1150,413 @@
                       <div class="row-fluid">
                         Used in stories:
                         <ul class="asset_stories">
-                          <li class="placeholder">Grandma + Grandpa</li>
+                          <li class="asset_name placeholder">Courtship & Marriage</li>
                         </ul>
                       </div>
                     </div>
                     <div class="span2">
                       <div class="row-fluid">
-                        <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
                       </div>
                       <div class="row-fluid">
-                        <div class="span6">
-                        </div>
-                        <div class="span6">
-                          <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
                         </div>
                       </div>
                     </div>
                   </div> <!--// row fluid //-->
+                  <hr>
                 </div>
-                <hr>
-              </div>
 
+              <div class="asset" type="location" id = "l4">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="l4_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="l4_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-location-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_location editable">Paramount Theatre</h3>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_address editable">96 East 4th Street</span>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_city editable">Waterloo</span>
+                            <span class="asset_state editable">IA</span>,
+                            <span class="asset_zip editable">50703</span>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_country editable">USA</div>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_latlng editable">42.49751,-92.3368</div>
+                          </div>
+                        </div>
+                        <div class="span5">
+                          <h3>Places:</h3>
+                          <ul>
+                            <li><h4 class="place_tag editable">Waterloo</h4></li>
+                            <li><h4 class="place_tag editable">IA</h4></li>
+                            <li><h4 class="place_tag editable">USA</h4></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="asset_name placeholder">Courtship & Marriage</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+              <div class="asset" type="location" id = "l5">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="l5_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="l5_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-location-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_location editable">Grandma's Home</h3>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_address editable">1103 Wellington St</span>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_city editable">Waterloo</span>
+                            <span class="asset_state editable">IA</span>,
+                            <span class="asset_zip editable">50702</span>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_country editable">USA</div>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_latlng editable">42.48705,-92.33979</div>
+                          </div>
+                        </div>
+                        <div class="span5">
+                          <h3>Places:</h3>
+                          <ul>
+                            <li><h4 class="place_tag editable">Waterloo</h4></li>
+                            <li><h4 class="place_tag editable">IA</h4></li>
+                            <li><h4 class="place_tag editable">USA</h4></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="asset_name placeholder">Moving to Iowa</li>
+                          <li class="asset_name placeholder">Courtship & Marriage</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+              <div class="asset" type="location" id = "l6">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="l6_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="l6_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-location-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_location editable">Flower Store</h3>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_address editable">209 W 5th St</span>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_city editable">Waterloo</span>
+                            <span class="asset_state editable">IA</span>,
+                            <span class="asset_zip editable">50701</span>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_country editable">USA</div>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_latlng editable">42.49419,-92.33873</div>
+                          </div>
+                        </div>
+                        <div class="span5">
+                          <h3>Places:</h3>
+                          <ul>
+                            <li><h4 class="place_tag editable">Waterloo</h4></li>
+                            <li><h4 class="place_tag editable">IA</h4></li>
+                            <li><h4 class="place_tag editable">USA</h4></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="asset_name placeholder">Courtship & Marriage</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+                <div class="asset" type="location" id = "l7">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="l7_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="l7_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-location-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_location editable">Lincoln Park</h3>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_address editable">500 Franklin St</span>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_city editable">Waterloo</span>
+                            <span class="asset_state editable">IA</span>,
+                            <span class="asset_zip editable">50703</span>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_country editable">USA</div>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_latlng editable">42.50056,-92.33387</div>
+                          </div>
+                        </div>
+                        <div class="span5">
+                          <h3>Places:</h3>
+                          <ul>
+                            <li><h4 class="place_tag editable">Waterloo</h4></li>
+                            <li><h4 class="place_tag editable">IA</h4></li>
+                            <li><h4 class="place_tag editable">USA</h4></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="asset_name placeholder">Courtship & Marriage</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+                <div class="asset" type="location" id = "l8">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="l8_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="l8_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-location-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span7 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_location editable">Cory Street Episcopal Methodist Church</h3>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_address editable">196 Cory St</span>
+                          </div>
+                          <div class="row-fluid">
+                            <span class="asset_city editable">Fall River</span>
+                            <span class="asset_state editable">MA</span>,
+                            <span class="asset_zip editable">02720</span>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_country editable">USA</div>
+                          </div>
+                          <div class="row-fluid">
+                            <div class="asset_latlng editable">41.719026,-71.150734</div>
+                          </div>
+                        </div>
+                        <div class="span5">
+                          <h3>Places:</h3>
+                          <ul>
+                            <li><h4 class="place_tag editable">Fall River</h4></li>
+                            <li><h4 class="place_tag editable">MA</h4></li>
+                            <li><h4 class="place_tag editable">USA</h4></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in stories:
+                        <ul class="asset_stories">
+                          <li class="asset_name placeholder">Courtship & Marriage</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+              </div>
               <hr>
-              
             </div>
       <!--// end: MAP TAB  //-->
 
       <!--// start: Question TAB  //-->       
             <div class="tab-pane" id="tab4">
               <div class="row-fluid">
-                <div class="span4">
-                  <div class="row-fluid">
-                    <div class="span6">
-                      <div class="btn btn-large btn-block btn-warning newLocation">Create New Question</div>
-                    </div>
-                    <div class="span6">
-                      
+                <div class="span2">
+                  <div class="dk_container span8 dk_shown dk_theme_default" id="dk_container_herolist" tabindex="1">
+                    <a class="dk_toggle">
+                      <span class="dk_label"><i class="asset_settings fui-settings-24"></i></span>
+                      <span class="select-icon"></span>
+                    </a>
+                    <div class="dk_options" style="top: 38px;">
+                      <ul class="dk_options_inner">
+                        <li>
+                          <a data-dk-dropdown-value="0" class = "syncRecorder">Send to Recorder</a>
+                        </li>
+                        <li>
+                          <a data-dk-dropdown-value="1">Edit</a>
+                        </li>
+                        <li>
+                          <a data-dk-dropdown-value="2">Share</a>
+                        </li>
+                        <li>
+                          <a data-dk-dropdown-value="3">Download</a>
+                        </li>
+                        <hr>
+                        <li>
+                          <a data-dk-dropdown-value="4" class="deletePhoto">Delete</a>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
                 <div class="span6">
+                  
+                </div>
+                <div class="span2">
+                  <div class="btn btn-large btn-block btn-warning newLocation">Create New Question</div>
                 </div>
                 <div class="span2">
                   <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
@@ -815,50 +1567,13 @@
               <div class="tabScroll">
                 <div class="asset" type="question" id = "q1">
                   <div class="row-fluid">
-                    <div class="span1">
-                    </div>
-                    <div class="span2">
-                      <div class="audio_icon">
-                        <i class="fui-bubble-16"></i>
+                    <div class="span1 cb">
+                        <label class="checkbox" for="q1_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="q1_c">
+                        </label>
                       </div>
-                    </div>
-                    <div class="span5 asset_data">
-                      <div class="row-fluid">
-                        <div class="span10 display_text">
-                          <div class="row-fluid">
-                            <h3 class="asset_question editable">Tell me about your first home.</h3>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="span2">
-                      <div class="row-fluid">
-                        Used in stories:
-                        <ul class="asset_stories">
-                          <li class="placeholder">None</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="span2">
-                      <div class="row-fluid">
-                        <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span6">
-                        </div>
-                        <div class="span6">
-                          <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> <!--// row fluid //-->
-                </div>
-                <hr>
-
-                <div class="asset" type="question" id = "q2">
-                  <div class="row-fluid">
-                    <div class="span1">
-                    </div>
                     <div class="span2">
                       <div class="audio_icon">
                         <i class="fui-bubble-16"></i>
@@ -875,7 +1590,7 @@
                     </div>
                     <div class="span2">
                       <div class="row-fluid">
-                        Used in stories:
+                        Used in interviews:
                         <ul class="asset_stories">
                           <li class="placeholder">None</li>
                         </ul>
@@ -883,24 +1598,30 @@
                     </div>
                     <div class="span2">
                       <div class="row-fluid">
-                        <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
                       </div>
                       <div class="row-fluid">
-                        <div class="span6">
-                        </div>
-                        <div class="span6">
-                          <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
                         </div>
                       </div>
                     </div>
                   </div> <!--// row fluid //-->
+                  <hr>
                 </div>
-                <hr>
+                
 
-                <div class="asset" type="question" id = "q3">
+                <div class="asset" type="question" id = "q2">
                   <div class="row-fluid">
-                    <div class="span1">
-                    </div>
+                    <div class="span1 cb">
+                        <label class="checkbox" for="q2_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="q2_c">
+                        </label>
+                      </div>
                     <div class="span2">
                       <div class="audio_icon">
                         <i class="fui-bubble-16"></i>
@@ -910,7 +1631,149 @@
                       <div class="row-fluid">
                         <div class="span10 display_text">
                           <div class="row-fluid">
-                            <h3 class="asset_question editable">How did you and Grandpa meet?</h3>
+                            <h3 class="asset_question editable">When was the first time you moved?</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in interviews:
+                        <ul class="asset_stories">
+                          <li class="placeholder">Interview with Grandma Rose</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+                
+
+                <div class="asset" type="question" id = "q3">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="q3_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="q3_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-bubble-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span10 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_question editable">How did you meet my grandfather?</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in interviews:
+                        <ul class="asset_stories">
+                          <li class="placeholder">Interview with Grandma Rose #2</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+                
+                <div class="asset" type="question" id = "q4">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="q4_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="q4_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-bubble-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span10 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_question editable">Tell me your name and a bit more about yourself.</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in interviews:
+                        <ul class="asset_stories">
+                          <li class="placeholder">None</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+                <div class="asset" type="question" id = "q5">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="q5_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="q5_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-bubble-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span10 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_question editable">Where do you live now?</h3>
                           </div>
                         </div>
                       </div>
@@ -925,20 +1788,161 @@
                     </div>
                     <div class="span2">
                       <div class="row-fluid">
-                        <div class="btn btn-large btn-block btn-warning syncRecorder">Send to Recorder</div>
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
                       </div>
                       <div class="row-fluid">
-                        <div class="span6">
-                        </div>
-                        <div class="span6">
-                          <div class="btn  btn-block btn-danger deletePhoto">Delete</div>
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
                         </div>
                       </div>
                     </div>
                   </div> <!--// row fluid //-->
+                  <hr>
                 </div>
-                <hr>
 
+                <div class="asset" type="question" id = "q6">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="q6_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="q6_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-bubble-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span10 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_question editable">Where were you born? Did you grow up there?</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in interviews:
+                        <ul class="asset_stories">
+                          <li class="placeholder">None</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+                <div class="asset" type="question" id = "q7">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="q7_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="q7_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-bubble-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span10 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_question editable">Tell me a story about the neighborhood you grew
+up in.</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in interviews:
+                        <ul class="asset_stories">
+                          <li class="placeholder">Interview with Grandma Rose #2</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
+
+                <div class="asset" type="question" id = "q8">
+                  <div class="row-fluid">
+                    <div class="span1 cb">
+                        <label class="checkbox" for="q8_c">
+                          <span class="icon"></span>
+                          <span class="icon-to-fade"></span>
+                          <input type="checkbox" value="" id="q8_c">
+                        </label>
+                      </div>
+                    <div class="span2">
+                      <div class="audio_icon">
+                        <i class="fui-bubble-16"></i>
+                      </div>
+                    </div>
+                    <div class="span5 asset_data">
+                      <div class="row-fluid">
+                        <div class="span10 display_text">
+                          <div class="row-fluid">
+                            <h3 class="asset_question editable">What elementary school did you attend? Tell me about your friends there.</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        Used in interviews:
+                        <ul class="asset_stories">
+                          <li class="placeholder">Interview with Grandma Rose</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span2">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="btn btn-block btn-small shareNotification private">Private</div>
+                        </div>
+                      </div>
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <h3 class="recorderNotification placeholder">Sent to recorder</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--// row fluid //-->
+                  <hr>
+                </div>
 
               </div>
               <hr>

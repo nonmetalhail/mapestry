@@ -1,4 +1,4 @@
-var projectCount = 2;
+var projectCount = 1;
 $(document).ready(function(){
   var wHeight = window.innerHeight - $('.navbar').outerHeight();
   $('.projects_sidebar').css('height',wHeight * .92);

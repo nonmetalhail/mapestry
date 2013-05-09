@@ -398,6 +398,20 @@ audio{
   user-select: none;
 }
 
+.todo{
+  background-color: #95A5A6;
+  color: #BDC3C7;
+}
+
+/*.todo li.todo-done {
+  background: transparent url("../images/todo/done.png") 92% center no-repeat;
+  background-size: 20px 20px;
+  color: #2ECC71 !important; 
+}
+.todo li.todo-done .todo-name {
+  color: #2ECC71 !important; 
+}*/
+
 .todo li.todo-hover{
   background: #16A085 url("../images/todo/todo.png") 92% center no-repeat;
   color: white; 
@@ -528,6 +542,7 @@ a.popup{
   transition: 0.3s ease-out;
 }
 
+
 a.thumbnail:hover,
 a.thumbnail:focus {
   border-color: #1ABC9C;
@@ -609,6 +624,44 @@ a.thumbnail:focus {
   margin-bottom: 10px;
 }
 
+.cb{
+  padding-top:25px;
+}
+.cb .checkbox{
+  float:right;
+}
+
+.recorderNotification{
+  display:none;
+}
+
+.deletePhoto:hover{
+  background-color: #E74C3C !important;
+}
+
+.btn-warning{
+  background-color: #ff9600 !important;
+}
+.btn-warning:hover,.btn-warning:focus{
+  background-color: #ffaf0f !important;
+}
+
+.shareNotification,.shareNotification:hover,.shareNotification:focus{
+  background-color: white;
+  margin-bottom: 20px;
+}
+.private,.private:hover,.private:focus{
+  color:#BDC3C7;
+  border: 2px solid #BDC3C7;
+}
+.sharedAsset,.sharedAsset:hover,.sharedAsset:focus{
+  color:#1ABC9C;
+  border: 2px solid #1ABC9C;
+}
+
+.asset_latlng{
+  margin-top: 10px;
+}
 
 /*audio bar --------------------------------------*/
 #storyBuilder{
