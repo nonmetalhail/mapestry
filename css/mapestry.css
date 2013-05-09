@@ -398,11 +398,11 @@ audio{
   user-select: none;
 }
 
-.todo{
+/*.todo{
   background-color: #95A5A6;
   color: #BDC3C7;
 }
-
+*/
 /*.todo li.todo-done {
   background: transparent url("../images/todo/done.png") 92% center no-repeat;
   background-size: 20px 20px;
