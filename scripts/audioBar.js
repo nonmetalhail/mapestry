@@ -5,9 +5,14 @@ var photos = {
   'p1':"gg01.jpg",
   'p2':"gg09.jpg",
   'p3':"gg10.jpg",
-  'v1':"gg11_2.jpg"
+  'p4':"gg11_2.jpg",
+  'p5':"gg13.jpg",
+  'p6':"gg14.jpg",
+  'p7':"gg21.jpg",
+  'p8':"paramount_theater.jpg",
+  'p9':"waterloo_home.jpg"
 };
-var photos = {
+var loc = {
   'l1':{"lat":123.1,"lng":42.2},
   'l2':{"lat":123.1,"lng":42.2},
   'l3':{"lat":123.1,"lng":42.2},
@@ -24,7 +29,7 @@ var images = [
   },
   {
     "time":370,
-    "id":"v1",
+    "id":"p4",
   }
 ];
 
@@ -87,6 +92,7 @@ var timeX = function(d){
 }
 
 $(document).ready(function(){
+  buildBookmarks();
   $('.thumbnail').imageZoom();
 
   var tabHeight = (window.innerHeight - $('.navbar').outerHeight())*.45;
@@ -205,13 +211,10 @@ $(document).ready(function(){
     })
     .call(dragAudio);
 
-  $('.crop_image').each(function(){
-    var f = $(this).attr('image');
-    $(this).css('background-image','url(images/story/'+f+')');
-  });
-
+  displayImage($('.crop_image'));
   assetListeners($('.asset'));
   projectListeners($('#audioBar'));
+
   $('.asset').on({
     mouseover:function(){
       var aid = $(this).attr('id');
@@ -442,6 +445,13 @@ function insertPins(){
     .text("");  //picture
 }
 
+function displayImage(sel){
+  sel.each(function(){
+    var f = $(this).attr('image');
+    $(this).css('background-image','url(images/story/'+f+')');
+  });
+}
+
 function projectListeners(projects){
   $(projects).each(function(){
     $(this).droppable({ 
@@ -473,7 +483,6 @@ function assetListeners(assets){
     $(this).draggable({
       appendTo:'body',
       revert: 'invalid', 
-      // helper: "clone",
       revertDuration:250,
       helper: function(e){
         var helperDiv = [];
@@ -491,9 +500,6 @@ function assetListeners(assets){
         $(ui.helper).css("margin-left", event.clientX - $(event.target).offset().left-25);
         $(ui.helper).css("margin-top", event.clientY - $(event.target).offset().top-45);
       },
-      // stop: function (event, ui) {
-
-      // }
     });
   });
 }
@@ -525,6 +531,106 @@ function findIndex(d,i,k){
     }
   }
 }
+
+function buildBookmarks(){
+  var bMarkConvert = {};
+  var bList = [],
+      bCont = [];
+  bookmarkListContent(bMarkConvert,bList,bCont);
+  $('#bookmarkTabs').append(bList.join('')); //append each bookmark as a tab
+  $('#bookmarkContent').append(bCont.join('')); //append the content for bookmark
+  
+  $('#bookmarkContent').on('click','.convert',function(){
+    var type = $(this).attr('type');
+    var par = $(this).parents('.tab-pane');
+    var bid = par.attr('id');
+    if(type != bMarkConvert[bid]){
+      bMarkConvert[bid] = type;
+      $(this).siblings('.active').removeClass('active');
+      $(this).addClass('active');
+      if(type == 'bookmark'){
+        par.find('.tabContent').html('');
+        $('.'+bid).children('a').html('<i class="icon-star icon-large"></i>');
+      }
+      else if(type == "photo"){
+        $('.'+bid).children('a').html('<i class="icon-camera icon-large"></i>');
+        par.find('.tabContent').html(buildPhotos());
+        displayImage(par.find('.crop_image'));
+        par.find('.thumbnail').imageZoom();
+        par.find(".checkbox").prepend("<span class='icon'></span><span class='icon-to-fade'></span>");
+
+        par.find(".checkbox").click(function(){
+            console.log("click")
+            setupLabel();
+        });
+        setupLabel();
+      }
+      else if(type == "place"){
+        $('.'+bid).children('a').html('<i class="icon-map-marker icon-large"></i>');
+        console.log("load map into tabContent");
+      }
+      else{
+        console.log("shrugges sholders");
+      }
+    }
+  });
+}
+
+function bookmarkListContent(bMarkConvert,bList,bCont){
+  for(var i in bookmarks){
+    var bs = '<li class="b_'+bookmarks[i]+'">'+
+                '<a href="#b_'+bookmarks[i]+'" data-toggle="tab">'+
+                  '<i class="icon-star icon-large"></i>'+
+                '</a>'+
+              '</li>';
+    var bc = '<div class="tab-pane" id="b_'+bookmarks[i]+'">'+
+                '<div class="row-fluid">'+
+                  '<div class="span12">'+
+                    '<div class="btn-toolbar">'+
+                      '<div class="btn-group">'+
+                        '<a class="btn btn-primary convert active" type="bookmark"><i class="icon-large icon-star"></i></a>'+
+                        '<a class="btn btn-primary convert" type="photo"><i class="icon-large icon-camera"></i></a>'+
+                        '<a class="btn btn-primary convert" type="place"><i class="icon-large icon-map-marker"></i></a>'+
+                      '</div>'+
+                    '</div>'+
+                  '</div>'+
+                '</div>'+
+                '<div class="row-fluid tabContent">'+
+                '</div>'+
+              '</div>';
+    bMarkConvert[bookmarks[i]] = "bookmark";
+    bList.push(bs);
+    bCont.push(bc);
+  }
+}
+
+function _buildPhotoHTML(imageID){
+  var pHTML = '<div class="asset span2" type="photo" id = "'+imageID+'">'+
+    '<div class="thumbnailImage">'+
+      '<a class="thumbnail" href="images/story/'+photos[imageID]+'">'+
+        '<div class="crop_image" image = "'+photos[imageID]+'">'+
+        '</div>'+
+      '</a>'+
+      '<label class="checkbox" for="'+imageID+'_c">'+
+        '<span class="icon"></span>'+
+        '<span class="icon-to-fade"></span>'+
+        '<input type="checkbox" value="" id="'+imageID+'_c">'+
+      '</label>'+
+    '</div>'+
+  '</div>';
+  return pHTML
+}
+
+function buildPhotos(){
+  var photosHTML = [];
+  photosHTML.push('<div class="row-fluid">');
+  for(var img in photos){
+    photosHTML.push(_buildPhotoHTML(img));
+  }
+  photosHTML.push('</div>');
+  return photosHTML.join('');
+}
+
 //how to get start and end of ranges.
  // var start = $('.cell:not(.highlighted) + .cell.highlighted');
   // var end = $('.cell.highlighted + .cell:not(.highlighted)').prev();

@@ -583,6 +583,10 @@ a.thumbnail:focus {
   overflow:hidden;
 }
 
+#storyBuilder .asset{
+  cursor:pointer !important;
+}
+
 .asset_data{
   height:100%;
 }
@@ -685,9 +689,13 @@ a.thumbnail:focus {
   margin-top: 10px;
 }
 
-.dk_options_inner{
+#admin_menu .dk_options_inner{
   left:85px !important;
   width:130%;
+}
+
+.display_text{
+  padding-right: 15px;
 }
 
 /*audio bar --------------------------------------*/
@@ -752,6 +760,9 @@ rect {
   fill: white;
 }
 
+.cell{
+  cursor:crosshair !important;
+}
 .cell1 {
   fill:#7F8C8D;
 }
@@ -772,11 +783,11 @@ rect {
 .cell.hovered {
   fill: #E74C3C;
   opacity: .7;
+  cursor:crosshair !important;
 }
 
 .cell.highlighted {
   fill: #1ABC9C;
-  /*opacity: .5;*/
 }
 
 .big{
@@ -796,12 +807,14 @@ text.theme{
   stroke:#95A5A6;
   stroke-width:3px;
   stroke-linecap:round;
+  cursor:pointer !important;
 }
 
 .location,.media{
   stroke:#34495E;
   stroke-width:3px;
   stroke-linecap:round;
+  cursor:pointer !important;
 }
 .bookmarkIcon{
   stroke-width:0;
@@ -840,6 +853,7 @@ line.pinOver{
   stroke:#2980B9; 
   fill:#2980B9; 
   stroke-width:5px;
+  cursor:pointer !important;
 }
 
 #audioControls{
@@ -876,6 +890,13 @@ line.pinOver{
   user-select: none;
 }
 
+.tab-pane{
+  /*height:300px;*/
+}
+
+.fawe{
+  font-family: "FontAwesome";
+}
 
 /*Projects ---------------------------------------*/
 
