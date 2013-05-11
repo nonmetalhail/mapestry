@@ -542,22 +542,38 @@ function buildBookmarks(){
   
   $('#bookmarkContent').on('click','.convert',function(){
     var type = $(this).attr('type');
-    var par = $(this).parents('.tab-pane');
+    var par = $(this).parents('.sideTab');
+    console.log(par);
     var bid = par.attr('id');
-    if(type != bMarkConvert[bid]){
+    var timeID = bid.split('_')[1];
+    if(type != bMarkConvert[timeID]){
+      var symbolConverter = {
+        'bookmark':'',
+        'photo':'',
+        'place':''
+      };
       var classConverter = {
         'bookmark':'bookmarks',
         'photo':'media',
         'place':'location'
       }
-      var oldType = bMarkConvert[bid];
-      bMarkConvert[bid] = type;
+      
+      var oldType = bMarkConvert[timeID];
+      bMarkConvert[timeID] = type;
 
       $(this).siblings('.active').removeClass('active');
       $(this).addClass('active');
+
+      var svgElm = d3.select('.'+classConverter[oldType]+'[t="'+timeID+'"]');
+      svgElm.classed(classConverter[type],true);
+      svgElm.select('text').text(symbolConverter[type]);
+      svgElm.classed(classConverter[oldType],false);
+
       if(type == 'bookmark'){
         par.find('.tabContent').html('');
         $('.'+bid).children('a').html('<i class="icon-star icon-large"></i>');
+        svgElm.select('text').classed('pins',false);
+        svgElm.select('text').classed('bookmarkIcon',true);
       }
       else if(type == "photo"){
         $('.'+bid).children('a').html('<i class="icon-camera icon-large"></i>');
@@ -566,7 +582,7 @@ function buildBookmarks(){
         par.find('.thumbnail').imageZoom();
         par.find(".checkbox").prepend("<span class='icon'></span><span class='icon-to-fade'></span>");
 
-        par.find(".checkbox").click(function(){
+        par.find(".checkbox").on('click',function(){
           setupLabel();
           var asset = $(this).parents('.asset');
           if($(this).hasClass("disabled")){
@@ -579,6 +595,8 @@ function buildBookmarks(){
               $(this).find('.checkbox').addClass("disabled");
               $(this).find('.checkbox').removeClass("checked");
             });
+            svgElm.select('text').classed('pins',true);
+            svgElm.select('text').classed('bookmarkIcon',false);
           }
           else{
             asset.siblings().each(function(){
@@ -586,10 +604,10 @@ function buildBookmarks(){
               $(this).find('.checkbox').removeClass("disabled");
               $(this).find('.checkbox').removeClass("checked");
             });
+            svgElm.select('text').classed('pins',false);
+            svgElm.select('text').classed('bookmarkIcon',true);
           }
         });
-
-        $('.'+oldType+'[t="'++'"]')
       } //type photo
       else if(type == "place"){
         $('.'+bid).children('a').html('<i class="icon-map-marker icon-large"></i>');
@@ -610,7 +628,7 @@ function bookmarkListContent(bMarkConvert,bList,bCont){
                   '<i class="icon-star icon-large"></i>'+
                 '</a>'+
               '</li>';
-    var bc = '<div class="tab-pane" id="b_'+bookmarks[i]+'">'+
+    var bc = '<div class="tab-pane sideTab" id="b_'+bookmarks[i]+'">'+
                 '<div class="row-fluid">'+
                   '<div class="span12">'+
                     '<div class="btn-toolbar">'+
