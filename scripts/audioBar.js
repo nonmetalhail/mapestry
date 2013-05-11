@@ -545,7 +545,14 @@ function buildBookmarks(){
     var par = $(this).parents('.tab-pane');
     var bid = par.attr('id');
     if(type != bMarkConvert[bid]){
+      var classConverter = {
+        'bookmark':'bookmarks',
+        'photo':'media',
+        'place':'location'
+      }
+      var oldType = bMarkConvert[bid];
       bMarkConvert[bid] = type;
+
       $(this).siblings('.active').removeClass('active');
       $(this).addClass('active');
       if(type == 'bookmark'){
@@ -560,11 +567,30 @@ function buildBookmarks(){
         par.find(".checkbox").prepend("<span class='icon'></span><span class='icon-to-fade'></span>");
 
         par.find(".checkbox").click(function(){
-            console.log("click")
-            setupLabel();
+          setupLabel();
+          var asset = $(this).parents('.asset');
+          if($(this).hasClass("disabled")){
+            $(this).removeClass('disabled');
+            asset.removeClass('fadedImage');
+          }
+          if($(this).hasClass('checked')){
+            asset.siblings().each(function(){
+              $(this).addClass('fadedImage');
+              $(this).find('.checkbox').addClass("disabled");
+              $(this).find('.checkbox').removeClass("checked");
+            });
+          }
+          else{
+            asset.siblings().each(function(){
+              $(this).removeClass('fadedImage');
+              $(this).find('.checkbox').removeClass("disabled");
+              $(this).find('.checkbox').removeClass("checked");
+            });
+          }
         });
-        setupLabel();
-      }
+
+        $('.'+oldType+'[t="'++'"]')
+      } //type photo
       else if(type == "place"){
         $('.'+bid).children('a').html('<i class="icon-map-marker icon-large"></i>');
         console.log("load map into tabContent");
@@ -574,6 +600,7 @@ function buildBookmarks(){
       }
     }
   });
+  $('#bookmarkTabs a:first').trigger('click');
 }
 
 function bookmarkListContent(bMarkConvert,bList,bCont){
@@ -605,7 +632,7 @@ function bookmarkListContent(bMarkConvert,bList,bCont){
 }
 
 function _buildPhotoHTML(imageID){
-  var pHTML = '<div class="asset span2" type="photo" id = "'+imageID+'">'+
+  var pHTML = '<div class="asset span2 '+imageID+'" type="photo">'+
     '<div class="thumbnailImage">'+
       '<a class="thumbnail" href="images/story/'+photos[imageID]+'">'+
         '<div class="crop_image" image = "'+photos[imageID]+'">'+

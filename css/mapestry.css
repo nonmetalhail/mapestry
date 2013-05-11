@@ -898,6 +898,21 @@ line.pinOver{
   font-family: "FontAwesome";
 }
 
+#storyBuilder .checkbox{
+  margin-top:5px;
+}
+
+.fadedImage{
+  opacity: 0.3;
+}
+
+#storyBuilder .asset{
+  -webkit-transition: 0.3s ease-out;
+  -moz-transition: 0.3s ease-out;
+  -o-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+
 /*Projects ---------------------------------------*/
 
 .projects_sidebar{
