@@ -857,7 +857,7 @@ line.pinOver{
 }
 
 #audioControls{
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 #playButton{
@@ -911,6 +911,20 @@ line.pinOver{
   -moz-transition: 0.3s ease-out;
   -o-transition: 0.3s ease-out;
   transition: 0.3s ease-out;
+}
+
+.imgZoom{
+  font-family: "FontAwesome";
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.sideTab .span2[type="photo"]{
+  margin-left: 10px !important;
+}
+
+.saveStory{
+  margin-left: 0 !important;
 }
 
 /*Projects ---------------------------------------*/

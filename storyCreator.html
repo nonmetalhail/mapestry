@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mapestry: Preserve Your Story</title>
+    <title>Mapestry: Your Voice Matters</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!--[if lte IE 8]>
       <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
@@ -722,7 +722,7 @@
                   <hr>
                 </div>
 
-              <div class="asset" type="location" id = "l4">
+                <div class="asset" type="location" id = "l4">
                   <div class="row-fluid">
                     <div class="span1">
                         
@@ -783,7 +783,7 @@
                   <hr>
                 </div>
 
-              <div class="asset" type="location" id = "l5">
+                <div class="asset" type="location" id = "l5">
                   <div class="row-fluid">
                     <div class="span1">
                         
@@ -1026,48 +1026,53 @@
                   </div> <!--// row fluid //-->
                   <hr>
                 </div>
-              </div>
+              </div> <!-- tabScrol -->
+            </div>
       <!--// end: MAP TAB  //-->
-
             </div><!--/end tab-content-->
           </div><!--/end tabbale-->
         </div><!--/end span12-->
       </div><!-- /row-fluid -->
+
       <div class="row-fluid">
         <div class="span12">
           <hr>
-          <div id = "audioControls">
-            <div class="row-fluid">
-              <audio id = "audioPlayer" preload="auto" type="audio/mp3">
-                <source src="audio/62.mp3" type="audio/mpeg">
-                You are using an obsolete browser, idiot...
-              </audio>
-              <div class="span1">
-                <div class="btn btn-large btn-block btn-primary" id="playButton"><i class="icon-play-circle icon-large"></i>
-                </div>
-              </div>
-              <div class="span5">
-                <div class="pagination" id="questionList">
-                  <ul>
-                    <li class="previous" t="p"><a><img src="images/pager/previous.png" /></a></li>
-                    <li class="active" t="0"><a>1</a></li>
-                    <li t="80"><a>2</a></li>
-                    <li t="200"><a>3</a></li>
-                    <li t="310"><a>4</a></li>
-                    <li t="360"><a>5</a></li>
-                    <li t="400"><a>6</a></li>
-                    <li class="next" t="n"><a ><img src="images/pager/next.png" /></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>  <!-- row -->
-          </div>  <!-- audioControls -->
           <div id="audioBar">
       
           </div>
-          <hr>
-        </div><!--/end span12-->
-      </div><!-- /row-fluid -->
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id = "audioControls">
+          <audio id = "audioPlayer" preload="auto" type="audio/mp3">
+            <source src="audio/62.mp3" type="audio/mpeg">
+            You are using an obsolete browser, idiot...
+          </audio>
+          <div class="span1">
+            <div class="btn btn-large btn-block btn-primary" id="playButton"><i class="icon-play-circle icon-large"></i>
+            </div>
+          </div>
+          <div class="span9">
+            <div class="pagination" id="questionList">
+              <ul>
+                <li class="previous" t="p"><a><img src="images/pager/previous.png" /></a></li>
+                <li class="active" t="0"><a>1</a></li>
+                <li t="80"><a>2</a></li>
+                <li t="200"><a>3</a></li>
+                <li t="310"><a>4</a></li>
+                <li t="360"><a>5</a></li>
+                <li t="400"><a>6</a></li>
+                <li class="next" t="n"><a ><img src="images/pager/next.png" /></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="span2 saveStory">
+            <a href="admin.html" class="btn btn-large btn-block btn-warning" id="saveStory"><i class="icon-save icon-large"></i>&nbsp; Save
+            </a>
+          </div>
+        </div>  <!-- row -->
+      </div>  <!-- audioControls -->
+      <hr>
     </div><!-- /container-fluid -->
   </body>
 </html>

@@ -25,26 +25,26 @@ var bookmarks = [100,120,220,250,340,410,500]
 var images = [
   {
     "time":155,
-    "id":"p1",
+    "id":"p1"
   },
   {
     "time":370,
-    "id":"p4",
+    "id":"p4"
   }
 ];
 
 var locations = [
   {
     "time":30,
-    "id":'l1',
+    "id":'l1'
   },
   {
     "time":230,
-    "id":'l3',
+    "id":'l3'
   },
   {
     "time":480,
-    "id":'l3',
+    "id":'l3'
   }
 ];
 
@@ -110,7 +110,7 @@ $(document).ready(function(){
     .data(cells)
     .enter().append("rect")
     .attr("class",function(d){
-      var n = findIndex(d.t,0,themes.length);
+      var n = findIndex(d.t,themes,0,themes.length);
       return (n % 2 == 0)?'cell cell1':'cell cell2'
     })
     .attr("x", rectx)
@@ -504,13 +504,13 @@ function assetListeners(assets){
   });
 }
 
-function findIndex(d,i,k){
+function findIndex(d,arr,i,k){
   var j = parseInt((k-i)/2)+i;
   if(i==j){
     return j
   }
-  if(d < themes[j]){
-    if(d >= themes[j-1]){
+  if(d < arr[j]){
+    if(d >= arr[j-1]){
       return j-1
     }
     else{
@@ -519,7 +519,7 @@ function findIndex(d,i,k){
   }
   else{
     if(j < k){
-      if(d < themes[j+1]){
+      if(d < arr[j+1]){
         return j
       }
       else{
@@ -568,44 +568,51 @@ function buildBookmarks(){
       svgElm.classed(classConverter[type],true);
       svgElm.select('text').text(symbolConverter[type]);
       svgElm.classed(classConverter[oldType],false);
+      svgElm.attr("aid","");
 
       if(type == 'bookmark'){
         par.find('.tabContent').html('');
         $('.'+bid).children('a').html('<i class="icon-star icon-large"></i>');
         svgElm.select('text').classed('pins',false);
         svgElm.select('text').classed('bookmarkIcon',true);
+
       }
       else if(type == "photo"){
         $('.'+bid).children('a').html('<i class="icon-camera icon-large"></i>');
         par.find('.tabContent').html(buildPhotos());
         displayImage(par.find('.crop_image'));
-        par.find('.thumbnail').imageZoom();
-        par.find(".checkbox").prepend("<span class='icon'></span><span class='icon-to-fade'></span>");
+        par.find('.imgZoom').imageZoom();
 
-        par.find(".checkbox").on('click',function(){
-          setupLabel();
+        var index = findIndex(bookmarks,0,bookmarks.length);
+        bookmarks.splice(index,1);
+        var loc = images.length;
+        console.log(loc);
+        images.push({"time":timeID,"id":""})
+
+        par.find(".crop_image").on('click',function(){
           var asset = $(this).parents('.asset');
-          if($(this).hasClass("disabled")){
-            $(this).removeClass('disabled');
+          asset.toggleClass("selected");
+          if(asset.hasClass("fadedImage")){
             asset.removeClass('fadedImage');
           }
-          if($(this).hasClass('checked')){
+          if(asset.hasClass('selected')){
             asset.siblings().each(function(){
               $(this).addClass('fadedImage');
-              $(this).find('.checkbox').addClass("disabled");
-              $(this).find('.checkbox').removeClass("checked");
+              $(this).removeClass("selected");
             });
             svgElm.select('text').classed('pins',true);
             svgElm.select('text').classed('bookmarkIcon',false);
+            svgElm.attr("aid",asset.attr("iid"));
+            
+            images[loc].id = asset.attr("iid");
           }
           else{
             asset.siblings().each(function(){
               $(this).removeClass('fadedImage');
-              $(this).find('.checkbox').removeClass("disabled");
-              $(this).find('.checkbox').removeClass("checked");
             });
             svgElm.select('text').classed('pins',false);
             svgElm.select('text').classed('bookmarkIcon',true);
+            images[loc].id = "";
           }
         });
       } //type photo
@@ -650,17 +657,13 @@ function bookmarkListContent(bMarkConvert,bList,bCont){
 }
 
 function _buildPhotoHTML(imageID){
-  var pHTML = '<div class="asset span2 '+imageID+'" type="photo">'+
-    '<div class="thumbnailImage">'+
-      '<a class="thumbnail" href="images/story/'+photos[imageID]+'">'+
-        '<div class="crop_image" image = "'+photos[imageID]+'">'+
-        '</div>'+
+  var pHTML ='<div class="asset span2" iid="'+imageID+'" type="photo">'+
+    '<div class="thumbnailImage thumbnail">'+
+      '<div class="crop_image" image = "'+photos[imageID]+'">'+
+      '</div>'+
+      '<a class="imgZoom" href="images/story/'+photos[imageID]+'">'+
+        ''+
       '</a>'+
-      '<label class="checkbox" for="'+imageID+'_c">'+
-        '<span class="icon"></span>'+
-        '<span class="icon-to-fade"></span>'+
-        '<input type="checkbox" value="" id="'+imageID+'_c">'+
-      '</label>'+
     '</div>'+
   '</div>';
   return pHTML
