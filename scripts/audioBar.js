@@ -1,23 +1,7 @@
 var audio_length = 512; //audio length in sec
 
 // mockup of photo and locations for future dynamic input
-var photos = {
-  'p1':"gg01.jpg",
-  'p2':"gg09.jpg",
-  'p3':"gg10.jpg",
-  'p4':"gg11_2.jpg",
-  'p5':"gg13.jpg",
-  'p6':"gg14.jpg",
-  'p7':"gg21.jpg",
-  'p8':"paramount_theater.jpg",
-  'p9':"waterloo_home.jpg"
-};
-var loc = {
-  'l1':{"lat":123.1,"lng":42.2},
-  'l2':{"lat":123.1,"lng":42.2},
-  'l3':{"lat":123.1,"lng":42.2},
-  'l4':{"lat":123.1,"lng":42.2}
-};
+var photos,loc;
 
 //metadata brought in from recorder
 var themes = [0,80,200,310,360,400];
@@ -514,7 +498,7 @@ function findIndex(d,arr,i,k){
       return j-1
     }
     else{
-      return findIndex(d,i,j)
+      return findIndex(d,arr,i,j)
     }
   }
   else{
@@ -523,7 +507,7 @@ function findIndex(d,arr,i,k){
         return j
       }
       else{
-        return findIndex(d,j,k)
+        return findIndex(d,arr,j,k)
       }
     }
     else{
@@ -582,11 +566,11 @@ function buildBookmarks(){
         par.find('.tabContent').html(buildPhotos());
         displayImage(par.find('.crop_image'));
         par.find('.imgZoom').imageZoom();
-
-        var index = findIndex(bookmarks,0,bookmarks.length);
+        console.log(timeID);
+        var index = findIndex(timeID,bookmarks,0,bookmarks.length);
+        console.log(index);
         bookmarks.splice(index,1);
         var loc = images.length;
-        console.log(loc);
         images.push({"time":timeID,"id":""})
 
         par.find(".crop_image").on('click',function(){
@@ -659,9 +643,9 @@ function bookmarkListContent(bMarkConvert,bList,bCont){
 function _buildPhotoHTML(imageID){
   var pHTML ='<div class="asset span2" iid="'+imageID+'" type="photo">'+
     '<div class="thumbnailImage thumbnail">'+
-      '<div class="crop_image" image = "'+photos[imageID]+'">'+
+      '<div class="crop_image" image = "'+photos[imageID].i+'">'+
       '</div>'+
-      '<a class="imgZoom" href="images/story/'+photos[imageID]+'">'+
+      '<a class="imgZoom" href="images/story/'+photos[imageID].i+'">'+
         ''+
       '</a>'+
     '</div>'+

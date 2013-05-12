@@ -1,0 +1,98 @@
+{
+  "l1":{
+    "lat":41.7016,
+    "lng":-71.1551,
+    "t":"Fall River, MA",
+    "ad":"--",
+    "ci":"Fall River",
+    "st":"MA",
+    "zip":"02720",
+    "co":"USA",
+    "share":"Private",
+    "s":["None"]
+  },
+  "l2":{
+    "lat":42.4927,
+    "lng":-92.3429,
+    "t":"Waterloo, IA",
+    "ad":"--",
+    "ci":"Waterloo",
+    "st":"IA",
+    "zip":"50701",
+    "co":"USA",
+    "share":"Private",
+    "s":["None"]
+  },
+  "l3":{
+    "lat":42.498342,
+    "lng":-92.335197,
+    "t":"Spiegels",
+    "ad":"212 E 4th St",
+    "ci":"Waterloo",
+    "st":"IA",
+    "zip":"50703",
+    "co":"USA",
+    "share":"Private",
+    "s":["Courtship & Marriage"]
+  },
+  "l4":{
+    "lat":42.49751,
+    "lng":-92.3368,
+    "t":"Paramount Theatre",
+    "ad":"96 East 4th Street",
+    "ci":"Waterloo",
+    "st":"IA",
+    "zip":"50703",
+    "co":"USA",
+    "share":"Private",
+    "s":["Courtship & Marriage"]
+  },
+  "l5":{
+    "lat":42.48705,
+    "lng":-92.33979,
+    "t":"Grandma's Home",
+    "ad":"1103 Wellington St",
+    "ci":"Waterloo",
+    "st":"IA",
+    "zip":"50702",
+    "co":"USA",
+    "share":"Private",
+    "s":["Courtship & Marriage"]
+  },
+  "l6":{
+    "lat":42.49419,
+    "lng":-92.33873,
+    "t":"Flower Store",
+    "ad":"209 W 5th St",
+    "ci":"Waterloo",
+    "st":"IA",
+    "zip":"50701",
+    "co":"USA",
+    "share":"Private",
+    "s":["Courtship & Marriage"]
+  },
+  "l7":{
+    "lat":42.50056,
+    "lng":-92.33387,
+    "t":"Lincoln Park",
+    "ad":"500 Franklin St",
+    "ci":"Waterloo",
+    "st":"IA",
+    "zip":"50703",
+    "co":"USA",
+    "share":"Private",
+    "s":["Courtship & Marriage"]
+  },
+  "l8":{
+    "lat":41.719026,
+    "lng":-71.150734,
+    "t":"Cory Street Episcopal Methodist Church",
+    "ad":"196 Cory St",
+    "ci":"Fall River",
+    "st":"MA",
+    "zip":"02720",
+    "co":"USA",
+    "share":"Private",
+    "s":["Courtship & Marriage"]
+  }
+}
