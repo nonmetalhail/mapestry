@@ -1,4 +1,6 @@
 var audio_length = 512; //audio length in sec
+var jsonPhotoFile = "photos.json";
+var jsonLocationFile = "locations.json";
 
 // mockup of photo and locations for future dynamic input
 var photos,loc;
@@ -76,217 +78,223 @@ var timeX = function(d){
 }
 
 $(document).ready(function(){
-  buildBookmarks();
-  $('.thumbnail').imageZoom();
+  $.when(loadPhotos(),loadLocations())
+  .done(function(){
+    buildBookmarks();
+    $('.thumbnail').imageZoom();
 
-  var tabHeight = (window.innerHeight - $('.navbar').outerHeight())*.45;
-  $('.tabScroll').css('height',tabHeight);
+    $(document).on("mouseup",function(){
+      mouseDown = false;
+    });
 
-  $(document).on("mouseup",function(){
-    mouseDown = false;
-  });
+    svg = d3.select("#audioBar").append("svg")
+      .attr("width", w+ch+ch+cw)
+      .attr("height", h+20);
 
-  svg = d3.select("#audioBar").append("svg")
-    .attr("width", w+ch+ch+cw)
-    .attr("height", h+20);
+    var cell = svg.selectAll(".cell")
+      .data(cells)
+      .enter().append("rect")
+      .attr("class",function(d){
+        var n = findIndex(d.t,themes,0,themes.length);
+        return (n % 2 == 0)?'cell cell1':'cell cell2'
+      })
+      .attr("x", rectx)
+      .attr("y", recty)
+      .attr("width", cw)
+      .attr("height", ch)
+      .attr("rx", 3)
+      .attr("ry", 3)
+      .attr('t',t)
+      .on("mouseover", function() {
+        hovered = d3.select(this);
+        hovered.classed("hovered", true);
+        if(mouseDown){
+          hovered.classed('highlighted',isHighlighted);
+        }
+      })
+      .on({
+        mouseout: function() {
+          hovered.classed("hovered", false);
+        },
+        mousedown: function() {
+          mouseDown = true;
+          isHighlighted = !(d3.select(this).classed("highlighted"));
+          d3.select(this).classed('highlighted',isHighlighted);
+        }
+      })
+      .on("click",function(){console.log($(this).attr('t'))});
 
-  var cell = svg.selectAll(".cell")
-    .data(cells)
-    .enter().append("rect")
-    .attr("class",function(d){
-      var n = findIndex(d.t,themes,0,themes.length);
-      return (n % 2 == 0)?'cell cell1':'cell cell2'
-    })
-    .attr("x", rectx)
-    .attr("y", recty)
-    .attr("width", cw)
-    .attr("height", ch)
-    .attr("rx", 3)
-    .attr("ry", 3)
-    .attr('t',t)
-    .on("mouseover", function() {
-      hovered = d3.select(this);
-      hovered.classed("hovered", true);
-      if(mouseDown){
-        hovered.classed('highlighted',isHighlighted);
-      }
-    })
-    .on({
-      mouseout: function() {
-        hovered.classed("hovered", false);
-      },
-      mousedown: function() {
-        mouseDown = true;
-        isHighlighted = !(d3.select(this).classed("highlighted"));
-        d3.select(this).classed('highlighted',isHighlighted);
-      }
-    })
-    .on("click",function(){console.log($(this).attr('t'))});
+    insertPins();
 
-  insertPins();
+    var theme = svg.selectAll('theme')
+      .data(themes)
+      .enter().append("g");
 
-  var theme = svg.selectAll('theme')
-    .data(themes)
-    .enter().append("g");
-
-  theme.append("line")
+    theme.append("line")
+      .attr("class","theme")
+      .attr('t',function(d){ return d })
+      .attr("x1", timeX)
+      .attr("x2", timeX)
+      .attr("y1", offset+ch)
+      .attr("y2", offset+ch*2);
+    theme.append("text")
     .attr("class","theme")
-    .attr('t',function(d){ return d })
-    .attr("x1", timeX)
-    .attr("x2", timeX)
-    .attr("y1", offset+ch)
-    .attr("y2", offset+ch*2);
-  theme.append("text")
-  .attr("class","theme")
-  .attr("x", function(d){
-    return timeX(d) - 11
-  })
-  .attr("y", offset+ch*2+15)
-  .text(function(d){
-    var mm = parseInt(d/60);
-    var ss = ''+(d%60);
-    if(ss.length < 2){
-      ss = '0'+ss;
-    }
-    return ''+mm+':'+ss
-  });
-
-  function _dragAudio(d,i){
-    var at = d3.select(this);
-
-    var newX = d3.event.dx;
-    var newTime = currentTime[0] + newX/cw*timeInterval;
-    
-    if(newTime >= 0){
-      currentTime[0] = newTime;
-      audioPlayer.currentTime = newTime;
-      audioTime.attr('transform','translate('+(timeX(currentTime[0])-ch-timeInterval)+',0)');
-    }
-  }
-
-  var dragAudio = d3.behavior.drag()
-    .origin(Object)
-    .on("drag", _dragAudio);
-
-  
-  audioTime = svg.selectAll('audioTime')
-    .data(currentTime)
-    .enter().append("polyline")
-    .attr("class","audioTime")
-    .attr('points',function(d){ 
-      var pts = [];
-      var x1 = timeX(d) - 5;
-      var x2 = timeX(d) + 5;
-      var x3 = timeX(d);
-      var y1 = offset+ch-25;
-      var y2 = offset+ch-15;
-      var y3 = offset+ch*2+15;
-      var y4 = offset+ch*2+25;
-
-      pts.push(''+x3+','+y2);
-      pts.push(''+x1+','+y1);
-      pts.push(''+x2+','+y1);
-      pts.push(''+x3+','+y2);
-      pts.push(''+x3+','+y3);
-      pts.push(''+x2+','+y4);
-      pts.push(''+x1+','+y4);
-      pts.push(''+x3+','+y3);
-      return pts.join(' ')
+    .attr("x", function(d){
+      return timeX(d) - 11
     })
-    .call(dragAudio);
+    .attr("y", offset+ch*2+15)
+    .text(function(d){
+      var mm = parseInt(d/60);
+      var ss = ''+(d%60);
+      if(ss.length < 2){
+        ss = '0'+ss;
+      }
+      return ''+mm+':'+ss
+    });
 
-  displayImage($('.crop_image'));
-  assetListeners($('.asset'));
-  projectListeners($('#audioBar'));
+    function _dragAudio(d,i){
+      var at = d3.select(this);
 
-  $('.asset').on({
-    mouseover:function(){
-      var aid = $(this).attr('id');
-      d3.selectAll('[aid="'+aid+'"]').classed('assetHover',true);
-    },
-    mouseout:function(){
-      var aid = $(this).attr('id');
-      d3.selectAll('[aid="'+aid+'"]').classed('assetHover',false);
-    }
-  });
-
-  audioPlayer = $('#audioPlayer')[0];
-
-  $('#playButton').on("click", function(){
-    if($('#playButton i').hasClass('icon-pause')){
-      audioPlayer.pause();  
-    }
-    else{
-      audioPlayer.play();      
-    }
-    $('#playButton i').toggleClass('icon-play-circle');
-    $('#playButton i').toggleClass('icon-pause');
-  });
-  var lastTime = 0;
-  audioPlayer.addEventListener("timeupdate", function(e){
-    currentTime[0] = audioPlayer.currentTime;
-    audioTime.attr('transform','translate('+(timeX(currentTime[0])-ch-timeInterval)+',0)');
-
-    if(currentTime[0] < qStart){
-      console.log("less");
-      console.log(qStart);
-      console.log(qEnd);
-      var oldTime = $('#questionList li.active');
-      var newTime = oldTime.prev();
-      qEnd = qStart;
-      qStart = newTime.attr('t');
-      oldTime.removeClass('active');
-      newTime.addClass('active');
-      console.log(qStart);
-      console.log(qEnd);
-    }
-    else if(qEnd < currentTime[0]){
-      console.log("greater");
-      console.log(qStart);
-      console.log(qEnd);
-      var oldTime = $('#questionList li.active');
-      var newTime = oldTime.next();
-      console.log(oldTime[0]);
-      console.log(newTime[0]);
-      qStart = qEnd;
-      qEnd = newTime.next().attr('t');
-      oldTime.removeClass('active');
-      newTime.addClass('active');
-      console.log(qStart);
-      console.log(qEnd); 
-    }
-  });
-
-  $('#questionList').on('click',"li",function(){
-    var t = $(this).attr('t');
-    if(t=='p'){
-      var oldTime = $(this).siblings('.active');
-      var newTime = $(this).siblings('.active').prev();
-      if(!newTime.hasClass('previous')){
-        oldTime.removeClass('active');
-        newTime.addClass('active');
-        audioPlayer.currentTime = newTime.attr('t');
+      var newX = d3.event.dx;
+      var newTime = currentTime[0] + newX/cw*timeInterval;
+      
+      if(newTime >= 0){
+        currentTime[0] = newTime;
+        audioPlayer.currentTime = newTime;
+        audioTime.attr('transform','translate('+(timeX(currentTime[0])-ch-timeInterval)+',0)');
       }
     }
-    else if(t=='n'){
-      var oldTime = $(this).siblings('.active');
-      var newTime = $(this).siblings('.active').next();
-      if(!newTime.hasClass('next')){
+
+    var dragAudio = d3.behavior.drag()
+      .origin(Object)
+      .on("drag", _dragAudio);
+
+    
+    audioTime = svg.selectAll('audioTime')
+      .data(currentTime)
+      .enter().append("polyline")
+      .attr("class","audioTime")
+      .attr('points',function(d){ 
+        var pts = [];
+        var x1 = timeX(d) - 5;
+        var x2 = timeX(d) + 5;
+        var x3 = timeX(d);
+        var y1 = offset+ch-25;
+        var y2 = offset+ch-15;
+        var y3 = offset+ch*2+15;
+        var y4 = offset+ch*2+25;
+
+        pts.push(''+x3+','+y2);
+        pts.push(''+x1+','+y1);
+        pts.push(''+x2+','+y1);
+        pts.push(''+x3+','+y2);
+        pts.push(''+x3+','+y3);
+        pts.push(''+x2+','+y4);
+        pts.push(''+x1+','+y4);
+        pts.push(''+x3+','+y3);
+        return pts.join(' ')
+      })
+      .call(dragAudio);
+
+    displayImage($('.crop_image'));
+    assetListeners($('.asset'));
+    projectListeners($('#audioBar'));
+
+    $('.asset').on({
+      mouseover:function(){
+        var aid = $(this).attr('id');
+        d3.selectAll('[aid="'+aid+'"]').classed('assetHover',true);
+      },
+      mouseout:function(){
+        var aid = $(this).attr('id');
+        d3.selectAll('[aid="'+aid+'"]').classed('assetHover',false);
+      }
+    });
+
+    audioPlayer = $('#audioPlayer')[0];
+
+    $('#playButton').on("click", function(){
+      if($('#playButton i').hasClass('icon-pause')){
+        audioPlayer.pause();  
+      }
+      else{
+        audioPlayer.play();      
+      }
+      $('#playButton i').toggleClass('icon-play-circle');
+      $('#playButton i').toggleClass('icon-pause');
+    });
+    var lastTime = 0;
+    audioPlayer.addEventListener("timeupdate", function(e){
+      currentTime[0] = audioPlayer.currentTime;
+      audioTime.attr('transform','translate('+(timeX(currentTime[0])-ch-timeInterval)+',0)');
+
+      if(currentTime[0] < qStart){
+        console.log("less");
+        console.log(qStart);
+        console.log(qEnd);
+        var oldTime = $('#questionList li.active');
+        var newTime = oldTime.prev();
+        qEnd = qStart;
+        qStart = newTime.attr('t');
         oldTime.removeClass('active');
         newTime.addClass('active');
-        audioPlayer.currentTime = newTime.attr('t');
+        console.log(qStart);
+        console.log(qEnd);
       }
-    }
-    else{
-      $(this).siblings('.active').removeClass('active');
-      $(this).addClass('active');
-      audioPlayer.currentTime = t;
-    }
-    qStart = $('#questionList .active').attr('t');
-    qEnd = $('#questionList .active').next().attr('t');
-    if(qEnd == 'n'){
-      qEnd = audio_length;
-    }
+      else if(qEnd < currentTime[0]){
+        console.log("greater");
+        console.log(qStart);
+        console.log(qEnd);
+        var oldTime = $('#questionList li.active');
+        var newTime = oldTime.next();
+        console.log(oldTime[0]);
+        console.log(newTime[0]);
+        qStart = qEnd;
+        qEnd = newTime.next().attr('t');
+        oldTime.removeClass('active');
+        newTime.addClass('active');
+        console.log(qStart);
+        console.log(qEnd); 
+      }
+    });
+
+    $('#questionList').on('click',"li",function(){
+      var t = $(this).attr('t');
+      if(t=='p'){
+        var oldTime = $(this).siblings('.active');
+        var newTime = $(this).siblings('.active').prev();
+        if(!newTime.hasClass('previous')){
+          oldTime.removeClass('active');
+          newTime.addClass('active');
+          audioPlayer.currentTime = newTime.attr('t');
+        }
+      }
+      else if(t=='n'){
+        var oldTime = $(this).siblings('.active');
+        var newTime = $(this).siblings('.active').next();
+        if(!newTime.hasClass('next')){
+          oldTime.removeClass('active');
+          newTime.addClass('active');
+          audioPlayer.currentTime = newTime.attr('t');
+        }
+      }
+      else{
+        $(this).siblings('.active').removeClass('active');
+        $(this).addClass('active');
+        audioPlayer.currentTime = t;
+      }
+      qStart = $('#questionList .active').attr('t');
+      qEnd = $('#questionList .active').next().attr('t');
+      if(qEnd == 'n'){
+        qEnd = audio_length;
+      }
+    });
+
+    var tabHeight = (window.innerHeight - $('.navbar').outerHeight() 
+      - $('.nav-tabs').outerHeight() - $('#audioBottom').outerHeight() 
+      - $('#saveStory').outerHeight() - $('.addFile').outerHeight() - 100);
+    $('.tabScroll').css('height',tabHeight);
+
   });
 });
 
@@ -331,12 +339,16 @@ function insertPins(){
     .attr('t',function(d){ return d})
     .on({
       mouseover: function() {
+        var aid = $(this).attr('aid');
         var bm = d3.selectAll(this.childNodes);
         bm.classed("pinOver", true);
+        $('#'+aid).toggleClass('pinHovered');
       },
       mouseout: function() {
+        var aid = $(this).attr('aid');
         var bm = d3.selectAll(this.childNodes);
         bm.classed("pinOver", false);
+        $('#'+aid).toggleClass('pinHovered');
       }
     })
     .call(drag);
@@ -566,11 +578,9 @@ function buildBookmarks(){
         par.find('.tabContent').html(buildPhotos());
         displayImage(par.find('.crop_image'));
         par.find('.imgZoom').imageZoom();
-        console.log(timeID);
         var index = findIndex(timeID,bookmarks,0,bookmarks.length);
-        console.log(index);
         bookmarks.splice(index,1);
-        var loc = images.length;
+        var iIndex = images.length;
         images.push({"time":timeID,"id":""})
 
         par.find(".crop_image").on('click',function(){
@@ -588,7 +598,7 @@ function buildBookmarks(){
             svgElm.select('text').classed('bookmarkIcon',false);
             svgElm.attr("aid",asset.attr("iid"));
             
-            images[loc].id = asset.attr("iid");
+            images[iIndex].id = asset.attr("iid");
           }
           else{
             asset.siblings().each(function(){
@@ -596,13 +606,47 @@ function buildBookmarks(){
             });
             svgElm.select('text').classed('pins',false);
             svgElm.select('text').classed('bookmarkIcon',true);
-            images[loc].id = "";
+            images[iIndex].id = "";
           }
         });
       } //type photo
       else if(type == "place"){
+        var nX = parseInt(svgElm.select('text').attr('x'))+5;
+        svgElm.select('text').attr('x',nX);
         $('.'+bid).children('a').html('<i class="icon-map-marker icon-large"></i>');
-        console.log("load map into tabContent");
+        par.find('.tabContent').html(buildLocs());
+        var index = findIndex(timeID,bookmarks,0,bookmarks.length);
+        bookmarks.splice(index,1);
+        var iIndex = locations.length;
+        locations.push({"time":timeID,"id":""})
+
+        par.find(".loc_helper").on('click',function(){
+          var asset = $(this).parents('.asset');
+          asset.toggleClass("selected");
+          if(asset.hasClass("fadedImage")){
+            asset.removeClass('fadedImage');
+          }
+          if(asset.hasClass('selected')){
+            asset.siblings().each(function(){
+              $(this).addClass('fadedImage');
+              $(this).removeClass("selected");
+            });
+            svgElm.select('text').classed('pins',true);
+            svgElm.select('text').classed('bookmarkIcon',false);
+            svgElm.attr("aid",asset.attr("lid"));
+            
+            locations[iIndex].id = asset.attr("lid");
+          }
+          else{
+            asset.siblings().each(function(){
+              $(this).removeClass('fadedImage');
+            });
+            svgElm.select('text').classed('pins',false);
+            svgElm.select('text').classed('bookmarkIcon',true);
+            locations[iIndex].id = "";
+          }
+        });
+        
       }
       else{
         console.log("shrugges sholders");
@@ -661,6 +705,180 @@ function buildPhotos(){
   }
   photosHTML.push('</div>');
   return photosHTML.join('');
+}
+
+function _buildLocHTML(locID){
+  var pHTML ='<div class="asset span2" lid="'+locID+'" type="place">'+
+    '<div class="loc_helper thumbnailImage">'+
+      '<i class="icon-map-marker icon-large"></i>'+
+      '<h5>'+
+        loc[locID].t+
+      '</h5>'+
+    '</div>'+
+  '</div>';
+  return pHTML
+}
+
+function buildLocs(){
+  var photosHTML = [];
+  photosHTML.push('<div class="row-fluid">');
+  for(var lo in loc){
+    photosHTML.push(_buildLocHTML(lo));
+  }
+  photosHTML.push('</div>');
+  return photosHTML.join('');
+}
+
+
+// initial json call
+function loadPhotos(){
+  var d = $.Deferred();
+  $.getJSON(jsonPhotoFile,function(ph){
+    photos = ph;
+    processPhotos(ph);
+  }).done(function(p){
+    d.resolve(p);
+  }).fail(d.reject);
+  return d.promise();
+}
+
+function loadLocations(){
+  var d = $.Deferred();
+  $.getJSON(jsonLocationFile,function(lo){
+    loc = lo;
+    processLocations(lo);
+  }).done(function(p){
+    d.resolve(p);
+  }).fail(d.reject);
+  return d.promise();
+}
+
+function _buildStoryList(l){
+  var sList = [];
+  for(var i in l){
+    sList.push('<li class="placeholder">'+l[i]+'</li>');
+  }
+  return sList.join('')
+}
+
+function processPhotos(ph){
+  var shareConvert={
+    "Private":'private',
+    "Shared":'sharedAsset'
+  }
+  var pHTML = [];
+  for(var img in ph){
+    var p = '<div class="asset" type="photo" id = "'+img+'">'+
+      '<div class="row-fluid">'+
+        '<div class="span1">'+
+          '</div>'+
+        '<div class="span2">'+
+          '<div class="row-fluid">'+
+            '<div class="span12 thumbnailImage">'+
+              '<a class="thumbnail" href="images/story/'+ph[img].i+'">'+
+                '<div class="crop_image" image = "'+ph[img].i+'"></div>'+
+              '</a>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="span5 asset_data">'+
+          '<div class="row-fluid">'+
+            '<div class="span7 display_text">'+
+              '<h3 class="asset_name editable">'+ph[img].n+'</h3>'+
+            '</div>'+
+            '<div class="span5">'+
+              '<h3 class="asset_date editable">'+ph[img].date+'</h3>'+
+            '</div>'+
+            '<div class="span12 asset_desc editable">'+ph[img].d+'</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="span2">'+
+          '<div class="row-fluid">'+
+            'Used in stories:'+
+            '<ul class="asset_stories">'+
+              _buildStoryList(ph[img].s)+
+            '</ul>'+
+          '</div>'+
+        '</div>'+
+        '<div class="span2">'+
+        '</div>'+
+      '</div>'+
+      '<hr>'+
+    '</div>';
+    pHTML.push(p);
+  }
+  $('#tab2 .tabScroll').append(pHTML.join(''));
+}
+
+function processLocations(lo){
+  var shareConvert={
+    "Private":'private',
+    "Shared":'sharedAsset'
+  }
+  var lHTML = [];
+  for(var l in lo){
+    var ls = '<div class="asset" type="location" id = "'+l+'">'+
+      '<div class="row-fluid">'+
+        '<div class="span1">'+
+        '</div>'+
+        '<div class="span2">'+
+          '<div class="row-fluid">'+
+            '<div class="span12">'+
+              '<div class="audio_icon">'+
+                '<i class="fui-location-16"></i>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="span5 asset_data">'+
+          '<div class="row-fluid">'+
+            '<div class="span7 display_text">'+
+              '<div class="row-fluid">'+
+                '<h3 class="asset_location editable">'+lo[l].t+'</h3>'+
+              '</div>'+
+              '<div class="row-fluid">'+
+                '<span class="asset_address editable">'+lo[l].ad+'</span>'+
+              '</div>'+
+              '<div class="row-fluid">'+
+                '<span class="asset_city editable">'+lo[l].ci+'</span>'+
+                '<span class="asset_state editable">'+lo[l].st+'</span>,'+
+                '<span class="asset_zip editable">'+lo[l].zip+'</span>'+
+              '</div>'+
+              '<div class="row-fluid">'+
+                '<div class="asset_country editable">'+lo[l].co+'</div>'+
+              '</div>'+
+              '<div class="row-fluid">'+
+                '<div class="asset_latlng editable">'+lo[l].lat+','+lo[l].lng+'</div>'+
+              '</div>'+
+            '</div>'+
+            '<div class="span5">'+
+              '<h3>Places:</h3>'+
+              '<ul>'+
+                '<li><h4 class="place_tag editable">'+lo[l].ci+'</h4></li>'+
+                '<li><h4 class="place_tag editable">'+lo[l].st+'</h4></li>'+
+                '<li><h4 class="place_tag editable">'+lo[l].co+'</h4></li>'+
+              '</ul>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="span2">'+
+          '<div class="row-fluid">'+
+            'Used in stories:'+
+            '<ul class="asset_stories">'+
+              _buildStoryList(lo[l].s)+
+            '</ul>'+
+          '</div>'+
+        '</div>'+
+        '<div class="span2">'+
+        '</div>'+
+      '</div>'+
+      '<hr>'+
+    '</div>';
+
+    lHTML.push(ls);
+  }
+
+  $('#tab3 .tabScroll').append(lHTML.join(''));
 }
 
 //how to get start and end of ranges.

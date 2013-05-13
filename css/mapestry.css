@@ -919,12 +919,29 @@ line.pinOver{
   font-size: 18px;
 }
 
-.sideTab .span2[type="photo"]{
+.sideTab .span2[type="photo"],.sideTab .span2[type="place"]{
   margin-left: 10px !important;
 }
 
 .saveStory{
   margin-left: 0 !important;
+}
+
+.loc_helper{
+  background-color: rgba(189,195,199,.8);
+  padding: 15px 25px 35px 25px;
+  text-align: center;
+  border-radius: 15px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.loc_helper i{
+  font-size: 50px;
 }
 
 /*Projects ---------------------------------------*/

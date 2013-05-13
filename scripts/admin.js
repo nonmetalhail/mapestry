@@ -47,7 +47,7 @@ $(document).ready(function(){
 
     $('.deletePhoto').on('click',function(){
       var tab = $(this).parents('.tab-pane').attr('id');
-      $('#'+tab).find('.checked').each(function(){
+      $('#'+tab).find('.checkbox.checked').each(function(){
         var cid = $(this).attr('for').split('_')[0];
         var type = $('#'+cid).attr('type');
 
