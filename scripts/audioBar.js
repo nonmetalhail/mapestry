@@ -1,4 +1,4 @@
-var audio_length = 512; //audio length in sec
+var audio_length = 1860; //audio length in sec
 var jsonPhotoFile = "photos.json";
 var jsonLocationFile = "locations.json";
 
@@ -6,30 +6,30 @@ var jsonLocationFile = "locations.json";
 var photos,loc;
 
 //metadata brought in from recorder
-var themes = [0,80,200,310,360,400];
-var bookmarks = [100,120,220,250,340,410,500]
+var themes = [0,150,560,954,1463,1720];
+var bookmarks = [100,433,690,874,1274,1340,1800]
 var images = [
   {
-    "time":155,
+    "time":350,
     "id":"p1"
   },
   {
-    "time":370,
+    "time":1032,
     "id":"p4"
   }
 ];
 
 var locations = [
   {
-    "time":30,
+    "time":232,
     "id":'l1'
   },
   {
-    "time":230,
+    "time":989,
     "id":'l3'
   },
   {
-    "time":480,
+    "time":1487,
     "id":'l3'
   }
 ];
@@ -74,7 +74,7 @@ var recty = function(d) { return d.y+offset; };
 var t = function(d) { return d.t; };
 var timeX = function(d){
   var index = Math.round(d / timeInterval);
-  return index * cw + ch + timeInterval
+  return index * cw + ch + cw - 2//+ timeInterval
 }
 
 $(document).ready(function(){
