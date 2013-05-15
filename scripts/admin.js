@@ -1,5 +1,7 @@
 var jsonPhotoFile = "photos.json";
 var jsonLocationFile = "locations.json";
+var CM_API_KEY = 'cc3cabfbed9842c29f808df2cc6c3f64';
+var CM_STYLE = '998'; //44094
 
 $(document).ready(function(){
   $.when(loadPhotos(),loadLocations())
@@ -10,6 +12,29 @@ $(document).ready(function(){
     $.inlineEdit.prototype.controls.date = function( value ) {
       return '<input type="date" value="'+ convertDateToForm(value.replace(/(\u0022)+/g, '')) +'">' + this.buttonHtml();
     }
+    var locResults;
+    var options = {
+      collapsed: false, /* Whether its collapsed or not */
+      position: 'bottomright', /* The position of the control */
+      text: 'Locate', /* The text of the submit button */
+      callback: function (results) {
+        var bbox = results[0].boundingbox,
+          first = new L.LatLng(bbox[0], bbox[2]),
+          second = new L.LatLng(bbox[1], bbox[3]),
+          bounds = new L.LatLngBounds([first, second]);
+        console.log(results);
+        this._map.fitBounds(bounds);
+        var latlong = '' + results[0].lat + ','+results[0].lon;
+        locResults = results[0];
+        $('#latlng').val(latlong);
+      }
+    };
+    var cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
+    cloudmade = new L.TileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {attribution: cloudmadeAttribution});
+    var map = new L.Map('admin_map').addLayer(cloudmade).setView(new L.LatLng(40,-101), 3);
+    var osmGeocoder = new L.Control.OSMGeocoder(options);
+
+    map.addControl(osmGeocoder);
 
     $('.crop_image').each(function(){
       var f = $(this).attr('image');
@@ -77,11 +102,132 @@ $(document).ready(function(){
       }
     });
 
-    $('.addFile').on('click',function(){
-      alert("Thanks for trying to add a file! \n\nThis feature has not been implemented in this prototype. Why dont you go ahead an pretend you uploaded a file and call it a day.")
+    $('.shareAsset').on("click",function(){
+      var tab = $(this).parents('.tab-pane').attr('id');
+      var shared = "<li class='tempShare'>No One</li>";
+      $('#'+tab).find('.checkbox.checked').each(function(){
+        if($(this).parent().parent().find('.shareNotification').hasClass('sharedAsset')){
+          shared = '<li>Erin McAdams <i class="share_del fui-cross-16"></i></li>';
+        }
+      });
+      $('#shareList').html(shared);
+      
+      $('#shareAsset').on("click",function(){
+        $('#shareFile').modal('hide');
+        $('#'+tab).find('.checkbox.checked').each(function(){
+          $(this).parent().parent().find('.shareNotification').removeClass('private');
+          $(this).parent().parent().find('.shareNotification').addClass('sharedAsset');
+          $(this).parent().parent().find('.shareNotification').text("Shared");
+        $(this).removeClass("checked");
+        });
+      });
+      
+      $('#shareList').on("click",".share_del",function(){
+        $(this).parent().remove();
+      });
+
+      $('.addShare').on("click",function(){
+        var shared = "<li>"+$(this).text()+"</li>";
+        $('.tempShare').remove();
+        $('#shareList').append(shared);
+      })
     });
-    $('.download').on('click',function(){
-      alert("This feature is not implemented in our prototype. \n\nAfter all, the entire point of a download feature is so you have access to YOUR content, not take ours...")
+
+    $("body").on('shown','#newLoc', function() { 
+      L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
+    });
+    $('#saveLocation').on("click",function(){
+      var address = locResults.display_name.split(",");
+      var lid = 'l'+($('.asset[type="location"]').length+2);
+      var temp = {
+        lid:{
+          "lat":locResults.lat,
+          "lng":locResults.lon,
+          "t":address[0]+address[1],
+          "ad":address[0]+address[1],
+          "ci":address[2],
+          "st":address[4],
+          "zip":address[5],
+          "co":address[6],
+          "share":"Private",
+          "s":["None"]
+        }
+      };
+      processLocations(temp);
+
+      $('#newLoc').modal('hide');
+    });
+    
+    $('#saveQuestion').on("click",function(){
+      if($('#questionIn').val()){
+        var p = $(this).parents(".tabScroll");
+        var c = p.find('.asset').length + 1;
+        var newQ = '<div class="asset" type="topic" id = "q'+c+'">'+
+          '<div class="row-fluid">'+
+            '<div class="span1 cb">'+
+                '<label class="checkbox" for="q'+c+'_c">'+
+                  '<span class="icon"></span>'+
+                  '<span class="icon-to-fade"></span>'+
+                  '<input type="checkbox" value="" id="q'+c+'_c">'+
+                '</label>'+
+              '</div>'+
+            '<div class="span2">'+
+              '<div class="row-fluid">'+
+                '<div class="span12">'+
+                  '<div class="audio_icon">'+
+                    '<i class="fui-bubble-16"></i>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+              '<div class="row-fluid">'+
+                '<div class="span12">'+
+                  '<div class="row-fluid">'+
+                    '<div class="span3">'+
+                    '</div>'+
+                    '<div class="span6">'+
+                      '<div class="btn btn-block btn-small shareNotification private">Private</div>'+
+                    '</div>'+
+                    '<div class="span3">'+
+                    '</div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+            '</div>'+
+            '<div class="span5 asset_data">'+
+              '<div class="row-fluid">'+
+                '<div class="span10 display_text">'+
+                  '<div class="row-fluid">'+
+                    '<h3 class="asset_question editable">'+$('#questionIn').val()+'</h3>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+            '</div>'+
+            '<div class="span2">'+
+              '<div class="row-fluid">'+
+                'Used in interviews:'+
+                '<ul class="asset_stories">'+
+                  '<li class="placeholder">None</li>'+
+                '</ul>'+
+              '</div>'+
+            '</div>'+
+            '<div class="span2">'+
+              '<div class="row-fluid">'+
+                '<div class="span12">'+
+                  '<h3 class="recorderNotification placeholder">Sent to recorder</h3>'+
+                '</div>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+          '<hr>'+
+        '</div>';
+        $(this).parents('.tabScroll').append(newQ);
+
+        $('#q'+c+'_c').click(function(){
+            setupLabel();
+        });
+        setupLabel();
+        $('#newQ').modal('hide');
+      }
     });
     
     $(".checkbox").prepend("<span class='icon'></span><span class='icon-to-fade'></span>");

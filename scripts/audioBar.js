@@ -1,6 +1,8 @@
 var audio_length = 1860; //audio length in sec
 var jsonPhotoFile = "photos.json";
 var jsonLocationFile = "locations.json";
+var CM_API_KEY = 'cc3cabfbed9842c29f808df2cc6c3f64';
+var CM_STYLE = '998'; //44094
 
 // mockup of photo and locations for future dynamic input
 var photos,loc;
@@ -292,9 +294,60 @@ $(document).ready(function(){
 
     var tabHeight = (window.innerHeight - $('.navbar').outerHeight() 
       - $('.nav-tabs').outerHeight() - $('#audioBottom').outerHeight() 
-      - $('#saveStory').outerHeight() - $('.addFile').outerHeight() - 100);
+      - $('#saveStory').outerHeight() - $('.addFile').outerHeight() - 150);
     $('.tabScroll').css('height',tabHeight);
 
+    var locResults;
+    var options = {
+      collapsed: false, /* Whether its collapsed or not */
+      position: 'bottomright', /* The position of the control */
+      text: 'Locate', /* The text of the submit button */
+      callback: function (results) {
+        var bbox = results[0].boundingbox,
+          first = new L.LatLng(bbox[0], bbox[2]),
+          second = new L.LatLng(bbox[1], bbox[3]),
+          bounds = new L.LatLngBounds([first, second]);
+        console.log(results);
+        this._map.fitBounds(bounds);
+        var latlong = '' + results[0].lat + ','+results[0].lon;
+        locResults = results[0];
+        $('#latlng').val(latlong);
+      }
+    };
+    var cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
+    cloudmade = new L.TileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {attribution: cloudmadeAttribution});
+    var map = new L.Map('admin_map').addLayer(cloudmade).setView(new L.LatLng(40,-101), 3);
+    var osmGeocoder = new L.Control.OSMGeocoder(options);
+
+    map.addControl(osmGeocoder);
+
+    $("body").on('shown','#newLoc', function() { 
+      L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
+    });
+    $('#saveLocation').on("click",function(){
+      var address = locResults.display_name.split(",");
+      var lid = 'l'+($('.asset[type="location"]').length+2);
+      console.log(lid);
+      var tempData = {
+        "lat":locResults.lat,
+        "lng":locResults.lon,
+        "t":address[0]+address[1],
+        "ad":address[0]+address[1],
+        "ci":address[2],
+        "st":address[4],
+        "zip":address[5],
+        "co":address[6],
+        "share":"Private",
+        "s":["None"]
+      }
+      var temp = {
+        lid:tempData
+      };
+      processLocations(temp);
+      assetListeners($('.asset'));
+      loc[lid] = tempData
+      $('#newLoc').modal('hide');
+    });
   });
 });
 

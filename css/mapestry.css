@@ -698,6 +698,22 @@ a.thumbnail:focus {
   padding-right: 15px;
 }
 
+#admin_map{
+  width: 530px;
+  height: 300px;
+  border: 1px solid #ccc;
+}
+
+.leaflet-control-geocoder-form{
+  margin:0;
+}
+.leaflet-control-geocoder-form .btn{
+  margin-left:5px;
+}
+#latlongLabel{
+  margin-top:15px;
+}
+
 /*audio bar --------------------------------------*/
 #storyBuilder{
   padding-top: 60px;
@@ -890,10 +906,6 @@ line.pinOver{
   user-select: none;
 }
 
-.tab-pane{
-  /*height:300px;*/
-}
-
 .fawe{
   font-family: "FontAwesome";
 }
@@ -928,6 +940,7 @@ line.pinOver{
 }
 
 .loc_helper{
+  height:150px;
   background-color: rgba(189,195,199,.8);
   padding: 15px 25px 35px 25px;
   text-align: center;

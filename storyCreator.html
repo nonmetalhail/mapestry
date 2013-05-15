@@ -42,8 +42,9 @@
       <link rel="stylesheet" href="css/font-awesome.css">
 
     <!-- leaflet -->
+    <link rel="stylesheet" href="css/Control.OSMGeocoder.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
-
+    <script src="js/Control.OSMGeocoder.js"></script>
     <!-- d3 -->
     <script src="http://d3js.org/d3.v3.min.js"></script>
 
@@ -54,6 +55,47 @@
   </head>
 
   <body id="storyBuilder">
+
+    <div id="addFile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="addFileModal" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="addFileModal">Add File</h3>
+      </div>
+      <div class="modal-body">
+        <div class="control-group">
+          <p>Thanks for trying to add a file!</p>
+          <p>This feature has not been implemented in this prototype. Why dont you go ahead an pretend you uploaded a file and call it a day.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">OK</button>
+      </div>
+    </div>
+
+    <div id="newLoc" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newLocLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="newLocLabel">Create a New Location</h3>
+      </div>
+      <div class="modal-body">
+        <div class="control-group">
+          <div class="row-fluid">
+            <div id="admin_map"></div>
+          </div>
+          <div class="row-fluid">
+            <label class ="span12" id ="latlongLabel" for="latlng">Lat,Long Coordinates</lable>
+          </div>
+          <div class="row-fluid">
+            <input type="text" class ="span12" id="latlng"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-primary" id="saveLocation">Save</button>
+      </div>
+    </div> 
+
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -100,10 +142,13 @@
             <div class="tab-content">
               <div class="tab-pane active" id="tab1" >
                 <div class="row-fluid">
-                  <div class="span10">
+                  <div class="span8">
                   </div>
                   <div class="span2">
-                     <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
+                     <div class= "btn btn-large btn-block btn-primary" href="#addFile" role="button" data-toggle="modal">Add file</div>
+                  </div>
+                  <div class="span2">
+                    <div class="btn btn-large btn-block btn-primary" href="#newLoc" role="button" data-toggle="modal" id="createLocation">Create New Location</div>
                   </div>
                 </div>
 
@@ -145,7 +190,7 @@
                   <div class="span4">
                   </div>
                   <div class="span2">
-                    <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
+                    <div class= "btn btn-large btn-block btn-primary" href="#addFile" role="button" data-toggle="modal">Add file</div>
                   </div>
                 </div>
               </div>
@@ -160,13 +205,10 @@
       <!--// start: MAP TAB  //-->       
             <div class="tab-pane" id="tab3">
               <div class="row-fluid">
-                <div class="span8">
+                <div class="span10">
                 </div>
                 <div class="span2">
-                  <div class="btn btn-large btn-block btn-warning newLocation">Create New Lcoation</div>
-                </div>
-                <div class="span2">
-                  <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
+                  <div class="btn btn-large btn-block btn-primary" href="#newLoc" role="button" data-toggle="modal" id="createLocation">Create New Location</div>
                 </div>
               </div> <!--// row fluid //-->
 

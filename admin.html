@@ -40,9 +40,11 @@
       <script src="js/jquery.imageZoom.js" type="text/javascript"></script>
 
       <link rel="stylesheet" href="css/font-awesome.css">
-
+    
     <!-- leaflet -->
+    <link rel="stylesheet" href="css/Control.OSMGeocoder.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+    <script src="js/Control.OSMGeocoder.js"></script>
     <!-- inline edit -->
     <script type = "text/javascript" src="scripts/inlineEdit.js"></script>
     <!-- ours! -->
@@ -51,6 +53,77 @@
   </head>
 
   <body class="admin_menu">
+
+    <div id="addFile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="addFileModal" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="addFileModal">Add File</h3>
+      </div>
+      <div class="modal-body">
+        <div class="control-group">
+          <p>Thanks for trying to add a file!</p>
+          <p>This feature has not been implemented in this prototype. Why dont you go ahead an pretend you uploaded a file and call it a day.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">OK</button>
+      </div>
+    </div>
+
+    <div id="shareFile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="shareFileModal" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="shareFileModal">Share File</h3>
+      </div>
+      <div class="modal-body">
+        <div class="control-group">
+          <div class="row-fluid">
+            <div class="span1"></div>
+            <div class="dk_container span8 dk_shown dk_theme_default" id="dk_container_share" tabindex="1">
+              <a class="dk_toggle">
+                <span class="dk_label">Share With</i></span>
+                <span class="select-icon"></span>
+              </a>
+              <div class="dk_options span12" style="top: 38px;">
+                <ul class="dk_options_inner">
+                  <li>
+                    <a data-dk-dropdown-value="1" class="addShare">Erin McAdams</a>
+                  </li>
+                  <li>
+                    <a ata-dk-dropdown-value="2" class="addShare">Rose Burroughs</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row-fluid">
+            <ul id="shareList">
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-primary" id="shareAsset">Share</button>
+      </div>
+    </div>
+
+    <div id="downloadFile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="downloadFileModal" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="downloadFileModal">Download File</h3>
+      </div>
+      <div class="modal-body">
+        <div class="control-group">
+          <p>This feature is not implemented in our prototype. But you get the idea :)</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">OK</button>
+      </div>
+    </div>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -95,7 +168,7 @@
                 <a href="#tab3" data-toggle="tab" id = "map_button" class="tabs"><i class="fui-location-16"></i>&nbsp;Locations</a>
               </li>
               <li class="span2">
-                <a href="#tab4" data-toggle="tab" id = "question_button" class="tabs"><i class="fui-bubble-16"></i>&nbsp;Questions</a>
+                <a href="#tab4" data-toggle="tab" id = "question_button" class="tabs"><i class="fui-bubble-16"></i>&nbsp;Topics</a>
               </li>
             </ul> 
 
@@ -112,13 +185,13 @@
                       <div class="dk_options span12" style="top: 38px;">
                         <ul class="dk_options_inner">
                           <li>
-                            <a data-dk-dropdown-value="1"><i class="icon-edit"></i>&nbsp; Edit</a>
+                            <a data-dk-dropdown-value="1" href="storyCreator.html"><i class="icon-edit"></i>&nbsp; Edit</a>
                           </li>
                           <li>
-                            <a data-dk-dropdown-value="2"><i class="icon-group"></i>&nbsp; Share</a>
+                            <a class="shareAsset" data-dk-dropdown-value="2" href="#shareFile" role="button" data-toggle="modal"><i class="icon-group"></i>&nbsp; Share</a>
                           </li>
                           <li>
-                            <a data-dk-dropdown-value="3"><i class="icon-cloud-download"></i>&nbsp; Download</a>
+                            <a data-dk-dropdown-value="3" href="#downloadFile" role="button" data-toggle="modal"><i class="icon-cloud-download"></i>&nbsp; Download</a>
                           </li>
                           <hr>
                           <li>
@@ -131,7 +204,7 @@
                   <div class="span8">
                   </div>
                   <div class="span2">
-                     <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
+                    <div class= "btn btn-large btn-block btn-primary" href="#addFile" role="button" data-toggle="modal">Add file</div>
                   </div>
                 </div>
 
@@ -492,13 +565,10 @@
                             <a data-dk-dropdown-value="0" class = "syncRecorder"><i class="icon-tablet"></i>&nbsp; Send to Recorder</a>
                           </li>
                           <li>
-                            <a data-dk-dropdown-value="1"><i class="icon-edit"></i>&nbsp; Edit</a>
+                            <a data-dk-dropdown-value="2" href="#shareFile" role="button" data-toggle="modal"><i class="icon-group"></i>&nbsp; Share</a>
                           </li>
                           <li>
-                            <a data-dk-dropdown-value="2"><i class="icon-group"></i>&nbsp; Share</a>
-                          </li>
-                          <li>
-                            <a data-dk-dropdown-value="3"><i class="icon-cloud-download"></i>&nbsp; Download</a>
+                            <a data-dk-dropdown-value="3" href="#downloadFile" role="button" data-toggle="modal"><i class="icon-cloud-download"></i>&nbsp; Download</a>
                           </li>
                           <hr>
                           <li>
@@ -529,7 +599,7 @@
                   <div class="span2">
                   </div>
                   <div class="span2">
-                    <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
+                    <div class= "btn btn-large btn-block btn-primary" href="#addFile" role="button" data-toggle="modal">Add file</div>
                   </div>
                 </div>
               </div> <!--// row fluid //-->
@@ -558,13 +628,10 @@
                             <a data-dk-dropdown-value="0" class = "syncRecorder"><i class="icon-tablet"></i>&nbsp; Send to Recorder</a>
                           </li>
                           <li>
-                            <a data-dk-dropdown-value="1"><i class="icon-edit"></i>&nbsp; Edit</a>
+                            <a data-dk-dropdown-value="2" href="#shareFile" role="button" data-toggle="modal"><i class="icon-group"></i>&nbsp; Share</a>
                           </li>
                           <li>
-                            <a data-dk-dropdown-value="2"><i class="icon-group"></i>&nbsp; Share</a>
-                          </li>
-                          <li>
-                            <a data-dk-dropdown-value="3"><i class="icon-cloud-download"></i>&nbsp; Download</a>
+                            <a data-dk-dropdown-value="3" href="#downloadFile" role="button" data-toggle="modal"><i class="icon-cloud-download"></i>&nbsp; Download</a>
                           </li>
                           <hr>
                           <li>
@@ -574,19 +641,38 @@
                     </div>
                   </div>
                 </div>
-                <div class="span6">
+                <div class="span8">
                 </div>
                 <div class="span2">
-                  <div class="btn btn-large btn-block btn-warning newLocation">Create New Lcoation</div>
-                </div>
-                <div class="span2">
-                  <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
+                  <div class="btn btn-large btn-block btn-primary" href="#newLoc" role="button" data-toggle="modal" id="createLocation">Create New Location</div>
                 </div>
               </div> <!--// row fluid //-->
 
               <hr><!--//horizontal rule-->
-              <div class="tabScroll">
-                
+              <div class="tabScroll">    
+                <div id="newLoc" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newLocLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="newLocLabel">Create a New Location</h3>
+                  </div>
+                  <div class="modal-body">
+                    <div class="control-group">
+                      <div class="row-fluid">
+                        <div id="admin_map"></div>
+                      </div>
+                      <div class="row-fluid">
+                        <label class ="span12" id ="latlongLabel" for="latlng">Lat,Long Coordinates</lable>
+                      </div>
+                      <div class="row-fluid">
+                        <input type="text" class ="span12" id="latlng"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button class="btn btn-primary" id="saveLocation">Save</button>
+                  </div>
+                </div>            
 
               </div>
               <hr>
@@ -608,13 +694,10 @@
                             <a data-dk-dropdown-value="0" class = "syncRecorder"><i class="icon-tablet"></i>&nbsp; Send to Recorder</a>
                           </li>
                           <li>
-                            <a data-dk-dropdown-value="1"><i class="icon-edit"></i>&nbsp; Edit</a>
+                            <a data-dk-dropdown-value="2" href="#shareFile" role="button" data-toggle="modal"><i class="icon-group"></i>&nbsp; Share</a>
                           </li>
                           <li>
-                            <a data-dk-dropdown-value="2"><i class="icon-group"></i>&nbsp; Share</a>
-                          </li>
-                          <li>
-                            <a data-dk-dropdown-value="3"><i class="icon-cloud-download"></i>&nbsp; Download</a>
+                            <a data-dk-dropdown-value="3" href="#downloadFile" role="button" data-toggle="modal"><i class="icon-cloud-download"></i>&nbsp; Download</a>
                           </li>
                           <hr>
                           <li>
@@ -624,20 +707,34 @@
                     </div>
                   </div>
                 </div>
-                <div class="span6">
+                <div class="span8">
                   
                 </div>
                 <div class="span2">
-                  <div class="btn btn-large btn-block btn-warning newLocation">Create New Question</div>
-                </div>
-                <div class="span2">
-                  <div class= "btn btn-large btn-block btn-primary addFile">Add file</div>
+                  <div class="btn btn-large btn-block btn-primary newLocation"  href="#newQ" role="button" data-toggle="modal">Create New Topic</div>
                 </div>
               </div> <!--// row fluid //-->
 
               <hr><!--//horizontal rule-->
               <div class="tabScroll">
-                <div class="asset" type="question" id = "q1">
+                <div id="newQ" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newQLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="newQLabel">Create a New Topic</h3>
+                  </div>
+                  <div class="modal-body">
+                    <div class="control-group">
+                      <div class="span1"></div>
+                      <input type="text" placeholder="Enter Question" class="span11" id="questionIn"/>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button class="btn btn-primary" id="saveQuestion">Save</button>
+                  </div>
+                </div>
+
+                <div class="asset" type="topic" id = "q1">
                   <div class="row-fluid">
                     <div class="span1 cb">
                       <label class="checkbox" for="q1_c">
@@ -697,7 +794,7 @@
                 </div>
                 
 
-                <div class="asset" type="question" id = "q2">
+                <div class="asset" type="topic" id = "q2">
                   <div class="row-fluid">
                     <div class="span1 cb">
                         <label class="checkbox" for="q2_c">
@@ -757,7 +854,7 @@
                 </div>
                 
 
-                <div class="asset" type="question" id = "q3">
+                <div class="asset" type="topic" id = "q3">
                   <div class="row-fluid">
                     <div class="span1 cb">
                         <label class="checkbox" for="q3_c">
@@ -816,7 +913,7 @@
                   <hr>
                 </div>
                 
-                <div class="asset" type="question" id = "q4">
+                <div class="asset" type="topic" id = "q4">
                   <div class="row-fluid">
                     <div class="span1 cb">
                         <label class="checkbox" for="q4_c">
@@ -875,7 +972,7 @@
                   <hr>
                 </div>
 
-                <div class="asset" type="question" id = "q5">
+                <div class="asset" type="topic" id = "q5">
                   <div class="row-fluid">
                     <div class="span1 cb">
                         <label class="checkbox" for="q5_c">
@@ -934,7 +1031,7 @@
                   <hr>
                 </div>
 
-                <div class="asset" type="question" id = "q6">
+                <div class="asset" type="topic" id = "q6">
                   <div class="row-fluid">
                     <div class="span1 cb">
                         <label class="checkbox" for="q6_c">
@@ -993,7 +1090,7 @@
                   <hr>
                 </div>
 
-                <div class="asset" type="question" id = "q7">
+                <div class="asset" type="topic" id = "q7">
                   <div class="row-fluid">
                     <div class="span1 cb">
                         <label class="checkbox" for="q7_c">
@@ -1052,7 +1149,7 @@
                   <hr>
                 </div>
 
-                <div class="asset" type="question" id = "q8">
+                <div class="asset" type="topic" id = "q8">
                   <div class="row-fluid">
                     <div class="span1 cb">
                         <label class="checkbox" for="q8_c">
