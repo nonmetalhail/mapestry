@@ -104,13 +104,29 @@ $(document).ready(function(){
 
     $('.shareAsset').on("click",function(){
       var tab = $(this).parents('.tab-pane').attr('id');
-      var shared = "<li class='tempShare'>No One</li>";
+      var shared = '<li class="row-fluid tempShare"><div class="span2"></div><div class="span6">No One</div></li>';
       $('#'+tab).find('.checkbox.checked').each(function(){
         if($(this).parent().parent().find('.shareNotification').hasClass('sharedAsset')){
-          shared = '<li>Erin McAdams <i class="share_del fui-cross-16"></i></li>';
+          shared = '<li class="row-fluid">'+
+            '<div class="span2">'+
+              '<i class="share_del fui-cross-16"></i>'+
+            '</div>'+
+            '<div class="span6">Erin McAdams</div>'+
+            '<div class="span2 colab">'+
+              '<label class="checkbox" for="colab1">'+
+                '<span class="icon"></span>'+
+                '<span class="icon-to-fade"></span>'+
+                '<input type="checkbox" value="" id="colab1">'+
+              '</label>'+
+            '</div>'+
+            '</li>';
         }
       });
       $('#shareList').html(shared);
+
+      $(".colab .checkbox").on("click",function(){
+        setupLabel();
+      });
       
       $('#shareAsset').on("click",function(){
         $('#shareFile').modal('hide');
@@ -123,13 +139,28 @@ $(document).ready(function(){
       });
       
       $('#shareList').on("click",".share_del",function(){
-        $(this).parent().remove();
+        $(this).parents('li').remove();
       });
 
       $('.addShare').on("click",function(){
-        var shared = "<li>"+$(this).text()+"</li>";
+        var shared = '<li class="row-fluid">'+
+            '<div class="span2">'+
+              '<i class="share_del fui-cross-16"></i>'+
+            '</div>'+
+            '<div class="span6">'+$(this).text()+'</div>'+
+            '<div class="span2 colab">'+
+              '<label class="checkbox" for="colab2">'+
+                '<span class="icon"></span>'+
+                '<span class="icon-to-fade"></span>'+
+                '<input type="checkbox" value="" id="colab2">'+
+              '</label>'+
+            '</div>'+
+            '</li>';
         $('.tempShare').remove();
         $('#shareList').append(shared);
+        $(".colab .checkbox").on("click",function(){
+          setupLabel();
+        });
       })
     });
 
@@ -156,6 +187,9 @@ $(document).ready(function(){
       processLocations(temp);
 
       $('#newLoc').modal('hide');
+      $(".cb .checkbox").on("click",function(){
+        setupLabel();
+      });
     });
     
     $('#saveQuestion').on("click",function(){

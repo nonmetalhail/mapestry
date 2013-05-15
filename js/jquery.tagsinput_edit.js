@@ -94,17 +94,18 @@
 				} else {
 					var skipTag = false; 
 				}
+//commenting out remove sign and function...				
 				if (value !='' && skipTag != true) { 
                     $('<span>').addClass('tag').append(
                         $('<span>').text(value)
-                        .append('&nbsp;&nbsp;'),
-                        $('<a class="tagsinput-remove-link fui-cross-16">', {
-                            href  : '#',
-                            title : 'Remove tag',
-                            text  : ''
-                        }).click(function () {
-                            return $('#' + id).removeTag(escape(value));
-                        })
+                        //.append('&nbsp;&nbsp;'),
+                        // $('<a class="tagsinput-remove-link fui-cross-16">', {
+                        //     href  : '#',
+                        //     title : 'Remove tag',
+                        //     text  : ''
+                        // }).click(function () {
+                        //     return $('#' + id).removeTag(escape(value));
+                        // })
                     ).insertBefore('#' + id + '_addTag');
 
 					tagslist.push(value);
@@ -218,7 +219,7 @@
 				tags_callbacks[id]['onChange'] = settings.onChange;
 			}
 //removed the add button	
-			var markup = '<div id="'+id+'_tagsinput" class="tagsinput"><div class="tagsinput-add-container" id="'+id+'_addTag"><div class="tagsinput-add fui-plus-16"></div>';
+			var markup = '<div id="'+id+'_tagsinput" class="tagsinput"><div class="tagsinput-add-container" id="'+id+'_addTag">';//<div class="tagsinput-add fui-plus-16"></div>';
 			
 			if (settings.interactive) {
 				markup = markup + '<input id="'+id+'_tag" value="" data-default="'+settings.defaultText+'" />';

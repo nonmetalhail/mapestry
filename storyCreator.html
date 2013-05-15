@@ -55,6 +55,38 @@
   </head>
 
   <body id="storyBuilder">
+    <div id="storyMeta" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="metaModal" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="metaModal">Story Details</h3>
+      </div>
+      <div class="modal-body">
+        <div class="control-group">
+          <div class="row-fluid">
+            <label class ="span12" id ="storytitleLabel" for="storytitle">Story Title</lable>
+          </div>
+          <div class="row-fluid">
+            <input type="text" class ="span12" id="storytitle"/>
+          </div>
+          <div class="row-fluid">
+            <label class ="span12" id ="storydescLabel" for="storydesc">Story Description</lable>
+          </div>
+          <div class="row-fluid">
+            <input type="text" class ="span12" id="storydesc"/>
+          </div>
+          <div class="row-fluid">
+            <label class ="span12" id ="storytagsLabel" for="tagsinput">Tags</lable>
+          </div>
+          <div class="row-fluid">
+            <input name="tagsinput" id="tagsinput" class="tagsinput" value="" />
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">OK</button>
+      </div>
+    </div>
 
     <div id="addFile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="addFileModal" aria-hidden="true">
       <div class="modal-header">
@@ -142,7 +174,10 @@
             <div class="tab-content">
               <div class="tab-pane active" id="tab1" >
                 <div class="row-fluid">
-                  <div class="span8">
+                  <div class="span2">
+                     <div class= "btn btn-large btn-block btn-primary" href="#storyMeta" role="button" data-toggle="modal">Story Description</div>
+                  </div>
+                  <div class="span6">
                   </div>
                   <div class="span2">
                      <div class= "btn btn-large btn-block btn-primary" href="#addFile" role="button" data-toggle="modal">Add file</div>

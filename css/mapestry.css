@@ -118,6 +118,10 @@ body {
   padding-top:2px;
 }
 
+.nav .active{
+  font-weight: bold;
+}
+
 .navbar-link{
   color:#fff !important;
   text-decoration: none;
@@ -392,10 +396,10 @@ audio{
   margin-right: 0px;
 }
 
-.tagsinput .tag{
+#player .tagsinput .tag{
   background-color: #7F8C8D;
 }
-.tagsinput .tag:hover {
+#player .tagsinput .tag:hover {
   background-color: #BDC3C7;
   padding: 6px 13px 6px 19px;
 }
@@ -712,6 +716,19 @@ a.thumbnail:focus {
 }
 #latlongLabel{
   margin-top:15px;
+}
+
+#shareList{
+  list-style: none;
+  margin-left: 0;
+}
+
+#shareList li{
+  list-style: none;
+}
+
+#shareList .share_del{
+  margin-left: 5px;
 }
 
 /*audio bar --------------------------------------*/
