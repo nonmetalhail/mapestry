@@ -404,7 +404,7 @@ audio{
   padding: 6px 13px 6px 19px;
 }
 
-.todo li, .tag,#photoControls{
+.todo li, #player .tag,#photoControls{
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;

@@ -84,7 +84,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">OK</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-primary" data-dismiss="modal" id="saveDesc">Save</button>
       </div>
     </div>
 
@@ -205,6 +206,9 @@
               <div class="row-fluid">
                 <div class="span12">
                   <div class="span2">
+                     <div class= "btn btn-large btn-block btn-primary" href="#storyMeta" role="button" data-toggle="modal">Story Description</div>
+                  </div>
+                  <div class="span2">
                     <label class="radio">
                       <input type="radio" name="mediaTypes" id="allMedia" value="allMedia" checked="">
                       All Media
@@ -222,7 +226,7 @@
                       Videos Only
                     </label>
                   </div>
-                  <div class="span4">
+                  <div class="span2">
                   </div>
                   <div class="span2">
                     <div class= "btn btn-large btn-block btn-primary" href="#addFile" role="button" data-toggle="modal">Add file</div>
@@ -240,7 +244,10 @@
       <!--// start: MAP TAB  //-->       
             <div class="tab-pane" id="tab3">
               <div class="row-fluid">
-                <div class="span10">
+                <div class="span2">
+                     <div class= "btn btn-large btn-block btn-primary" href="#storyMeta" role="button" data-toggle="modal">Story Description</div>
+                  </div>
+                <div class="span8">
                 </div>
                 <div class="span2">
                   <div class="btn btn-large btn-block btn-primary" href="#newLoc" role="button" data-toggle="modal" id="createLocation">Create New Location</div>
