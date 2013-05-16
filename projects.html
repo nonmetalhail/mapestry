@@ -80,6 +80,52 @@
     </div>
 
     <div class="container-fluid">
+
+      <div id="shareFile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="shareFileModal" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="shareFileModal">Share File</h3>
+        </div>
+        <div class="modal-body">
+          <div class="control-group">
+            <div class="row-fluid">
+              <div class="span1"></div>
+              <div class="dk_container span8 dk_shown dk_theme_default" id="dk_container_share" tabindex="1">
+                <a class="dk_toggle">
+                  <span class="dk_label">Share With</i></span>
+                  <span class="select-icon"></span>
+                </a>
+                <div class="dk_options span12" style="top: 38px;">
+                  <ul class="dk_options_inner">
+                    <li>
+                      <a data-dk-dropdown-value="1" class="addShare">Erin McAdams</a>
+                    </li>
+                    <li>
+                      <a ata-dk-dropdown-value="2" class="addShare">Rose Burroughs</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row-fluid">
+              <div class="span2">Remove</div>
+              <div class="span6">Name</div>
+              <div class="span3">Collaborator</div>
+            </div>
+            <div class="row-fluid">
+              <ul id="shareList">
+                <li class="row-fluid tempShare"><div class="span2"></div><div class="span6">No One</div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          <button class="btn btn-primary" id="shareAsset">Share</button>
+        </div>
+      </div>
+
       <div class="row-fluid">
         <div class="span3">
           <div class="well sidebar-nav sidebar-nav-fixed projects_sidebar" id = "projectsbar">  
@@ -106,6 +152,14 @@
                       <div class="admin-open-icon fui-menu-24"></div>
                     </div>
                   </div>
+                  <div class="row-fluid components shareDiv">
+                    <div class="span2">
+                      <div class="btn btn-primary btn block" href="#shareFile" role="button" data-toggle="modal"><i class="icon-share"></i></div>
+                    </div>
+                    <div class="span4">
+                      <div class="btn btn-block btn-small shareNotification private"> Private</div>
+                    </div>
+                  </div>
                   <div class="row-fluid">
                     <div class = "audio">
                       Stories: <span class='count'>3</span>
@@ -121,7 +175,7 @@
                   </div>
                   <div class="row-fluid">
                     <div class="span6">
-                      <a href= "mapestry.html" class="btn btn-block btn-warning preview">Preview</a>
+                      <a href= "mapestry.html" class="btn btn-block btn-warning preview">View</a>
                     </div>
                   </div>
                 </div>

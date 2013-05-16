@@ -28,6 +28,14 @@ $(document).ready(function(){
           '<div class="admin-open-icon fui-menu-24"></div>'+
         '</div>'+
       '</div>'+
+      '<div class="row-fluid components shareDiv">'+
+        '<div class="span2">'+
+          '<div class="btn btn-primary btn block" href="#shareFile" role="button" data-toggle="modal"><i class="icon-share"></i></div>'+
+        '</div>'+
+        '<div class="span4">'+
+          '<div class="btn btn-block btn-small shareNotification private"> Private</div>'+
+        '</div>'+
+      '</div>'+
       '<div class="row-fluid">'+
         '<div class = "audio">'+
           'Audio: <span class="count">0</span>'+
@@ -40,7 +48,7 @@ $(document).ready(function(){
       '</div>'+
       '<div class="row-fluid">'+
         '<div class="span6">'+
-          '<a href="mapestry.html" class="btn btn-block btn-warning preview">Preview</a>'+
+          '<a href="mapestry.html" class="btn btn-block btn-warning preview">View</a>'+
         '</div>'+
       '</div>'+
     '</div>';
@@ -51,6 +59,39 @@ $(document).ready(function(){
   //jquery ui doesnt allow for bubbling listeners, so do this manually on creation
   projectListeners($('.folders'));
   assetListeners($('.audio_story'));
+  
+  $('#shareAsset').on("click",function(){
+    $('#shareFile').modal('hide');
+
+    $('.shareNotification:first').removeClass('private');
+    $('.shareNotification:first').addClass('sharedAsset');
+    $('.shareNotification:first').text(" Shared");
+  });
+  
+  $('#shareList').on("click",".share_del",function(){
+    $(this).parents('li').remove();
+  });
+
+  $('.addShare').on("click",function(){
+    var shared = '<li class="row-fluid">'+
+        '<div class="span2">'+
+          '<i class="share_del fui-cross-16"></i>'+
+        '</div>'+
+        '<div class="span6">'+$(this).text()+'</div>'+
+        '<div class="span2 colab">'+
+          '<label class="checkbox" for="colab2">'+
+            '<span class="icon"></span>'+
+            '<span class="icon-to-fade"></span>'+
+            '<input type="checkbox" value="" id="colab2">'+
+          '</label>'+
+        '</div>'+
+        '</li>';
+    $('.tempShare').remove();
+    $('#shareList').append(shared);
+    $(".colab .checkbox").on("click",function(){
+      setupLabel();
+    });
+  });
 });
 
 
@@ -120,12 +161,6 @@ function assetListeners(assets){
       }
     });
   });
-}
-
-
-function slideOutIn(inElement,outElement) {
-  outElement.toggle('slide',{ direction:'right'},500);
-  inElement.toggle('slide', { direction:'left'},500);
 }
 
 function convertDateToForm(str){

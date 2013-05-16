@@ -133,7 +133,7 @@ $(document).ready(function(){
         $('#'+tab).find('.checkbox.checked').each(function(){
           $(this).parent().parent().find('.shareNotification').removeClass('private');
           $(this).parent().parent().find('.shareNotification').addClass('sharedAsset');
-          $(this).parent().parent().find('.shareNotification').text("Shared");
+          $(this).parent().parent().find('.shareNotification').text(" Shared");
         $(this).removeClass("checked");
         });
       });
@@ -219,7 +219,7 @@ $(document).ready(function(){
                     '<div class="span3">'+
                     '</div>'+
                     '<div class="span6">'+
-                      '<div class="btn btn-block btn-small shareNotification private">Private</div>'+
+                      '<div class="btn btn-block btn-small shareNotification private"> Private</div>'+
                     '</div>'+
                     '<div class="span3">'+
                     '</div>'+
@@ -356,6 +356,10 @@ function processPhotos(ph){
     "Private":'private',
     "Shared":'sharedAsset'
   }
+  var shareIcon={
+    "Private":" ",
+    "Shared":" "
+  }
   var pHTML = [];
   for(var img in ph){
     var p = '<div class="asset" type="photo" id = "'+img+'">'+
@@ -381,7 +385,7 @@ function processPhotos(ph){
                 '<div class="span3">'+
                 '</div>'+
                 '<div class="span6">'+
-                  '<div class="btn btn-block btn-small shareNotification '+shareConvert[ph[img].share]+'">'+ph[img].share+'</div>'+
+                  '<div class="btn btn-block btn-small shareNotification '+shareConvert[ph[img].share]+'">'+shareIcon[ph[img].share]+ph[img].share+'</div>'+
                 '</div>'+
                 '<div class="span3">'+
                 '</div>'+
@@ -428,6 +432,10 @@ function processLocations(lo){
     "Private":'private',
     "Shared":'sharedAsset'
   }
+  var shareIcon={
+    "Private":" ",
+    "Shared":" "
+  }
   var lHTML = [];
   for(var l in lo){
     var ls = '<div class="asset" type="location" id = "'+l+'">'+
@@ -453,7 +461,7 @@ function processLocations(lo){
                 '<div class="span3">'+
                 '</div>'+
                 '<div class="span6">'+
-                  '<div class="btn btn-block btn-small shareNotification '+shareConvert[lo[l].share]+'">'+lo[l].share+'</div>'+
+                  '<div class="btn btn-block btn-small shareNotification '+shareConvert[lo[l].share]+'">'+shareIcon[lo[l].share]+lo[l].share+'</div>'+
                 '</div>'+
                 '<div class="span3">'+
                 '</div>'+

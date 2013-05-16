@@ -679,6 +679,7 @@ a.thumbnail:focus {
   background-color: white;
   font-size: 14px;
   cursor: default;
+  font-family: "FontAwesome";
 }
 .private,.private:hover,.private:focus{
   color:#BDC3C7;
@@ -1003,6 +1004,10 @@ line.pinOver{
 
 .preview{
   margin-top: 15px;
+}
+
+.shareDiv{
+  padding-left: 0;
 }
 
 @media (max-width: 767px) {
