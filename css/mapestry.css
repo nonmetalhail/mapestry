@@ -3,14 +3,18 @@ body {
   font: 14px/1.231 "Lato", sans-serif; }
 /*-----index page----*/
 #index {
-  overflow-y: scroll;
+  margin-top:100px;
 }
 
 .p_index {
     font-family: "Lato-Light";
-    text-align: left;
+    /*text-align: left;*/
     line-height: 1.5;
     margin-top: 20px;
+}
+
+#footer .p_index {
+  margin-top: 8px;
 }
 
 #footer {
@@ -19,21 +23,29 @@ body {
 /*   height:150px;*/
    width:100%;
    background:#999;
-   padding: 10px;
+   padding: 25px;
+   margin-top: 25px;
 } 
 
-/* * {
-  outline: 1px dashed;
- }
-*/
+.f_title{
+  text-align: right;
+}
+
+.f_img_cont{
+  margin-top: 20px;
+}
 
 .collect {
   font-family: "Lato-Light";
-  text-align: left;
+  /*text-align: left;*/
   line-height: 1.6;
   font-size: 1.5em;
   color: #57b0a5;
   text-align: center;
+}
+
+h1.index_text{
+  font-size: 32px;
 }
 
 .index_text {
@@ -42,9 +54,13 @@ body {
   line-height: 1.6;
 }
 
+.index_text + .index_text {
+  margin-top: 25px;
+}
+
 .org {
   font-family: "Lato-Light";
-  text-align: left;
+  /*text-align: left;*/
   line-height: 1.6;
   font-size: 1.5em;
   color: #ff9600;
@@ -53,7 +69,7 @@ body {
 
 .sharing {
   font-family: "Lato-Light";
-  text-align: left;
+  /*text-align: left;*/
   line-height: 1.6;
   font-size: 1.5em;
   color: #ed135a;
@@ -66,37 +82,32 @@ body {
 }
 
 .white_rect {
-  position: relative;
   background-color: white;
   opacity: .7;
-  margin-top: -20em;
-  width: 80%;
-  height: 85%;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 15px;
+  padding: 30px;
+  margin-top: 50px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
 }
+
 
 .index_pic {
-  background-image: url("../images/index_map_1200.png");
-  background-size: 80% auto;
-  /*position: static;*/
-  /*top: 50px;
-  margin-top: 50px;*/
-  /*z-index: -1;*/
+  background-image: url("../images/map_background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  height:500px;
 }
 
-/* IE 6 */
-* html #footer {
-   position:absolute;
-   top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
+.index_centered{
+  text-align: center;
 }
 
-.span4 .pic {
-  margin: 10px;
+.pic{
+  margin-top:20px;
+  margin-bottom: 10px;
 }
-
-
 
 /*-----end index page----*/
 
@@ -682,8 +693,10 @@ a.thumbnail:focus {
   font-family: "FontAwesome";
 }
 .private,.private:hover,.private:focus{
-  color:#BDC3C7;
-  border: 2px solid #BDC3C7;
+  /*color:#BDC3C7;
+  border: 2px solid #BDC3C7;*/
+  color:#95a5a6;
+  border: 2px solid #95a5a6;
 }
 .sharedAsset,.sharedAsset:hover,.sharedAsset:focus{
   color:#1ABC9C;
