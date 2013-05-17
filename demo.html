@@ -3,16 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <title>Mapestry: Your Voice Matters</title>
-    <link type = "text/css" rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
     <link type = "text/css" rel = "stylesheet" href = "css/bootstrap.css" />
     <link type = "text/css" rel = "stylesheet" href = "css/flat-ui.css" />
 
     <script type="text/javascript" src = "js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type = "text/javascript" src = "scripts/bootstrap.js"></script>
 
     <!-- Flat UI Scripts...so many... -->
-      <!--<script src="js/jquery-ui-1.10.0.custom.min.js"></script>-->
       <script src="js/jquery.dropkick-1.0.0.js"></script>
       
       <script src="js/custom_checkbox_and_radio.js"></script>
@@ -23,26 +20,13 @@
       <script src="js/bootstrap-tooltip.js"></script>
      
       <script src="js/jquery.placeholder.js"></script>
-      <!-- 
-      <script src="http://vjs.zencdn.net/c/video.js"></script>
-      -->
-      <script src="js/application.js"></script>
       
-      <link type = "text/css" rel = "stylesheet" href = "css/jquery.imageZoom.css" />
-      <script src="js/jquery.imageZoom.js" type="text/javascript"></script>
-
+      
       <link rel="stylesheet" href="css/font-awesome.css">
-
-      <!-- inline edit -->
-    <script type = "text/javascript" src="scripts/inlineEdit.js"></script>
-
-    <!-- leaflet 
-    <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>-->
 
     <!-- ours! -->
     <link type = "text/css" rel = "stylesheet" href = "css/mapestry.css" />
     <link type = "text/css" rel = "stylesheet" href = "css/index.css" />
-    <script type = "text/javascript" src="scripts/projects.js"></script>
   </head>
  
   <body id="index">
@@ -59,13 +43,9 @@
           </a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="admin.html">Media Library</a></li>
-              <li><a href="storyCreator.html">Create a Story</a></li>
-              <li><a class="active" href="#">Projects</a></li>
-              <li><a href="mapestry.html">Listen</a></li>
-            </ul>
-            <ul class="nav pull-right">
-              <li><a href="#" class="navbar-link">Ryan McAdam <i class="icon-angle-down icon-large"></i></a></li>
+              <li><a href="index.html">About</a></li>
+              <li><a class="active" href="demo.html">Prototypes</a></li>
+              <li><a href="http://vimeo.com/user18231405/mapestry" target="_blank">Video</a></li>
             </ul>
           </div>
         </div>
@@ -73,71 +53,69 @@
     </div>
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="index_pic span12">
-          <img src="images/suite2.png" class="img-rounded">
-          <div class="white_rect span5">
+        <div class="suite_pic span12">
+          <div class="white_rect demo_rect span5">
             <h3 class="index_text">See how our unique suite of tools makes it easy to record and share interviews, collect photos, and publish a project.</h3>
-          </div>
-          
+          </div>          
         </div>
-
       </div>
 
-      <div class="index_pic span12">
+      <div class=" span12">
         <div class="span1"></div>
         <div class="span5">
-          <h3 class="index_text">Collect audio stories through our custom recording device, available on the iPhone and iPad. Our app allows you to:</h3>
-
-            <ul>
-              <li>Bookmark the audio.</li>
+          <h3 class="index_text">Collect audio stories through our mobile recorder app, available on the iPhone and iPad. Our app allows you to:</h3>
+            <ul class="index_text">
+              <li>Bookmark the most important parts of stories.</li>
               <li>Structure your interview with topic questions.</li>
-              <li>Allows collaborative participation between interviewer and interviewee.</li>
+              <li>Participate collaboratively with your interviewee.</li>
             </ul>
-            <div class="btn btn-large btn-block btn-primary span2">View demo</div>
+            <!-- <div class="btn btn-large btn-block btn-primary span2">View demo</div> -->
           
         </div>
         <div class="span5">
-          <img src="images/recorder.png" class="img-rounded">
+          <img src="images/RecorderCovered.png" class="img-rounded demo_img">
         </div>
         <div class="span12">
           <hr>
         </div>
       </div>
 
-      <div class="index_pic span12">
+      <div class=" span12">
         <div class="span1"></div>
         <div class="span5">
-          <h3 class="index_text">Organize your interviews and bring in collaborators on your projects. Add photos, locations and video clips to your project.</h3>
-          <ul>
-              <li>Refine your inteerview with our lightweight editor.</li>
+          <h3 class="index_text">Organize your interviews into projects. A set of editing tools helps shape your narratives.</h3>
+          <ul class="index_text">
+              <li>Sync mobile recordings to the web platform.</li>
+              <li>Refine your interview with the lightweight editor.</li>
               <li>Easily add locations from an existing list.</li>
-              <li>Incorporate photographs and video clups into your story.</li>
+              <li>Add photos, video and text to enhance stories.</li>
             </ul>
           
-        <div class="btn btn-large btn-block btn-primary span2">View demo</div>
+        <a class=" demo_btn btn btn-large btn-block btn-primary span2" href="admin.html">View demo</a>
         </div>
         <div class="span5">
-          <img src="images/media.png" class="img-rounded">
+          <a href="admin.html"><img src="images/media.png" class="demo_img img-rounded"></a>
         </div>
         <div class="span12">
           <hr>
         </div>
       </div>
 
-      <div class="index_pic span12">
+      <div class=" span12">
         <div class="span1"></div>
         <div class="span5">
-          <h3 class="index_text">Share the stories you create with friends and family.</h3>
-          <ul>
-              <li>Play through a story in any order.</li>
-              <li>View additional media while the story is being told.</li>
-              <li>Privacy is important to us. You control access to your content.</li>
-            </ul>
+          <h3 class="index_text">Share the stories you create — with your family or with the world.</h3>
+          <ul class="index_text">
+            <li>Publish your projects when they are ready to share.</li>
+            <li>Play stories in any order.</li>
+            <li>Browse additional media while the audio plays.</li>
+            <li>Control your privacy and access to your content.</li>
+          </ul>
           
-        <div class="btn btn-large btn-block btn-primary span2">View demo</div></h3>
+          <a class="demo_btn btn btn-large btn-block btn-primary span2" href="mapestry.html">View demo</a></h3>
         </div>
         <div class="span5">
-          <img src="images/mapestry.png" class="img-rounded">
+          <a href="mapestry.html"><img src="images/mapestry.png" class="demo_img img-rounded"></a>
         </div>
         <div class="span12" style="margin-bottom: 50px">
           
@@ -152,41 +130,50 @@
 
     </div><!-- end container-fluid -->
     <div id="footer">
-      <div class="container">
-        <div class="span2">
-          <h5>Who We Are</h5></div>
-        <div class="span9">
-          <p class="p_index">We are a group of UC Berkeley School of Information graduate students. Collectively, we have backgrounds in design, front-end development, analytics and project management.
-          </p>
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span2"></div>
+          <div class="span8">
+            <div class="row-fluid">
+              <div class="span2 f_title">
+                <h5>Who We Are</h5>
+              </div>
+              <div class="span9">
+                <p class="p_index">We are a team of UC Berkeley School of Information alumni. Collectively, we have backgrounds in design, frontend development, analytics and project management.
+                </p>
+                <div class="row-fluid index_centered f_img_cont">
+                  <div class="span2 index_centered"><img src="images/team/jen.jpg" class="img-rounded">
+                    <h5>Jen <br>Wang</h5>
+                  </div>
+                  <div class="span2 index_centered"><img src="images/team/elliot.jpg" class="img-rounded">
+                    <h5>Elliot <br>Nahman</h5>
+                  </div>
+                  <div class="span2 index_centered"><img src="images/team/ryan.jpg" class="img-rounded">
+                    <h5>Ryan <br>McAdam</h5>
+                  </div>
+                  <div class="span2 index_centered"><img src="images/team/curtis.jpg" class="img-rounded">
+                    <h5>Curtis <br>Hwang</h5>
+                  </div>
+                  <div class="span2 index_centered"><img src="images/team/carinne.jpg" class="img-rounded">
+                    <h5>Carinne <br>Johnson</h5>
+                  </div>
+                </div>
+              </div>
+          </div>
           <div class="row-fluid">
-          <div class="span2"><img src="images/team/curtis.png" class="img-rounded">
-            <h5>Curtis <br>Hwang</h5></div>
-          <div class="span2"><img src="images/team/ryan.png" class="img-rounded">
-            <h5>Ryan <br>McAdam</h5>
-          </div>
-          <div class="span2"><img src="images/team/elliot.png" class="img-rounded">
-            <h5>Elliot <br>Nahman</h5>
-          </div>
-          <div class="span2"><img src="images/team/carinne.png" class="img-rounded"><h5>Carinne <br>Johnson</h5>
-          </div>
-          <div class="span2"><img src="images/team/jen.png" class="img-rounded">
-            <h5>Jen <br>Wang</h5>
+            <div class="span2 f_title">
+              <h5>Special Thanks</h5>
+            </div>
+            <div class="span9">
+              <p class="p_index">We are especially thankful to Tapan Parikh, our advisor on this project, for his guidance and feedback.
+              </p>
+              <p class="p_index">Thanks also to Pop Up Archive, KALW's Hear Here, Local Projects, UC Berkeley's Regional Oral History Office, T-Kay Sangwand, Senait Tesfai, and last but certainly not least, Rose Burroughs.</p>
+            </div>
           </div>
         </div>
+        <div class="span2"></div>
       </div>
-      <div class="span2">
-        <h5>Special Thanks</h5>
-      </div>
-      <div class="span9">
-        <p class="p_index">We are especially thankful to Tapan Parikh, our advisor on this project, for his guidance and feedback. 
-        </p>
-        <p class="p_index">Thanks also to Pop-Up Archive, Hear HEar Local Projects, UC Berkeley's Regional Oral History Office, KALW's Hear Here, T-Kay Sangwand, Senait Tesfai.</p>
-
-      </div>
-      </div>
-    </div><!--// end footer //-->
-  
-
-
+    </div>
+  </div><!--// end footer //-->
   </body>
  </html>
