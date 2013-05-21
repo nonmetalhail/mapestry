@@ -4,6 +4,7 @@ body {
 /*-----index page----*/
 #index {
   margin-top:100px;
+  overflow-x: hidden; 
 }
 
 .p_index {
@@ -140,10 +141,10 @@ ul.index_text li{
 .pic{
   margin-top:20px;
   text-align: center;
-  /*margin-bottom: 10px;*/
+  margin-bottom: 10px;
 }
 .demo_btn{
-  margin-left: 0;
+  margin-left: 0 !important;
 }
 
 .demo_img{
