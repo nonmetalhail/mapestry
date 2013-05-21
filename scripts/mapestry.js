@@ -562,8 +562,9 @@ function insertStory(d){
           '<h3>'+d[i].storyTitle+'</h3>'+
         '</div>'+
         '<audio id = "'+d[i].story+'" controls preload="auto" type="audio/mp3">'+
-          '<source src="audio/'+d[i].audio+'" type="audio/mpeg">'+
-          'You are using an obsolete browser, idiot...'+
+          '<source src="audio/'+d[i].audio+'.m4a" type="audio/mpeg">'+
+          '<source src="audio/'+d[i].audio+'.ogg" type="audio/ogg">'+
+          'You are using an obsolete browser which does not support audio'+
         '</audio>'+
         '<div class = "collapsable collapse"> <!-- collapse -->'+
           '<div class="todo mrm" id = "'+d[i].story+'_parts" story = "'+i+'">'+

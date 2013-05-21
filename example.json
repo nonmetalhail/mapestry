@@ -1,7 +1,7 @@
 [
   {
     "story":"courtshipMarriage",
-    "audio":"Gma-01-web-marriage.m4a",
+    "audio":"Gma-01-web-marriage",
     "storyTitle":"Courtship & Marriage",
     "rDate":"15 March 2013",
     "sText":"Grandma Rose talks about how she pursued Grandpa.",
@@ -47,7 +47,7 @@
   },
   {
     "story":"jobHistory",
-    "audio":"Gma-01-web-jobhistory.m4a",
+    "audio":"Gma-01-web-jobhistory",
     "storyTitle":"Job History of Grandma Rose",
     "rDate":"15 March 2013",
     "sText":"Places Rose worked growing up, during and after high school.",
@@ -93,7 +93,7 @@
   },
     {
     "story":"growingUp",
-    "audio":"Gma-01-web-growingup-movingtoiowa.m4a",
+    "audio":"Gma-01-web-growingup-movingtoiowa",
     "storyTitle":"Moving to Iowa",
     "rDate":"15 March 2013",
     "sText":"Growing up in Fall Rivers, early life, and moving to Four Wayne Street.",
