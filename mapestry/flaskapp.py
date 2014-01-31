@@ -60,12 +60,12 @@ class Location(db.Model):
     address = db.Column(db.String(256), unique=True)
     city = db.Column(db.String(128))
     state = db.Column(db.String(128))
-    zip = db.Column(Integer)
-	country = db.Column(db.String(128))
-	share = db.Column(db.String(80))
-	stories = db.Column(db.String(128))
+    zip = db.Column(db.Integer)
+    country = db.Column(db.String(128))
+    share = db.Column(db.String(80))
+    stories = db.Column(db.String(128))
 	
-	def __init__(self, lat, lng, title, address, city, state, zip, country, share, stories):
+    def __init__(self, lat, lng, title, address, city, state, zip, country, share, stories):
 	    self.lat = lat
 	    self.lng = lng 
 	    self.title = title 
@@ -95,7 +95,7 @@ class Segment(db.Model):
         self.desc = desc
         self.latlon = latlong
     
-    def __repr__(self)
+    def __repr__(self):
         return '<Segment %r>' % self.title
         
         
