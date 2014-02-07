@@ -37,7 +37,7 @@ class Photo(db.Model):
     date = db.Column(db.Date)  #db.DateTime, default=datetime.datetime.now)
     description = db.Column(db.String(256))
     stories = db.Column(db.String(256))
-    share = db.Column(db.String(80))
+    share = db.Column(db.String(80))  #Boolean?  then use: "Public" if p.share else "Private" 
     
     
     def __init__(self, image, name, date, description, stories, share):
@@ -49,7 +49,7 @@ class Photo(db.Model):
         self.date = date
         self.description = description
         self.stories = stories
-        self.share = share
+        self.share = share  
         
     def __repr__(self):
        return '<Photo %r>' % self.name
@@ -105,33 +105,31 @@ class Segment(db.Model):
     
     def __repr__(self):
         return '<Segment %r>' % self.title
-        
+
+    
+def json_response(response_dict):
+    '''Takes dict or list of dicts and returns a jsonified response'''
+    response_json = json.dumps(response_dict)
+    response = make_response(response_json)
+    response.headers['content_type'] = 'application/json'
+    return response    
         
 @app.route('/api/story/', methods=['GET'])       
 def get_stories():
     stories = [{repr(s.id):{"story": s.story, "audio": s.audio, "storyTitle": s.title, "rDate": str(s.date), "sText": s.text, "sTags": s.tags}} for s in Story.query.all()]
-    stories_json = json.dumps(stories)
-    response = make_response(stories_json)
-    response.headers['content_type'] = 'application/json'
-    return response
+    return json_response(stories)
     
 @app.route('/api/Photo/', methods=['GET'])
 def get_photos():
-    Photos = [{repr(p.id):{"i":p.image, "n":p.name, "date":str(p.date), "d":p.description, "s":p.stories, "share": p.share}} for p in Photo.query.all()]
-    Photos_json = json.dumps(Photos)
-    response = make_response(Photos_json)
-    response.headers['content_type'] = 'application/json'
-    return response
+    photos = [{repr(p.id):{"i":p.image, "n":p.name, "date":str(p.date), "d":p.description, "s":p.stories, "share": p.share}} for p in Photo.query.all()]
+    return json_response(photos)
     
 @app.route('/api/story/<story>', methods=['GET'])
 def show_story(story):
     story = Story.query.filter_by(story=story).first()
     story_dict = {repr(story.id):{"story": story.story, "audio": story.audio, "storyTitle": story.title, "rDate": str(story.date), "sText": story.text, "sTags": story.tags}}
     story_dict[repr(story.id)]["segment"] = [{"segTitle":seg.title, "time":seg.time, "desc":seg.desc, "latlong":[seg.lat, seg.long]} for seg in Segment.query.filter_by(story_id=repr(story.id)).all()]
-    story_json = json.dumps(story_dict)
-    response = make_response(story_json)
-    response.headers['content_type'] = 'application/json'
-    return response
+    return json_response(story_dict)
 
 '''
 @app.route('/')
