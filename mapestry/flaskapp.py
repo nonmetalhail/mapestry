@@ -9,6 +9,7 @@ db = SQLAlchemy(app)
 
 
 class Story(db.Model):
+    __tablename__ = 'stories'
     id = db.Column(db.Integer, primary_key=True)
     story = db.Column(db.String(80), unique=True)
     audio = db.Column(db.String(80), unique=True)
@@ -18,7 +19,7 @@ class Story(db.Model):
     tags = db.Column(db.String(256))
     
     def __init__(self, story, audio, title, date, text, tags):
-        self.story = story  #is this one necessary?
+        self.story = story      #is this one necessary or is id sufficient going forward?
         self.audio = audio 
         self.title = title
         self.date = date
@@ -29,6 +30,7 @@ class Story(db.Model):
         return '<Story %r>' % self.title
         
 class Photo(db.Model):
+    __tablename__ = 'photos'
     id = db.Column(db.String(32), primary_key=True) #md5
     image = db.Column(db.String(80), unique=True)
     name = db.Column(db.String(80), unique=True)
@@ -53,6 +55,7 @@ class Photo(db.Model):
        return '<Photo %r>' % self.name
        
 class Location(db.Model):
+    __tablename__ = 'locations'
     id = db.Column(db.Integer, primary_key=True)
     lat = db.Column(db.Float)
     lng = db.Column(db.Float)
@@ -60,7 +63,7 @@ class Location(db.Model):
     address = db.Column(db.String(256), unique=True)
     city = db.Column(db.String(128))
     state = db.Column(db.String(128))
-    zip = db.Column(db.Integer)
+    zip = db.Column(db.Integer) #db.Numeric(precision=None, scale=None, decimal_return_scale=None, asdecimal=True) ??
     country = db.Column(db.String(128))
     share = db.Column(db.String(80))
     stories = db.Column(db.String(128))
@@ -81,40 +84,62 @@ class Location(db.Model):
        return '<Location %r>' % self.title
 
 class Segment(db.Model):
+    __tablename__ = 'segments'
     id = db.Column(db.Integer, primary_key=True)
-    story = db.Column(db.Integer)
+    story_id = db.Column(db.Integer, db.ForeignKey('stories.id'))
+    story = db.relationship('Story',
+        backref=db.backref('posts', lazy='dynamic'))
     title = db.Column(db.String(128), unique=True)   
     time = db.Column(db.Integer)
     desc = db.Column(db.String(256))
-    latlong = db.Column(db.String(128))
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
     
-    def __init__(self, story, title, time, desc, latlong):
-        self.story = story
+    def __init__(self, story_id, title, time, desc, latlong):
+        self.story_id = story_id
         self.title = title
         self.time = time
         self.desc = desc
-        self.latlon = latlong
+        self.lat = latlong[0]
+        self.long = latlong[1]
     
     def __repr__(self):
         return '<Segment %r>' % self.title
         
         
-@app.route('/api/story/', methods=["GET"])       
+@app.route('/api/story/', methods=['GET'])       
 def get_stories():
-    stories = [{repr(s.id):{"story": s.story, "audio": s.audio, "storyTitle": s.title, "rDate": repr(s.date), "sText": s.text, "sTags": s.tags}} for s in Story.query.all()]
+    stories = [{repr(s.id):{"story": s.story, "audio": s.audio, "storyTitle": s.title, "rDate": str(s.date), "sText": s.text, "sTags": s.tags}} for s in Story.query.all()]
     stories_json = json.dumps(stories)
     response = make_response(stories_json)
     response.headers['content_type'] = 'application/json'
     return response
     
-@app.route('/api/Photo/', methods=["GET"])
+@app.route('/api/Photo/', methods=['GET'])
 def get_photos():
-    Photos = [{repr(p.id):{"i":p.image, "n":p.name, "date":repr(p.date), "d":p.description, "s":p.stories, "share": p.share}} for p in Photo.query.all()]
+    Photos = [{repr(p.id):{"i":p.image, "n":p.name, "date":str(p.date), "d":p.description, "s":p.stories, "share": p.share}} for p in Photo.query.all()]
     Photos_json = json.dumps(Photos)
     response = make_response(Photos_json)
     response.headers['content_type'] = 'application/json'
     return response
     
+@app.route('/api/story/<story>', methods=['GET'])
+def show_story(story):
+    story = Story.query.filter_by(story=story).first()
+    story_dict = {repr(story.id):{"story": story.story, "audio": story.audio, "storyTitle": story.title, "rDate": str(story.date), "sText": story.text, "sTags": story.tags}}
+    story_dict[repr(story.id)]["segment"] = [{"segTitle":seg.title, "time":seg.time, "desc":seg.desc, "latlong":[seg.lat, seg.long]} for seg in Segment.query.filter_by(story_id=repr(story.id)).all()]
+    story_json = json.dumps(story_dict)
+    response = make_response(story_json)
+    response.headers['content_type'] = 'application/json'
+    return response
+
+'''
+@app.route('/')
+def index():
+    """Return the main view."""
+    return render_template('index.html')    
+'''
+
 @app.errorhandler(404)
 def not_found(error):
     response = make_response(json.dumps({ 'error': 'Not found' }), 404)
