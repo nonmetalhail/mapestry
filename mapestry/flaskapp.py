@@ -116,7 +116,7 @@ def json_response(response_dict):
         
 @app.route('/api/story/', methods=['GET'])       
 def get_stories():
-    stories = [{repr(s.id):{"story": s.story, "audio": s.audio, "storyTitle": s.title, "rDate": str(s.date), "sText": s.text, "sTags": s.tags}} for s in Story.query.all()]
+    stories = [{repr(s.id):{"story": s.story, "audio": s.audio, "storyTitle": s.title, "rDate": str(s.date), "sText": s.text, "sTags": s.tags}} for s in Story.query.all()] #s.tags.split(',')??
     return json_response(stories)
 
 @app.route('/api/story/<story>', methods=['GET'])
@@ -131,10 +131,10 @@ def get_photos():
     photos = [{repr(p.id):{"i":p.image, "n":p.name, "date":str(p.date), "d":p.description, "s":p.stories, "share": p.share}} for p in Photo.query.all()]
     return json_response(photos)
 
-@app.route('api/photo/<photo>', methods=['GET'])
+@app.route('/api/photo/<photo>', methods=['GET'])
 def show_photo(photo):
     photo = Photo.query.filter_by(photo=photo).first()
-    photo_dict = {repr(photo.id):{"i":photo.image, "n":photo.name,"date":str(photo.date) ,"d":photo.description ,"s":photo.stories ,"share":photo.share}
+    photo_dict = {repr(photo.id):{"i":photo.image, "n":photo.name,"date":str(photo.date) ,"d":photo.description ,"s":photo.stories ,"share":photo.share}}
     return json_response(photo_dict)    
 
 '''
