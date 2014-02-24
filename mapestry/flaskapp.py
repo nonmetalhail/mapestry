@@ -1,13 +1,45 @@
-from flask import Flask, make_response
+from flask import Flask, make_response, flash, request, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy.orm.exc import NoResultFound #, MultipleResultsFound
 import hashlib, json
-import login, file_handler
+
+from flask.ext.login import LoginManager, login_user, logout_user, login_required
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/mapestry.db'
+app.config['SECRET_KEY'] = 'foo'
 db = SQLAlchemy(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
 
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120))
+    password = db.Column(db.String(64))
+
+    # Flask-Login integration
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return unicode(self.id)
+
+    def __repr__(self):
+        return self.email
+
+story_tags_table = db.Table('story_tags', db.Model.metadata,
+                           db.Column('story_id', db.Integer, db.ForeignKey('stories.id')),
+                           db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
+                           )
+                           
 class Story(db.Model):
     __tablename__ = 'stories'
     id = db.Column(db.Integer, primary_key=True)
@@ -17,40 +49,32 @@ class Story(db.Model):
     date = db.Column(db.Date)
     text = db.Column(db.Text, unique=True)
     segments = db.relationship('Segment', back_populates="story")
-    user = db.relationship(User, backref='posts')
-    tags = db.relationship('Tag', secondary=story_tags_table)
+    #user = db.relationship(User, backref='posts')
+    # tags = db.relationship('Tag', secondary=story_tags_table)
     
-    '''
     def __init__(self, story, audio, title, date, text, tags):
         self.story = story      
         self.audio = audio 
         self.title = title
         self.date = date
         self.text = text
-        if type(tags) is list:
-            for tag in tags:
-                db.session.add(Tag(tag_text = tag, 
-story_id=db.select([Story.id]).where(Story.story==story).as_scalar()))
-        else: 
-            db.session.add(Tag(story_id=db.select([Story.id]).where(Story.story==story).as_scalar(),
-                               tag_text = tags))
-       '''                        
+        if isinstance(tags, basestring):
+            tags = [tags]
+        self.tags = [
+            Tag(tag_text) for tag_text in tags
+            ]
                                     
     def __repr__(self):
         return '<Story %r>' % self.title
         
-story_tags_table = db.Table('story_tags', db.Model.metadata,
-                           db.Column('story_id', db.Integer, db.ForeignKey('story.id')),
-                           db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'))
-                           )
                                    
 class Tag(db.Model):
     __tablename__ = 'tags'
     id = db.Column(db.Integer, primary_key=True)
     tag_text = db.Column(db.String(80))
     story_id = db.Column(db.Integer, db.ForeignKey('stories.id'))
-    story = db.relationship('Story', back_populates="tags")  #backref=db.backref('tags') ??
-        
+    story = db.relationship('Story', secondary='story_tags', backref=db.backref('tags'))  
+    
     def __init__(self, tag_text):
         self.tag_text = tag_text
         #self.story = story
@@ -96,18 +120,18 @@ class Location(db.Model):
     country = db.Column(db.String(128))
     share = db.Column(db.String(80))
     stories = db.Column(db.String(128))
-	
+    
     def __init__(self, lat, lng, title, address, city, state, zip, country, share, stories):
-	    self.lat = lat
-	    self.lng = lng 
-	    self.title = title 
-	    self.address = address 
-	    self.city = city 
-	    self.state = state 
-	    self.zip = zip 
-	    self.country = country 
-	    self.share = share  
-	    self.stories = stories
+        self.lat = lat
+        self.lng = lng 
+        self.title = title 
+        self.address = address 
+        self.city = city 
+        self.state = state 
+        self.zip = zip 
+        self.country = country 
+        self.share = share  
+        self.stories = stories
  
     def __repr__(self):
        return '<Location %r>' % self.title
@@ -134,6 +158,10 @@ class Segment(db.Model):
     def __repr__(self):
         return '<Segment %r>' % self.title
 
+
+#
+# Helpers
+#
     
 def json_response(response_dict):
     '''Takes dict or list of dicts and returns a jsonified response'''
@@ -141,6 +169,66 @@ def json_response(response_dict):
     response = make_response(response_json)
     response.headers['content_type'] = 'application/json'
     return response    
+
+def try_login_user(email, password):
+    if not password:
+        return None
+
+    try: 
+        user = User.query.filter_by(email=email).one() 
+    except NoResultFound:
+        return None
+    
+    if password != user.password:
+        return None
+    
+    login_user(user)
+    return user
+    
+
+@login_manager.user_loader
+def load_user(userid):
+    return User.get(userid)
+
+login_manager.login_view = "login"
+    
+
+#
+# Pages
+#
+
+@app.route('/')
+def index():
+    """Return the main view."""
+    return render_template('index.html')    
+
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = try_login_user(email, password)
+        if user is None:
+            error = 'Login failed'
+            flash(error)
+        else:
+            return redirect(url_for('index'))
+    return render_template('login.html', error=error)
+
+    
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You were logged out')
+    return redirect(url_for('index'))
+
+
+#
+# API methods
+#
         
 @app.route('/api/story/', methods=['GET'])       
 def get_stories():
@@ -149,7 +237,7 @@ def get_stories():
                             "storyTitle": s.title, 
                             "rDate": str(s.date), 
                             "sText": s.text, 
-                            "sTags": [tags['tag_text'] for tags in Tag.query.filter(story=s.story)]
+                            "sTags": [tag.tag_text for tag in s.tags]
                             }
                 } for s in Story.query.all()] 
     return json_response(stories)
@@ -162,7 +250,7 @@ def show_story(story):
                                   "storyTitle": story.title, 
                                   "rDate": str(story.date), 
                                   "sText": story.text, 
-                                  "sTags": [tags['tag_text'] for tags in Tag.query.filter(story=story.story)]
+                                  "sTags": [tag.tag_text for tag in s.tags] 
                                   }
                   }
     story_dict[repr(story.id)]["segment"] = [{"segTitle":seg.title, 
@@ -211,32 +299,6 @@ def add_entry():
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
 
-'''    
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
-            return redirect(url_for('show_entries'))
-    return render_template('login.html', error=error)
-    
-@app.route('/logout')
-def logout():
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('index'))
-
-@app.route('/')
-def index():
-    """Return the main view."""
-    return render_template('index.html')    
-'''
 
 @app.errorhandler(404)
 def not_found(error):
