@@ -3,7 +3,7 @@
 </head>
 
 <body>
-Login
+<h1>Login</h1>
 
 {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -15,15 +15,15 @@ Login
   {% endif %}
 {% endwith %}
 
-{% if error %}
-<p class=error><strong>Error:</strong> {{ error }}
-{% endif %}
-
 <form method="POST">
 	<input name="email" />
 	<input name="password" type="password" />
 	<input type="submit" name="submit" />
 </form>
+
+{% if error %}
+<p class=error><strong>Error:</strong> {{ error }}
+{% endif %}
 
 </body>
 </html>

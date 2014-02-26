@@ -1,9 +1,16 @@
-from flask import Flask, make_response, flash, request, render_template
+from flask import Flask, make_response, flash, request, render_template, redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.exc import NoResultFound #, MultipleResultsFound
 import hashlib, json
 
 from flask.ext.login import LoginManager, login_user, logout_user, login_required
+import hashlib
+from os import urandom
+from base64 import b64encode, b64decode
+from itertools import izip
+
+# From https://github.com/mitsuhiko/python-pbkdf2
+from pbkdf2 import pbkdf2_bin
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/mapestry.db'
@@ -13,13 +20,66 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+#
+# Password Hashing
+#
+
+# Parameters to PBKDF2. Only affect new passwords.
+SALT_LENGTH = 12
+KEY_LENGTH = 24
+HASH_FUNCTION = 'sha256'  # Must be in hashlib.
+# Linear to the hashing time. Adjust to be high but take a reasonable
+# amount of time on your server. Measure with:
+# python -m timeit -s 'import passwords as p' 'p.make_hash("something")'
+COST_FACTOR = 10000
+
+
+def make_hash(password):
+    """Generate a random salt and return a new hash for the password."""
+    if isinstance(password, unicode):
+        password = password.encode('utf-8')
+    salt = b64encode(urandom(SALT_LENGTH))
+    return 'PBKDF2${}${}${}${}'.format(
+        HASH_FUNCTION,
+        COST_FACTOR,
+        salt,
+        b64encode(pbkdf2_bin(password, salt, COST_FACTOR, KEY_LENGTH,
+                             getattr(hashlib, HASH_FUNCTION))))
+
+
+def check_hash(password, hash_):
+    """Check a password against an existing hash."""
+    if isinstance(password, unicode):
+        password = password.encode('utf-8')
+    algorithm, hash_function, cost_factor, salt, hash_a = hash_.split('$')
+    assert algorithm == 'PBKDF2'
+    hash_a = b64decode(hash_a)
+    hash_b = pbkdf2_bin(password, salt, int(cost_factor), len(hash_a),
+                        getattr(hashlib, hash_function))
+    flash("hash_a:" + hash_a + " hash_b:" + hash_b)
+    assert len(hash_a) == len(hash_b)  # we requested this from pbkdf2_bin()
+    # Same as "return hash_a == hash_b" but takes a constant time.
+    # See http://carlos.bueno.org/2011/10/timing.html
+    diff = 0
+    for char_a, char_b in izip(hash_a, hash_b):
+        diff |= ord(char_a) ^ ord(char_b)
+    return diff == 0
+    
+    
+#
+# Models
+#
 
 class User(db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120))
     password = db.Column(db.String(64))
+    
+    def __init__(self, email, password):
+        self.email = email
+        self.password = make_hash(password)
 
-    # Flask-Login integration
     def is_authenticated(self):
         return True
 
@@ -33,7 +93,10 @@ class User(db.Model):
         return unicode(self.id)
 
     def __repr__(self):
-        return self.email
+        return '<User %r>' % self.email
+        
+    def __unicode__(self):
+        return unicode(self.email)
 
 story_tags_table = db.Table('story_tags', db.Model.metadata,
                            db.Column('story_id', db.Integer, db.ForeignKey('stories.id')),
@@ -162,7 +225,7 @@ class Segment(db.Model):
 #
 # Helpers
 #
-    
+   
 def json_response(response_dict):
     '''Takes dict or list of dicts and returns a jsonified response'''
     response_json = json.dumps(response_dict)
@@ -172,36 +235,36 @@ def json_response(response_dict):
 
 def try_login_user(email, password):
     if not password:
+        print "not password"
         return None
-
     try: 
         user = User.query.filter_by(email=email).one() 
     except NoResultFound:
+        print "No Result Found"
         return None
-    
-    if password != user.password:
+    if not check_hash(password, user.password):
+        print "check_hash fail"
+        flash ("user.password: "+user.password+" password"+password)
         return None
-    
     login_user(user)
     return user
     
 
 @login_manager.user_loader
 def load_user(userid):
-    return User.get(userid)
+    return User.query.get(int(userid))
 
-login_manager.login_view = "login"
-    
+login_manager.login_view = "login"   
 
 #
-# Pages
+# Views
 #
 
 @app.route('/')
+@app.route('/index')
 def index():
     """Return the main view."""
     return render_template('index.html')    
-
 
 
 @app.route('/login', methods=['GET', 'POST'])
