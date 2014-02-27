@@ -1,0 +1,11 @@
+Flask==0.10.1
+Flask-Login==0.2.9
+Flask-SQLAlchemy==1.0
+Jinja2==2.7.2
+MarkupSafe==0.18
+SQLAlchemy==0.9.1
+Werkzeug==0.9.4
+itsdangerous==0.23
+pbkdf2==1.3
+-e git://github.com/mitsuhiko/python-pbkdf2@712d4aee1a21394e6849f275576d7a876e0da056#egg=simple_pbkdf2-master
+wsgiref==0.1.2

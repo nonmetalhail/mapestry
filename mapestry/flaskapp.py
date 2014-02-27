@@ -16,7 +16,7 @@ from pbkdf2 import pbkdf2_bin
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/mapestry.db'
-app.config['SECRET_KEY'] = 'foo'
+app.config['SECRET_KEY'] = '12345'
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
@@ -58,7 +58,6 @@ def check_hash(password, hash_):
     hash_a = b64decode(hash_a)
     hash_b = pbkdf2_bin(password, salt, int(cost_factor), len(hash_a),
                         getattr(hashlib, hash_function))
-    flash("hash_a:" + hash_a + " hash_b:" + hash_b)
     assert len(hash_a) == len(hash_b)  # we requested this from pbkdf2_bin()
     # Same as "return hash_a == hash_b" but takes a constant time.
     # See http://carlos.bueno.org/2011/10/timing.html
@@ -169,7 +168,22 @@ class Photo(db.Model):
         
     def __repr__(self):
        return '<Photo %r>' % self.name
-       
+    
+class Audio(db.Model):
+    id = db.Column(db.String(32), primary_key=True)
+    audio = db.Column(db.String(80), unique=True)
+    name = db.Column(db.String(80), unique=True)
+
+    def __init__(self, audio, name):
+        md5 = hashlib.md5()
+        md5.update(audio)
+        self.id = md5.hexdigest()
+        self.audio = audio
+        self.name = name
+    
+    def __repr__(self):
+       return '<Audio %r>' % self.name
+    
 class Location(db.Model):
     __tablename__ = 'locations'
     id = db.Column(db.Integer, primary_key=True)
@@ -235,16 +249,12 @@ def json_response(response_dict):
 
 def try_login_user(email, password):
     if not password:
-        print "not password"
         return None
     try: 
         user = User.query.filter_by(email=email).one() 
     except NoResultFound:
-        print "No Result Found"
         return None
     if not check_hash(password, user.password):
-        print "check_hash fail"
-        flash ("user.password: "+user.password+" password"+password)
         return None
     login_user(user)
     return user
@@ -275,7 +285,7 @@ def login():
         password = request.form['password']
         user = try_login_user(email, password)
         if user is None:
-            error = 'Login failed'
+            error = u'Login failed'
             flash(error)
         else:
             return redirect(url_for('index'))
@@ -285,7 +295,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    flash('You were logged out')
+    flash(u'You were logged out')
     return redirect(url_for('index'))
 
 #
@@ -295,8 +305,8 @@ app.config["UPLOADED_PHOTOS_DEST"] = "photos"
 app.config["UPLOADED_AUDIO_DEST"] = "audio"
 
 photos = UploadSet('photos', IMAGES)
-audio = UploadSet('audio', AUDIO)
-configure_uploads(app, (photos, audio))
+audio_files = UploadSet('audio', AUDIO)
+configure_uploads(app, (photos, audio_files))
 
 @app.route('/upload', methods=['GET'])
 @login_required
@@ -316,8 +326,8 @@ def photo_upload():
                     stories = request.form['stories'], 
                     share = request.form['share'])
         db.session.add(photo)
-        flash("Photo saved.")
-        return redirect(url_for('show', id=photo.id))
+        flash(u"Photo saved.")
+        #return redirect(url_for('show', id=photo.id))
     return render_template('upload.html')
     
 
@@ -325,11 +335,11 @@ def photo_upload():
 @login_required
 def audio_upload():
     if request.method == 'POST' and 'audio' in request.files:
-        filename = audio.save(request.files['audio'])
-        rec = Audio(filename=filename, user=g.user.id)
-        rec.store()
-        flash("Audio file saved.")
-        return redirect(url_for('show', id=rec.id))
+        filename = audio_files.save(request.files['audio'])
+        audio = Audio(audio=filename, name = request.form['name'])
+        db.session.add(audio)
+        flash(u"Audio file saved.")
+        #return redirect(url_for('listen', id=rec.id))
     return render_template('upload.html')
     
 @app.route('/photo/<id>')
@@ -340,7 +350,6 @@ def show(id):
     url = photos.url(photo.filename)
     return render_template('show.html', url=url, photo=photo)
     
-
 
 #
 # API methods
@@ -412,7 +421,7 @@ def add_entry():
                  request.form['date'], 
                  request.form['text']])
     db.commit()
-    flash('New entry was successfully posted')
+    flash(u'New entry was successfully posted')
     return redirect(url_for('show_entries'))
 
 

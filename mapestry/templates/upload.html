@@ -6,7 +6,6 @@
 <form method=POST enctype=multipart/form-data action="{{ url_for('photo_upload') }}">
 <fieldset>
 <legend>Add Photo:</legend>
-<input type="text" name="image">image<br>
 <input type="text" name="name">name<br>
 <input type="date" name="date">date<br>
 <input type="textarea" name="description">description<br>
@@ -22,8 +21,10 @@
 </form>
     
 <form method=POST enctype=multipart/form-data action="{{ url_for('audio_upload') }}">
-...AUDIO..
-<input type=file name=audio>
+<fieldset>
+<legend>Add Audio File:</legend>
+<input type=file name="audio">
+<input type="text" name="name">name<br>
 <input type="submit" value="Upload Audio">
 </form>
 </body>
