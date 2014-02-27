@@ -5,9 +5,11 @@ import hashlib, json
 
 from flask.ext.login import LoginManager, login_user, logout_user, login_required
 import hashlib
-from os import urandom
+from os import urandom, path
 from base64 import b64encode, b64decode
 from itertools import izip
+
+from flask.ext.uploads import UploadSet, IMAGES, AUDIO, configure_uploads  #http://pythonhosted.org/Flask-Uploads/
 
 # From https://github.com/mitsuhiko/python-pbkdf2
 from pbkdf2 import pbkdf2_bin
@@ -112,8 +114,6 @@ class Story(db.Model):
     date = db.Column(db.Date)
     text = db.Column(db.Text, unique=True)
     segments = db.relationship('Segment', back_populates="story")
-    #user = db.relationship(User, backref='posts')
-    # tags = db.relationship('Tag', secondary=story_tags_table)
     
     def __init__(self, story, audio, title, date, text, tags):
         self.story = story      
@@ -287,6 +287,59 @@ def logout():
     logout_user()
     flash('You were logged out')
     return redirect(url_for('index'))
+
+#
+# File Upload
+#
+app.config["UPLOADED_PHOTOS_DEST"] = "photos"
+app.config["UPLOADED_AUDIO_DEST"] = "audio"
+
+photos = UploadSet('photos', IMAGES)
+audio = UploadSet('audio', AUDIO)
+configure_uploads(app, (photos, audio))
+
+@app.route('/upload', methods=['GET'])
+@login_required
+def upload():
+    stories_dict = [{"id":repr(s.id), "story": s.story} for s in Story.query.all()]
+    return render_template('upload.html', stories = stories_dict)
+
+@app.route('/upload/photo/', methods=['GET', 'POST'])
+@login_required
+def photo_upload():
+    if request.method == 'POST' and 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        photo = Photo(image=filename, 
+                    name = request.form['name'], 
+                    date = request.form['date'], 
+                    description = request.form['description'], 
+                    stories = request.form['stories'], 
+                    share = request.form['share'])
+        db.session.add(photo)
+        flash("Photo saved.")
+        return redirect(url_for('show', id=photo.id))
+    return render_template('upload.html')
+    
+
+@app.route('/upload/audio/', methods=['GET', 'POST'])
+@login_required
+def audio_upload():
+    if request.method == 'POST' and 'audio' in request.files:
+        filename = audio.save(request.files['audio'])
+        rec = Audio(filename=filename, user=g.user.id)
+        rec.store()
+        flash("Audio file saved.")
+        return redirect(url_for('show', id=rec.id))
+    return render_template('upload.html')
+    
+@app.route('/photo/<id>')
+def show(id):
+    photo = Photo.load(id)
+    if photo is None:
+        abort(404)
+    url = photos.url(photo.filename)
+    return render_template('show.html', url=url, photo=photo)
+    
 
 
 #

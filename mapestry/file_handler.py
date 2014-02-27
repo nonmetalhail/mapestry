@@ -1,8 +1,10 @@
-from flask.ext.Flask-Uploads import UploadSet, IMAGES, AUDIO, configure_uploads  #http://pythonhosted.org/Flask-Uploads/
+from flask.ext.uploads import UploadSet, IMAGES, AUDIO, configure_uploads  #http://pythonhosted.org/Flask-Uploads/
 photos = UploadSet('photos', IMAGES)
 audio = UploadSet('audio', AUDIO)
 
 configure_uploads(app, (photos, audio))
+
+from flaskapp import app
 
 @app.route('/upload/photo/', methods=['GET', 'POST'])
 def photo_upload():

@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+
+<body>
+<form method=POST enctype=multipart/form-data action="{{ url_for('photo_upload') }}">
+<fieldset>
+<legend>Add Photo:</legend>
+<input type="text" name="image">image<br>
+<input type="text" name="name">name<br>
+<input type="date" name="date">date<br>
+<input type="textarea" name="description">description<br>
+<select name="stories">
+{% for story in stories %}
+    <option value={{ story.id }}>{{ story.story }}</option>
+    {% endfor %}
+</select>stories<br>
+<input type="checkbox" name="share" value="True">share<br>
+<input type="file" name="photo"><br>
+<input type="submit" value="Upload Photo">
+</fieldset>
+</form>
+    
+<form method=POST enctype=multipart/form-data action="{{ url_for('audio_upload') }}">
+...AUDIO..
+<input type=file name=audio>
+<input type="submit" value="Upload Audio">
+</form>
+</body>
+</html>
+    
