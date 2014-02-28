@@ -326,6 +326,7 @@ def photo_upload():
                     stories = request.form['stories'], 
                     share = request.form['share'])
         db.session.add(photo)
+        db.session.commit()
         flash(u"Photo saved.")
         #return redirect(url_for('show', id=photo.id))
     return render_template('upload.html')
@@ -338,6 +339,7 @@ def audio_upload():
         filename = audio_files.save(request.files['audio'])
         audio = Audio(audio=filename, name = request.form['name'])
         db.session.add(audio)
+        db.session.commit()
         flash(u"Audio file saved.")
         #return redirect(url_for('listen', id=rec.id))
     return render_template('upload.html')
