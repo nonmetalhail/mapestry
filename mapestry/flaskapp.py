@@ -386,10 +386,10 @@ def edit_story(id):
             print "Unexpected error:", sys.exc_info()[0]
             raise
     if request.method == 'GET':
-        stories_dict = [{"id":repr(s.id), "story": s.story} for s in Story.query.all()]
+        #stories_dict = [{"id":repr(s.id), "story": s.story} for s in Story.query.all()]
         audio_dict =[{"id":repr(s.id), "name": a.name} for a in Audio.query.all()]
-        #story_entry.tags = ', '.join(story_entry.tags)
-        return render_template('edit_story.html', story = story_entry, stories = stories_dict, audio_files = audio_dict)
+        story_entry.tag = [tag.tag_text for tag in story_entry.tags] #not overwriting tags
+        return render_template('edit_story.html', story = story_entry, audio_files = audio_dict)
     if request.method == 'POST':
         story_entry.story = request.form['story'],
         story_entry.audio = request.form['audio'],
