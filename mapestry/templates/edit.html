@@ -1,0 +1,10 @@
+{# edit.html #}
+<!-- ... snip ... -->
+{% block form %}
+<section>
+<h1>{{ action }} {{ data_type }}</h1>
+<form action="{{ form_action }}" method="{{ method | d("POST") }}">
+{% render_form(form) %}
+</form>
+</section>
+{% endblock form %}

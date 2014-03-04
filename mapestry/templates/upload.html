@@ -1,20 +1,58 @@
 <html>
 <head>
+<style type="text/css">
+
+label{
+float: left;
+width: 120px;
+font-weight: bold;
+}
+
+input, textarea{
+width: 180px;
+margin-bottom: 5px;
+}
+
+textarea{
+width: 250px;
+height: 150px;
+}
+
+.boxes{
+width: 1em;
+}
+
+#submitbutton{
+margin-left: 120px;
+margin-top: 5px;
+width: 90px;
+}
+
+br{
+clear: left;
+}
+
+</style>
 </head>
 
 <body>
 <form method=POST enctype=multipart/form-data action="{{ url_for('photo_upload') }}">
 <fieldset>
 <legend>Add Photo:</legend>
-Name:<input type="text" name="name" required>
-Date:<input type="date" name="date" required>
-Description:<input type="textarea" name="description" required>
-Stories<select name="stories">
+<label for="user">Name</label>
+<input type="text" name="name" required><br>
+<label for="date">Date</label>
+<input type="date" name="date" required><br>
+<label for="description">Description</label>
+<input type="textarea" name="description" required><br>
+<label for="stories">Stories</label>
+<select name="stories">
 {% for story in stories %}
     <option value={{ story.id }}>{{ story.story }}</option>
     {% endfor %}
-</select>
-Share<input type="checkbox" name="share" value="True">
+</select><br
+<label for="share">Share</label>
+<input type="checkbox" name="share" value="True"><br>  
 <input type="file" name="photo" required>
 <br>
 <input type="submit" value="Upload Photo">
@@ -32,7 +70,7 @@ Name:<input type="text" name="name" required>
 </form>
 
     
-<form method=POST enctype=multipart/form-data action="{{ url_for('add_entry') }}">
+<form method=POST action="{{ url_for('add_entry') }}">
 <fieldset>
 <legend>Add Story</legend>
 Story:<input type="text" name="story" required>
@@ -44,12 +82,18 @@ Audio:<select name="audio">
 Title: <input type="text" name="title" required> 
 Date:<input type="date" name="date" required> 
 Text:<input type="textarea" name="text" required>
-Tags (comma seperated): <input type="text" name="tags" required> 
+Tags (comma separated): <input type="text" name="tags" required> 
 <br>
 <input type="submit" value="Create Story">
 </fieldset>
 </form>
 
+Edit Stories:
+<ul>
+{% for story in stories %}
+    <li><a href="{{ url_for('edit_story', id=story.id) }}">{{ story.story }}</a></li>
+    {% endfor %}
+</ul>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
@@ -62,6 +106,7 @@ Tags (comma seperated): <input type="text" name="tags" required>
 {% if error %}
 <p class=error><strong>Error:</strong> {{ error }}
 {% endif %}
+
 
 </body>
 </html>

@@ -358,25 +358,49 @@ def audio_upload():
 @app.route('/upload/story/', methods=['GET', 'POST'])
 @login_required
 def add_entry():
-    print request.form
-    print date_from_form(request.form['date'])
-    print request.form['tags'].split(",")
     if request.method == 'POST':
         try: entry = Story(story = request.form['story'],
                            audio = request.form['audio'],
                            title = request.form['title'],
                            date = date_from_form(request.form['date']),
                            text = request.form['text'],
-                           tags = request.form['tags'].split(",")
+                           tags = request.form['tags'].strip().split(",")
                            )
         except:
             print "Unexpected error:", sys.exc_info()[0]
-            print request.form['story'], request.form['audio'], request.form['title'], date_from_form(request.form['date']), request.form['text'], request.form['tags'].split(",")
+            print "Form:", request.form
             raise
     db.session.add(entry)
     db.session.commit()
     flash(u'New entry was successfully posted')
-    return redirect(url_for('upload'))  #set to 'view_stories' later
+    return redirect(url_for('upload'))  #set to 'view_stories' later??
+
+@app.route('/edit/story/<id>', methods=['GET', 'POST'])
+@login_required
+def edit_story(id):
+    try: story_entry = Story.query.get(int(id))
+    except NoResultFound:
+        flash(u'Story not found.')
+        return redirect(url_for('upload'))
+    except:
+            print "Unexpected error:", sys.exc_info()[0]
+            raise
+    if request.method == 'GET':
+        stories_dict = [{"id":repr(s.id), "story": s.story} for s in Story.query.all()]
+        audio_dict =[{"id":repr(s.id), "name": a.name} for a in Audio.query.all()]
+        #story_entry.tags = ', '.join(story_entry.tags)
+        return render_template('edit_story.html', story = story_entry, stories = stories_dict, audio_files = audio_dict)
+    if request.method == 'POST':
+        story_entry.story = request.form['story'],
+        story_entry.audio = request.form['audio'],
+        story_entry.title = request.form['title'],
+        story_entry.date = date_from_form(request.form['date']),
+        story_entry.text = request.form['text'],
+        story_entry.tags = request.form['tags'].strip().split(",")
+        db.session.add(story_entry)
+        db.session.commit()
+        flash(u'Story successfully edited')
+        return redirect(url_for('upload'))
     
 @app.route('/photo/<id>') #Not tested
 def show(id):
