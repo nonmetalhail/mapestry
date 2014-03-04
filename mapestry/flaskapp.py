@@ -323,7 +323,7 @@ configure_uploads(app, (photos, audio_files))
 @login_required
 def upload():
     stories_dict = [{"id":repr(s.id), "story": s.story} for s in Story.query.all()]
-    audio_dict =[{"id":repr(s.id), "name": a.name} for a in Audio.query.all()]
+    audio_dict =[{"id":repr(a.id), "name": a.name} for a in Audio.query.all()]
     return render_template('upload.html', stories = stories_dict, audio_files=audio_dict)
 
 @app.route('/upload/photo/', methods=['GET', 'POST'])
@@ -386,9 +386,8 @@ def edit_story(id):
             print "Unexpected error:", sys.exc_info()[0]
             raise
     if request.method == 'GET':
-        #stories_dict = [{"id":repr(s.id), "story": s.story} for s in Story.query.all()]
-        audio_dict =[{"id":repr(s.id), "name": a.name} for a in Audio.query.all()]
-        story_entry.tag = [tag.tag_text for tag in story_entry.tags] #not overwriting tags
+        audio_dict =[{"id":repr(a.id), "name": a.name} for a in Audio.query.all()]
+        story_entry.tag = ", ".join([tag.tag_text for tag in story_entry.tags])  #not overwriting tags
         return render_template('edit_story.html', story = story_entry, audio_files = audio_dict)
     if request.method == 'POST':
         story_entry.story = request.form['story'],
