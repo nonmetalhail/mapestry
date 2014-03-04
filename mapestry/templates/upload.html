@@ -32,18 +32,18 @@ Name:<input type="text" name="name" required>
 </form>
 
     
-<form method=POST action="{{ url_for('add_entry') }}">
+<form method=POST enctype=multipart/form-data action="{{ url_for('add_entry') }}">
 <fieldset>
 <legend>Add Story</legend>
 Story:<input type="text" name="story" required>
 Audio:<select name="audio">
 {% for audio_file in audio_files %}
-    <option value={{ audio_file.id }}>{{ audio_file.name }}</option>
+    <option value={{ audio_file.name }}>{{ audio_file.name }}</option>
     {% endfor %}
 </select>
 Title: <input type="text" name="title" required> 
 Date:<input type="date" name="date" required> 
-Text:<input type="textarea" name="description" required>
+Text:<input type="textarea" name="text" required>
 Tags (comma seperated): <input type="text" name="tags" required> 
 <br>
 <input type="submit" value="Create Story">

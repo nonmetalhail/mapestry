@@ -1,7 +1,7 @@
 from flask import Flask, make_response, flash, request, render_template, redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.exc import NoResultFound #, MultipleResultsFound
-import json, datetime
+import json, datetime, sys
 
 from flask.ext.login import LoginManager, login_user, logout_user, login_required
 import hashlib
@@ -358,20 +358,26 @@ def audio_upload():
 @app.route('/upload/story/', methods=['GET', 'POST'])
 @login_required
 def add_entry():
+    print request.form
+    print date_from_form(request.form['date'])
+    print request.form['tags'].split(",")
     if request.method == 'POST':
-        entry = Story(story_text = request.form['story'],
-                  audio_number=request.form['audio'],
-                  title = request.form['title'],
-                  date = date_from_form(request.form['date']),
-                  text = request.form['text'],
-                  tags = request.form['tags'].split(",")
-                 )
+        try: entry = Story(story = request.form['story'],
+                           audio = request.form['audio'],
+                           title = request.form['title'],
+                           date = date_from_form(request.form['date']),
+                           text = request.form['text'],
+                           tags = request.form['tags'].split(",")
+                           )
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+            print request.form['story'], request.form['audio'], request.form['title'], date_from_form(request.form['date']), request.form['text'], request.form['tags'].split(",")
+            raise
     db.session.add(entry)
-    db.commit()
+    db.session.commit()
     flash(u'New entry was successfully posted')
     return redirect(url_for('upload'))  #set to 'view_stories' later
     
-
 @app.route('/photo/<id>') #Not tested
 def show(id):
     photo = Photo.load(id)
