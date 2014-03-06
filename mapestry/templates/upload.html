@@ -1,38 +1,6 @@
 <html>
 <head>
-<style type="text/css">
-
-label{
-float: left;
-width: 120px;
-font-weight: bold;
-}
-
-input, textarea{
-width: 180px;
-margin-bottom: 5px;
-}
-
-textarea{
-width: 250px;
-height: 150px;
-}
-
-.boxes{
-width: 1em;
-}
-
-#submitbutton{
-margin-left: 120px;
-margin-top: 5px;
-width: 90px;
-}
-
-br{
-clear: left;
-}
-
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
 </head>
 
 <body>
@@ -59,17 +27,6 @@ clear: left;
 </fieldset>
 </form>
     
-<form method=POST enctype=multipart/form-data action="{{ url_for('audio_upload') }}">
-<fieldset>
-<legend>Add Audio File</legend>
-<label for="name">Name</label><input type="text" name="name" required><br>
-<input type=file name="audio" required>
-<br>
-<input type="submit" value="Upload Audio">
-</fieldset>
-</form>
-
-    
 <form method=POST action="{{ url_for('add_entry') }}">
 <fieldset>
 <legend>Add Story</legend>
@@ -86,14 +43,25 @@ clear: left;
 <br>
 <input type="submit" value="Create Story">
 </fieldset>
+
+</form>
+<form method=POST enctype=multipart/form-data action="{{ url_for('audio_upload') }}">
+<fieldset>
+<legend>Add Audio File</legend>
+<label for="name">Name</label><input type="text" name="name" required><br>
+<input type=file name="audio" required>
+<br>
+<input type="submit" value="Upload Audio">
+</fieldset>
 </form>
 
-Edit Stories:
-<ul>
+<fieldset>
+<legend>Edit Stories</legend>
+<ol>
 {% for story in stories %}
     <li><a href="{{ url_for('edit_story', id=story.id) }}">{{ story.story }}</a></li>
     {% endfor %}
-</ul>
+</ol>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
@@ -106,7 +74,7 @@ Edit Stories:
 {% if error %}
 <p class=error><strong>Error:</strong> {{ error }}
 {% endif %}
-
+</fieldset>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
 </head>
 
 <body>
@@ -16,8 +17,8 @@
 {% endwith %}
 
 <form method="POST">
-	<input name="email" />
-	<input name="password" type="password" />
+	<label for="email">Email</label><input name="email" /><br>
+	<label for"password">Password</label><input name="password" type="password" /><br>
 	<input type="submit" name="submit" />
 </form>
 
