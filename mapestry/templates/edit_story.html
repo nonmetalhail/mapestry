@@ -28,6 +28,7 @@ margin-top: 5px;
 width: 90px;
 }
 
+
 br{
 clear: left;
 }
@@ -49,7 +50,7 @@ clear: left;
 </select><br>
 <label for="title">Title</label><input type="text" name="title" required value="{{ story.title }}"> <br>
 <label for="date">Date</label><input type="date" name="date" required value="{{ story.date }}"> <br>
-<label for="text">Text</label><input type="textarea" name="text" required value="{{ story.text }}"><br>
+<label for="text">Text</label><textarea rows="4" cols="50" name="text">{{ story.text }}</textarea><br>
 <label for="tags">Tags</label><input type="text" name="tags" required value="{{ story.tag }}"> <br>
 <br>
 <input type="submit" value="Update Story">

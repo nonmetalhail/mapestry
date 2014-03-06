@@ -390,7 +390,7 @@ def edit_story(id):
         story_entry.tag = ", ".join([tag.tag_text for tag in story_entry.tags])  #not overwriting tags
         return render_template('edit_story.html', story = story_entry, audio_files = audio_dict)
     if request.method == 'POST':
-        story_entry.story = request.form['story'],
+        #story_entry.story = request.form['story'],
         story_entry.audio = request.form['audio'],
         story_entry.title = request.form['title'],
         story_entry.date = date_from_form(request.form['date']),
