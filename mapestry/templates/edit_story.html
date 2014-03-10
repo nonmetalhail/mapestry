@@ -2,13 +2,12 @@
 <head>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
 </head>
-
 <body>
 
 <form method=POST action="{{ url_for('edit_story', id=story.id) }}">
 <fieldset>
-<legend>Edit Story {{ story.name }}</legend>
-<h1>{{ story.story }}<h1>
+<legend>Edit Story</legend>
+<label for="story">Story Name</label><input type="text" name="story" required value="{{ story.story }}"><br>
 <label for="audio">Audio</label>
 <select name="audio" selected="{{ story.audio }}">
 {% for audio_file in audio_files %}
@@ -19,8 +18,7 @@
 <label for="date">Date</label><input type="date" name="date" required value="{{ story.date }}"> <br>
 <label for="text">Text</label><textarea rows="4" cols="50" name="text">{{ story.text }}</textarea><br>
 <label for="tags">Tags</label><input type="text" name="tags" required value="{{ story.tag }}"> <br>
-<br>
-<input type="submit" value="Update Story">
+<label for="submit">&nbsp</label><input type="submit" value="Update Story">
 </fieldset>
 </form>
 

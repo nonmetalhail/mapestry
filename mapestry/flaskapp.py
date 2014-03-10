@@ -401,6 +401,11 @@ def edit_story(id):
         flash(u'Story successfully edited')
         return redirect(url_for('upload'))
     
+@app.route('/upload/segment/', methods=['GET','POST'])
+@login_required
+def set_segment():
+    pass
+    
 @app.route('/photo/<id>') #Not tested
 def show(id):
     photo = Photo.load(id)
