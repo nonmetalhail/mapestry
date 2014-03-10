@@ -6,7 +6,7 @@
 <body>
 <form method=POST enctype=multipart/form-data action="{{ url_for('photo_upload') }}">
 <fieldset>
-<legend>Add Photo:</legend>
+<legend>Add Photo</legend>
 <label for="user">Name</label>
 <input type="text" name="name" required><br>
 <label for="date">Date</label>
@@ -21,9 +21,9 @@
 </select><br>
 <label for="share">Share</label>
 <input type="checkbox" name="share" value="True"><br>  
-<input type="file" name="photo" required>
+<label for="photo">Photo</label><input type="file" name="photo" required>
 <br>
-<input type="submit" value="Upload Photo">
+<label for="submit">&nbsp</label><input type="submit" value="Upload Photo">
 </fieldset>
 </form>
     
@@ -41,7 +41,7 @@
 <label for="text">Text</label><textarea name="text" required></textarea><br>
 <label for="tags">Tags (comma separated)</label> <input type="text" name="tags" required> 
 <br>
-<input type="submit" value="Create Story">
+<label for="submit">&nbsp</label><input type="submit" value="Create Story">
 </fieldset>
 </form>
 
@@ -49,9 +49,9 @@
 <fieldset>
 <legend>Add Audio File</legend>
 <label for="name">Name</label><input type="text" name="name" required><br>
-<input type=file name="audio" required>
+<label for="audio">Audio File</label><input type="file" name="audio" required>
 <br>
-<input type="submit" value="Upload Audio">
+<label for="submit">&nbsp</label><input type="submit" value="Upload Audio">
 </fieldset>
 </form>
 
@@ -73,7 +73,7 @@
 
 
 <fieldset>
-<legend>Edit Stories</legend>
+<legend>Edit Existing Stories</legend>
 <ol>
 {% for story in stories %}
     <li><a href="{{ url_for('edit_story', id=story.id) }}">{{ story.story }}</a></li>
