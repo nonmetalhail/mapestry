@@ -404,7 +404,21 @@ def edit_story(id):
 @app.route('/upload/segment/', methods=['GET','POST'])
 @login_required
 def set_segment():
-    pass
+    if request.method == 'POST':
+        try: segment = Segment(story_id = request.form['story_id'],
+                           title = request.form['title'],
+                           time = request.form['time'],
+                           desc = request.form['desc'],
+                           latlong = request.form['latlong']
+                           )
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+            print "Form:", request.form
+            raise
+    db.session.add(segment)
+    db.session.commit()
+    flash(u'New segment created')
+    return redirect(url_for('upload'))
     
 @app.route('/photo/<id>') #Not tested
 def show(id):
