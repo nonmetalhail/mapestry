@@ -310,6 +310,10 @@ ul.index_text li{
   padding-left: 50px;
 }
 
+.bx-wrapper .bx-caption {
+  width:90%;
+}
+
 #mainGallery{
   /*height:480px;*/
   height:100%;
