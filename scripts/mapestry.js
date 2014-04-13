@@ -38,6 +38,7 @@ $(document).ready(function(){
 
     $('#map').css('height',mapHeight);
     $('.sidebar-nav-fixed').css('height',mapHeight - 20);
+//  Stamen
     // var stamenAtr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>';
     // var stamen = new L.StamenTileLayer("terrain",{  //toner
     //   maxZoom: 16, 
@@ -49,12 +50,18 @@ $(document).ready(function(){
       maxZoom:16,
       layers: layerG
     });
+//  Stamen
     // map.addLayer(stamen);
     // map.attributionControl.addAttribution(stamenAtr);
-    L.tileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
-      maxZoom: 18
-    }).addTo(map);
+
+    // create a tile layer sourced from mapbox
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/nonmetalhail.hpfigodp/{z}/{x}/{y}.png').addTo(map);
+
+// obsolete Cloudmade
+    // L.tileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {
+    //   attribution: 'Map data &copy; Imagery <a href="http://cloudmade.com">CloudMade</a>',
+    //   maxZoom: 18
+    // }).addTo(map);
     smMapH = mapHeight - galleryHeight - 11;
   })
   .done(function(){
@@ -628,6 +635,7 @@ function createMainGallery(){
     hideControlOnEnd:true,
     pager:false,
     video: true,
+    captions: true,
     onSlideNext:function(slideElement, oldIndex, newIndex){
       var ca = $('.control_li.active');
       ca.removeClass('active');
