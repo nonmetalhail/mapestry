@@ -55,7 +55,7 @@ $(document).ready(function(){
     // map.attributionControl.addAttribution(stamenAtr);
 
     // create a tile layer sourced from mapbox
-    L.tileLayer('https://{s}.tiles.mapbox.com/v3/nonmetalhail.hpfigodp/{z}/{x}/{y}.png').addTo(map);
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/nonmetalhail.hpfigodpl/{z}/{x}/{y}.png').addTo(map);
 
 // obsolete Cloudmade
     // L.tileLayer('http://{s}.tile.cloudmade.com/'+CM_API_KEY+'/'+CM_STYLE+'/256/{z}/{x}/{y}.png', {
