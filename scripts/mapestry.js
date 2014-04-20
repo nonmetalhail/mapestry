@@ -1,5 +1,5 @@
-var jsonFile = "example.json";
-var jsonPhotoFile = "examplePhoto.json";
+var jsonFile = "api/story/";
+var jsonPhotoFile = "api/photos/";
 //Cloudemade info for leaflet map
 var CM_API_KEY = 'cc3cabfbed9842c29f808df2cc6c3f64';
 var CM_STYLE = '998'; //44094
@@ -26,6 +26,10 @@ var mapHeight,galleryHeight,smMapH;
 var photoList = {};
 var playing = 'all';
 var advPhoto = false;
+
+//get story id from URL
+//mapestry.co/player?<ID>
+var urlID = document.URL.split('?')[1];
 
 $(document).ready(function(){
   createMainGallery();
@@ -188,7 +192,7 @@ $(document).ready(function(){
 
 function loadAudio(){
   var d = $.Deferred();
-  $.getJSON(jsonFile,function(stories){
+  $.getJSON(jsonFile+urlID,function(stories){
     insertStory(stories);
   }).done(function(p){
     d.resolve(p);
@@ -197,7 +201,7 @@ function loadAudio(){
 }
 function loadPhotos(){
   var d = $.Deferred();
-  $.getJSON(jsonPhotoFile,function(photos){
+  $.getJSON(jsonPhotoFile+urlID,function(photos){
     processPhotos(photos);
   }).done(function(p){
     d.resolve(p);
