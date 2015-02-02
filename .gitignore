@@ -1,0 +1,10 @@
+build/*
+*.pyc
+
+*.ogg
+
+*.gif
+
+*.mp3
+
+*.jpg
